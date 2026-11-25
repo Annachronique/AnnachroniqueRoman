@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personnages - Dossiers - AnnaChronique</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="Les dossiers des personnages d'AnnaChronique : avis de recherche, état civil, radiographie, relations et chronologie, sans spoiler.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/dossiers.css">
+  <style>
+  /* =========================================================
+     ÉTAT CIVIL : STYLE DOSSIER MACHINE À ÉCRIRE / RAPPORT
+     ========================================================= */
+
+  /* 1. Le conteneur : fond transparent, sans bordure ni ombre */
+  .dossier-side .civil.card {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: 24px !important;
+  }
+
+  /* 2. Le titre "État civil" : discret et dans le ton */
+  .dossier-side .civil.card .label {
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #c93b3b !important; /* Rouge archive / ruban encreur */
+    font-size: 0.85rem !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px dashed rgba(201, 59, 59, 0.4) !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* 3. Disposition des lignes */
+  .dossier-side .civil.card .poster-fields {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .dossier-side .civil.card .poster-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: 12px !important;
+    padding: 2px 0 !important;
+    border: none !important;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.08) !important; /* Ligne pointillée très discrète */
+    font-family: 'Courier New', Courier, 'Special Elite', monospace !important;
+  }
+
+  /* 4. Les têtes de lignes (Nom, Naissance, Surnoms...) : ROUGE MACHINE */
+  .dossier-side .civil.card .poster-field span,
+  .dossier-side .civil.card .poster-field .civil-lbl {
+    color: #d13a3a !important; /* Rouge tampon / machine à écrire */
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    min-width: 130px !important; /* Aligne proprement le début des textes */
+    flex-shrink: 0 !important;
+  }
+
+  /* 5. Le texte des informations : NOIR MACHINE DACTYLO (bien net et lisible) */
+  .dossier-side .civil.card .poster-field b,
+  .dossier-side .civil.card .poster-field .civil-val {
+    color: #111111 !important; /* Noir d'encre profond */
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Ligne de séparation discrète adaptée au fond clair */
+  .dossier-side .civil.card .poster-field {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2) !important;
+  }
+  /* --- CARROUSEL DE PORTRAITS --- */
+  /* --- RECADRAGE ET ALIGNEMENT DU CARROUSEL --- */
+  .portrait-slider {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 6px; /* Redescend proprement le visuel pour compenser le centimètre */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .portrait-slider .slide-item {
+    display: none !important;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+
+  .portrait-slider .slide-item.is-active {
+    display: block !important;
+  }
+
+  .portrait-slider img {
+    display: block;
+    width: 100%;
+    max-height: 380px; /* Adapte la hauteur pour garder le cadrage parfait */
+    object-fit: cover;
+    object-position: center;
+    border-radius: 4px;
+  }
+
+  /* Ajustement de la hauteur des flèches */
+  .slider-btn {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+</style>
+
+<style>
+  /* =========================================================
+     1. VERROUILLAGE DU PORTRAIT DANS SON CADRE
+     ========================================================= */
+  .poster-portrait {
+    position: relative !important;
+    overflow: hidden !important; /* Empêche tout débordement */
+    width: 100% !important;
+    aspect-ratio: 4 / 5 !important; /* Ratio d'affiche parfait */
+    background: #1a140f !important;
+    border-radius: 4px !important;
+  }
+
+  .portrait-slider {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .portrait-slider .slide-item {
+    display: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .portrait-slider .slide-item.is-active {
+    display: block !important;
+  }
+
+  /* L'image remplit exactement le cadre et centre sur le visage */
+  .portrait-slider img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+  }
+
+  /* Flèches de défilement discrètes */
+  .slider-btn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    font-size: 1.4rem !important;
+    line-height: 28px !important;
+    cursor: pointer !important;
+    z-index: 10 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .slider-btn:hover {
+    background: #d4af37 !important;
+    color: #000000 !important;
+  }
+
+  .slider-btn.prev { left: 8px !important; }
+  .slider-btn.next { right: 8px !important; }
+
+  /* =========================================================
+     2. ÉTAT CIVIL : MACHINE À ÉCRIRE (ROUGE & NOIR)
+     ========================================================= */
+  .dossier-side .civil.card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: 24px !important;
+  }
+
+  .dossier-side .civil.card .label {
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #b22222 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px dashed rgba(178, 34, 34, 0.4) !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .dossier-side .civil.card .poster-fields {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .dossier-side .civil.card .poster-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: 12px !important;
+    padding: 2px 0 !important;
+    border: none !important;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2) !important;
+    font-family: 'Courier New', Courier, 'Special Elite', monospace !important;
+  }
+
+  .dossier-side .civil.card .poster-field span,
+  .dossier-side .civil.card .poster-field .civil-lbl {
+    color: #b22222 !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    min-width: 130px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .dossier-side .civil.card .poster-field b,
+  .dossier-side .civil.card .poster-field .civil-val {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* =========================================================
+     3. IMAGE DE REMPLACEMENT S'IL N'Y A PAS DE RADIO
+     ========================================================= */
+  .alt-image-block {
+    margin-top: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .alt-image-block .alt-figure button {
+    display: block;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .alt-image-block img {
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .alt-image-block img:hover {
+    transform: scale(1.02);
+  }
+</style><style>
+  /* =========================================================
+     1. VERROUILLAGE DU PORTRAIT DANS SON CADRE
+     ========================================================= */
+  .poster-portrait {
+    position: relative !important;
+    overflow: hidden !important; /* Empêche tout débordement */
+    width: 100% !important;
+    aspect-ratio: 4 / 5 !important; /* Ratio d'affiche parfait */
+    background: #1a140f !important;
+    border-radius: 4px !important;
+  }
+
+  .portrait-slider {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .portrait-slider .slide-item {
+    display: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .portrait-slider .slide-item.is-active {
+    display: block !important;
+  }
+
+  /* L'image remplit exactement le cadre et centre sur le visage */
+  .portrait-slider img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+  }
+
+  /* Flèches de défilement discrètes */
+  .slider-btn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(212, 175, 55, 0.5) !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    font-size: 1.4rem !important;
+    line-height: 28px !important;
+    cursor: pointer !important;
+    z-index: 10 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .slider-btn:hover {
+    background: #d4af37 !important;
+    color: #000000 !important;
+  }
+
+  .slider-btn.prev { left: 8px !important; }
+  .slider-btn.next { right: 8px !important; }
+
+  /* =========================================================
+     2. ÉTAT CIVIL : MACHINE À ÉCRIRE (ROUGE & NOIR)
+     ========================================================= */
+  .dossier-side .civil.card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin-bottom: 24px !important;
+  }
+
+  .dossier-side .civil.card .label {
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #b22222 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px dashed rgba(178, 34, 34, 0.4) !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .dossier-side .civil.card .poster-fields {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .dossier-side .civil.card .poster-field {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: 12px !important;
+    padding: 2px 0 !important;
+    border: none !important;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2) !important;
+    font-family: 'Courier New', Courier, 'Special Elite', monospace !important;
+  }
+
+  .dossier-side .civil.card .poster-field span,
+  .dossier-side .civil.card .poster-field .civil-lbl {
+    color: #b22222 !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    min-width: 130px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .dossier-side .civil.card .poster-field b,
+  .dossier-side .civil.card .poster-field .civil-val {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* =========================================================
+     3. IMAGE DE REMPLACEMENT S'IL N'Y A PAS DE RADIO
+     ========================================================= */
+  .alt-image-block {
+    margin-top: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .alt-image-block .alt-figure button {
+    display: block;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .alt-image-block img {
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .alt-image-block img:hover {
+    transform: scale(1.02);
+  }
+</style>
+</head>
+<body>
+  <main>
+    <header class="page-hero">
+      <div class="container">
+        <span class="label gold reveal">Archives des personnages</span>
+        <h1 class="reveal">Qui est <em>qui</em> en 1135 ?</h1>
+        <p class="lead reveal">Les 63 personnages de la saga, d'après la bible de l'auteur. Choisis un nom dans le registre : avis de recherche, état civil, radiographie, parcours, relations et pièces d'archive. Ce qui dépasse ta lecture reste flouté.
+          <button type="button" class="chip" data-open-reading style="vertical-align:middle">Régler ma lecture</button></p>
+      </div>
+    </header>
+
+    <div class="container dossiers">
+      <aside class="registre" aria-label="Registre des personnages">
+        <div class="registre-head">
+          <h2 class="label">Registre</h2>
+          <div class="reg-tabs" id="registre-tabs" role="group" aria-label="Groupes de personnages"></div>
+          <label class="search search-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span class="visually-hidden">Chercher un personnage</span>
+            <input type="search" id="registre-search" placeholder="Chercher un nom" autocomplete="off">
+          </label>
+        </div>
+        <div id="registre-list" class="registre-list"></div>
+      </aside>
+      <section id="dossier" class="dossier" aria-live="polite"></section>
+    </div>
+
+    <div class="doc-modal" id="doc-modal" role="dialog" aria-modal="true">
+      <div class="doc-modal-panel">
+        <button type="button" class="pill-btn doc-close">Fermer</button>
+        <div id="doc-modal-body"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/personnages-data.js"></script>
+  <script src="js/dossiers.js"></script>
+</body>
+</html>

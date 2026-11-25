@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dictionnaire - AnnaChronique</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="Le petit dictionnaire d'AnnaChronique : les mots du XIIe siècle expliqués simplement (haubert, bachelier, plaid, destrier, fief…).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/dictionnaire.css">
+</head>
+<body>
+  <main>
+    <header class="page-hero dict-hero">
+      <div class="container">
+        <span class="label gold reveal">Petit dictionnaire du XII<sup>e</sup> siècle</span>
+        <h1 class="reveal">Dictionnaire <em>AnnaChronique</em></h1>
+        <p class="lead reveal">D'après les annexes de l'auteur. Un mot ou une expression t'arrête pendant la lecture ? Cherche-le ici, ou feuillette par lettre. En 1135, on parle la langue d'oc dans le Périgord : certains mots en viennent directement.</p>
+      </div>
+    </header>
+
+    <div class="dict-tools">
+      <div class="container dict-tools-inner">
+        <label class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span class="visually-hidden">Rechercher un mot</span>
+          <input type="search" id="dict-search" placeholder="Rechercher un mot (ex. haubert)" autocomplete="off">
+        </label>
+        <div class="filters" role="group" aria-label="Filtrer par thème">
+          <button type="button" class="chip is-active" data-cat="all">Tous</button>
+          <button type="button" class="chip" data-cat="armes">Chevalerie & armes</button>
+          <button type="button" class="chip" data-cat="societe">Société féodale</button>
+          <button type="button" class="chip" data-cat="habits">Vêtements & blasons</button>
+          <button type="button" class="chip" data-cat="vie">Vie & lieux</button>
+          <button type="button" class="chip" data-cat="expr">Expressions</button>
+        </div>
+        <nav class="alphabet" id="alphabet" aria-label="Aller à une lettre"></nav>
+      </div>
+    </div>
+
+    <section class="container" aria-label="Dictionnaire">
+      <article class="dict-book">
+        <div class="dict-book-head">
+          <span class="label">AnnaChronique</span>
+          <span class="dict-count label" id="dict-count" aria-live="polite"></span>
+          <span class="label">Exil 1135</span>
+        </div>
+        <div class="dict-columns" id="dict-list"></div>
+        <p class="dict-empty" id="dict-empty">Aucun mot trouvé. Essaie une autre orthographe, ou propose-le à l'auteur.</p>
+      </article>
+    </section>
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      /* Pour ajouter un mot : une ligne de plus dans ce tableau.
+         g : nature (n. m., n. f., loc. v.…)   cat : armes | societe | habits | vie | expr
+         book (facultatif) : exemple tiré du roman   tome : niveau de spoiler de l'exemple   voir : renvois */
+      const CATS = { armes: 'Chevalerie & armes', societe: 'Société féodale', habits: 'Vêtements & blasons', vie: 'Vie & lieux', expr: 'Expressions' };
+      const WORDS = [
+        /* ---- Vocabulaire des annexes de l'auteur ---- */
+        { w: 'Douaire', g: 'n. m.', cat: 'societe', def: "Part du patrimoine du mari réservée à l'épouse lors du mariage, dont elle garde la jouissance si elle lui survit. C'est ce qui permet aux veuves nobles de rester autonomes.", book: "Le domaine de Paussac et de Saint-Marcel, qu'Isabelle gère farouchement pour sa survie de veuve.", tome: 1 },
+        { w: 'Cens', g: 'n. m.', cat: 'societe', def: "Redevance fixe, en nature ou en deniers, que le paysan paie pour exploiter sa terre.", book: "Les impôts que les paysans redoutent et qui font vivre le domaine.", tome: 1, voir: ['Taille'] },
+        { w: 'Taille', g: 'n. f.', cat: 'societe', def: "Impôt direct, souvent perçu de manière arbitraire par le seigneur en échange de sa protection.", tome: 1, voir: ['Cens'] },
+        { w: 'Broigne', g: 'n. f.', cat: 'armes', def: "Protection moins chère que le haubert : une veste de cuir ou de grosse toile couverte de plaques de métal, de corne ou d'anneaux. L'équipement du fantassin ou du roturier. Du francique brunnia.", book: "La piètre armure d'emprunt que porte Julien lors de son entrée désastreuse dans la lice.", tome: 2, voir: ['Haubert'] },
+        { w: 'Palefroi', g: 'n. m.', cat: 'armes', def: "Cheval de route à l'allure douce, très apprécié des nobles et des dames.", tome: 1, voir: ['Destrier', 'Roncin'] },
+        { w: 'Roncin', g: 'n. m.', cat: 'armes', def: "Cheval de monte ordinaire, celui des écuyers.", tome: 1, voir: ['Destrier', 'Sommier'] },
+        { w: 'Sommier', g: 'n. m.', cat: 'armes', def: "Bête de somme qui porte les charges.", tome: 1, voir: ['Roncin'] },
+        { w: 'Tranchoir', g: 'n. m.', cat: 'vie', def: "Épaisse tranche de pain rassis qui sert d'assiette. À la fin du repas, les tranchoirs imbibés de jus sont souvent donnés aux pauvres ou aux chiens.", book: "La tranche de pain noir sur laquelle Anne verse le gruau lors du premier repas avec Moreau et Jean-Marc.", tome: 2 },
+        { w: 'Hanap', g: 'n. m.', cat: 'vie', def: "Grand vase à boire, souvent monté sur pied. Bois ou terre cuite chez les paysans ; étain, argent ou or chez les nobles. Du francique hnapp.", book: "Le vicomte Raoul y boit son vin clairet.", tome: 1 },
+        { w: 'Bief', g: 'n. m.', cat: 'vie', def: "Canal creusé pour dériver l'eau d'une rivière vers la roue d'un moulin : le cœur énergétique d'un village médiéval.", book: "Le canal de la Dronne autour duquel Maxime conçoit le moulin et l'éolienne.", tome: 1 },
+        { w: 'Maisnie', g: 'n. f.', cat: 'societe', def: "Toutes les personnes qui vivent sous le même toit ou sous l'autorité d'un même maître : famille, serviteurs, écuyers, garde. La quitter, c'est se retrouver sans protection. Du latin mansionata, la maison.", book: "L'entourage de Dame Isabelle, mais aussi le petit groupe de survivants modernes autour d'Anne et Pierre.", tome: 1 },
+        { w: 'Manant', g: 'n. m.', cat: 'societe', def: "Paysan qui réside sur la terre (du latin manere, résider). Pas encore une insulte au XIIe siècle.", tome: 1, voir: ['Vilain'] },
+        { w: 'Faide', g: 'n. f.', cat: 'vie', def: "Guerre privée : le droit coutumier de vengeance d'une famille offensée contre le lignage adverse. L'Église tente de limiter ces bains de sang avec la « Paix de Dieu ». Du francique faida, l'inimitié.", book: "La menace qui plane sur Saint-Marcel : la guerre personnelle que le vicomte Raoul veut mener contre Dame Isabelle sans l'accord du duc.", tome: 1 },
+        { w: 'Sénéchal', g: 'n. m.', cat: 'societe', def: "Officier de très haut rang, représentant direct du seigneur (au sud) : il rend la justice, commande la garde et collecte les impôts. Au nord, on parle de bailli.", book: "Charles, le redoutable sénéchal de Raoul, son bras droit calculateur qui espionne la vallée.", tome: 1, voir: ['Bailli'] },
+        { w: 'Bailli', g: 'n. m.', cat: 'societe', def: "Équivalent du sénéchal dans le nord : le représentant du seigneur ou du roi pour la justice et les impôts.", tome: 1, voir: ['Sénéchal'] },
+        { w: 'Canso', g: 'n. f. (occitan)', cat: 'vie', def: "La chanson d'amour des troubadours occitans, qui obéit aux règles strictes de l'amour courtois.", book: "Les poèmes que des chevaliers comme Arnaud récitent pour courtiser les filles du bourg.", tome: 2, voir: ['Lai'] },
+        { w: 'Lai', g: 'n. m.', cat: 'vie', def: "Poème narratif et musical racontant des aventures chevaleresques ou merveilleuses.", book: "Marie les compare naïvement aux morceaux de rap de l'enceinte Bluetooth d'Élise.", tome: 2, voir: ['Canso'] },
+        { w: 'Carole', g: 'n. f.', cat: 'vie', def: "La danse collective la plus populaire du Moyen Âge : une ronde où l'on se tient par la main en chantant.", book: "La danse qu'Élise, Marie et Mathilde improvisent pour oublier la rudesse de l'hiver et de la guerre.", tome: 2 },
+        { w: 'Mège', g: 'n.', cat: 'vie', def: "Médecin (de l'occitan metge).", book: "Léa choque le Père Étienne en se déclarant mège.", tome: 2 },
+        { w: 'Domnizela, damnizel', g: 'n. (occitan)', cat: 'expr', def: "Variantes occitanes de « demoiselle » et « damoiseau ». Pour les jeunes filles nobles non mariées, parfois étendu par courtoisie aux jeunes femmes du peuple. On dit aussi « pucela ».", book: "Le titre donné à Marie la lavandière.", tome: 1, voir: ['Damoiseau, damoiselle'] },
+        { w: 'Droblet, touse, mainada', g: 'n. (occitan)', cat: 'expr', def: "Mots familiers du sud pour les jeunes : « touse » et « toussel », la fille et le garçon ; « drôle » ou « droblet », l'enfant ; la « mainada », toute la jeunesse d'une maisonnée.", book: "Les mots des adultes et des seigneurs pour désigner Julien, Élise ou les jeunes du village.", tome: 1 },
+        { w: "Qu'es aquò ? D'ont venètz ?", g: 'loc. (occitan)', cat: 'expr', def: "« Qu'est-ce que c'est ? D'où venez-vous ? »", book: "Les toutes premières paroles, agressives, adressées aux voyageurs à leur arrivée au village.", tome: 1 },
+        /* ---- Expressions et façons de parler ---- */
+        { w: 'Na', g: 'titre (occitan)', cat: 'expr', def: "En ancien occitan (le vieux périgourdin), titre de respect placé devant le prénom d'une dame : l'équivalent de « Dame ». Il témoigne de la haute noblesse de la personne à qui l'on s'adresse.", book: "On dit « Na Isabelle » ; Anne devient même « Na Anna ».", tome: 1, voir: ['En', 'Oc'] },
+        { w: 'En', g: 'titre (occitan)', cat: 'expr', def: "Équivalent masculin de « Na » : placé devant le prénom d'un seigneur, il signifie « Seigneur » ou « Messire ».", book: "On parle d'« En Guillaume » ou d'« En Géraud ».", tome: 2, voir: ['Na'] },
+        { w: 'Oc', g: 'adv. (occitan)', cat: 'expr', def: "« Oui » au sud de la Loire, dont le Périgord (du latin hoc). C'est ce mot qui a donné son nom à la « langue d'oc ».", book: "Au Périgord, les villageois disent « Oc » pour approuver.", tome: 1, voir: ['Oïl'] },
+        { w: 'Oïl', g: 'adv.', cat: 'expr', def: "« Oui » au nord de la Loire (du latin hoc ille). Il a donné son nom à la « langue d'oïl », ancêtre direct du français.", book: "Géraud le Rouennais et les pèlerins d'Amiens disent « Oïl » et roulent les mots d'une manière rugueuse qui écorche les oreilles du Sud.", tome: 2, voir: ['Oc'] },
+        { w: 'Nenni', g: 'adv.', cat: 'expr', def: "« Non ». S'emploie pour refuser ou contredire : « Nenni, je n'irai point. »" },
+        { w: 'Messire', g: 'n. m.', cat: 'expr', def: "« Monseigneur » : titre de politesse donné à un chevalier ou à un seigneur." },
+        { w: 'Damoiseau, damoiselle', g: 'n.', cat: 'expr', def: "Jeune noble qui n'est pas encore chevalier (damoiseau), ou jeune fille noble (damoiselle)." },
+        { w: 'Moult', g: 'adv.', cat: 'expr', def: "« Beaucoup », « très » : « moult courageux » veut dire « très courageux »." },
+        { w: 'Occire', g: 'v.', cat: 'expr', def: "Tuer, mettre à mort." },
+        { w: 'Quérir', g: 'v.', cat: 'expr', def: "Aller chercher : « Va quérir le sergent ! »" },
+        { w: 'Ouïr', g: 'v.', cat: 'expr', def: "Entendre. Il nous en reste l'expression « par ouï-dire »." },
+        { w: 'Céans', g: 'adv.', cat: 'expr', def: "« Ici », « dans cette maison » : « le maître de céans » est le maître des lieux." },
+        { w: 'Sus !', g: 'interj.', cat: 'expr', def: "Cri pour lancer l'attaque : « Sus à l'ennemi ! » veut dire « En avant, sur l'ennemi ! »" },
+        { w: 'Las !', g: 'interj.', cat: 'expr', def: "« Hélas ! » : cri de tristesse ou de regret." },
+        { w: 'Par ma foi', g: 'loc.', cat: 'expr', def: "« Sur ma parole », « je le jure ». Une façon d'appuyer ce que l'on dit." },
+        { w: 'Mie (ne… mie)', g: 'adv.', cat: 'expr', def: "Sert à renforcer une négation, comme « pas du tout » : « je n'en veux mie »." },
+        { w: 'Vilenie', g: 'n. f.', cat: 'expr', def: "Action basse et honteuse, « digne d'un vilain ». Le contraire de la conduite chevaleresque.", voir: ['Vilain'] },
+        { w: 'Prud\'homme', g: 'n. m.', cat: 'expr', def: "Homme sage, loyal et valeureux, que l'on respecte pour son bon jugement." },
+        { w: 'Gent', g: 'n. f. / adj.', cat: 'expr', def: "Nom : le peuple, les gens (« la gent paysanne »). Adjectif : noble, gracieux (« gente dame »)." },
+        { w: 'Adoubement', g: 'n. m.', cat: 'armes', def: "Cérémonie au cours de laquelle un jeune homme est fait chevalier : il reçoit ses armes, notamment l'épée.", voir: ['Chevalier'] },
+        { w: 'Bachelier', g: 'n. m.', cat: 'armes', def: "Jeune chevalier qui n'a pas encore de terre à lui. Il sert un seigneur et cherche à se faire un nom, notamment dans les tournois.", book: "Raoul le Jeune est bachelier en 1135 : héritier, mais pas encore maître de rien.", tome: 1 },
+        { w: 'Bâtard', g: 'n. m.', cat: 'societe', def: "Enfant né hors mariage. Dans la noblesse, il peut être élevé au château mais n'a en principe pas droit à l'héritage.", book: "Bertrand, demi-frère bâtard du Vicomte, est méprisé pour son « sang mêlé ».", tome: 1, voir: ['Lignage'] },
+        { w: 'Blason', g: 'n. m.', cat: 'habits', def: "Ensemble des figures et des couleurs qui identifient une famille noble, peint sur l'écu et les étoffes.", voir: ['Gueules', 'Écu'] },
+        { w: 'Bourg', g: 'n. m.', cat: 'vie', def: "Agglomération plus importante qu'un village, souvent née autour d'un château, d'une abbaye ou d'un marché.", book: "Le Puy-Saint-Front, bourg marchand voisin de la Cité de Périgueux.", tome: 1 },
+        { w: 'Bourgeois', g: 'n. m.', cat: 'societe', def: "Habitant d'un bourg ou d'une ville, souvent marchand ou artisan. Ni noble ni paysan, il gagne en richesse et en influence au XIIe siècle." },
+        { w: 'Camail', g: 'n. m.', cat: 'armes', def: "Capuchon ou col en mailles qui protège la tête, le cou et le haut des épaules.", voir: ['Haubert'] },
+        { w: 'Châtelain, châtelaine', g: 'n.', cat: 'societe', def: "Personne qui tient un château et le territoire qui l'entoure, au nom d'un seigneur ou pour son propre compte.", book: "Dame Isabelle est la châtelaine de Saint-Marcel.", tome: 1 },
+        { w: 'Chausses de mailles', g: 'n. f. pl.', cat: 'armes', def: "Protections en mailles pour les jambes, portées avec le haubert." },
+        { w: 'Chevalier', g: 'n. m.', cat: 'armes', def: "Guerrier à cheval, lourdement équipé, lié à un seigneur. Il devient chevalier lors de l'adoubement.", voir: ['Adoubement', 'Écuyer'] },
+        { w: 'Cimier', g: 'n. m.', cat: 'habits', def: "Ornement fixé au sommet du casque (plume, figure…) pour être reconnu de loin au combat.", book: "Au tournoi, Raoul le Jeune porte un cimier à plume bleue.", tome: 1 },
+        { w: 'Destrier', g: 'n. m.', cat: 'armes', def: "La monture de guerre, lourde et entraînée pour la charge. Au Moyen Âge, le cheval définit l'homme.", book: "Le palefrenier Martin explique à Julien les différentes classes de chevaux dans les écuries du vicomte.", tome: 1, voir: ['Palefroi', 'Roncin', 'Sommier'] },
+        { w: 'Dîme', g: 'n. f.', cat: 'vie', def: "Impôt versé à l'Église, en principe le dixième des récoltes." },
+        { w: 'Donjon', g: 'n. m.', cat: 'vie', def: "La tour principale d'un château, la plus haute et la mieux défendue. C'est aussi la résidence du seigneur." },
+        { w: 'Écu', g: 'n. m.', cat: 'armes', def: "Le bouclier du chevalier, souvent en bois recouvert de cuir, peint aux couleurs de son lignage.", voir: ['Blason'] },
+        { w: 'Écuyer', g: 'n. m.', cat: 'armes', def: "Jeune homme au service d'un chevalier : il porte son écu, s'occupe de ses chevaux et de ses armes, et apprend le métier.", book: "Julien Dubois est retenu à Périgueux comme écuyer-otage.", tome: 1 },
+        { w: 'Épieu', g: 'n. m.', cat: 'armes', def: "Lance courte et solide, à large fer, utilisée pour la chasse au gros gibier comme le sanglier.", book: "Raoul le Jeune emmène Julien affronter un sanglier à l'épieu.", tome: 1 },
+        { w: 'Félonie', g: 'n. f.', cat: 'societe', def: "Trahison grave de la parole donnée, par exemple d'un vassal envers son seigneur. L'une des pires fautes pour un noble." },
+        { w: 'Fief', g: 'n. m.', cat: 'societe', def: "Terre (ou revenu) confiée par un seigneur à son vassal, en échange de sa fidélité et de son aide militaire.", voir: ['Suzerain', 'Vassal'] },
+        { w: 'Gueules', g: 'n. m.', cat: 'habits', def: "En héraldique (la science des blasons), le mot qui désigne la couleur rouge. L'or désigne le jaune.", book: "Le blason de la maison de Périgueux : trois lions d'or sur champ de gueules, donc jaunes sur fond rouge.", tome: 1 },
+        { w: 'Haubert', g: 'n. m.', cat: 'armes', def: "Cotte de mailles coûteuse et lourde, tombant jusqu'aux genoux, souvent munie de manches et d'un camail. Symbole par excellence de la chevalerie, inaccessible aux paysans. Du francique halsberc, « protège-cou ».", book: "Sous sa robe de bure, le Père Étienne revêt sans hésiter un lourd haubert dès que le sanctuaire est menacé.", tome: 1, voir: ['Camail', 'Broigne'] },
+        { w: 'Heaume', g: 'n. m.', cat: 'armes', def: "Casque du chevalier. Au XIIe siècle, on porte surtout un casque conique muni d'un nasal, une barre qui protège le nez. Le heaume fermé apparaît vers la fin du siècle." },
+        { w: 'Lice', g: 'n. f.', cat: 'armes', def: "Palissades de bois entourant le terrain des tournois et des joutes. « Entrer en lice » vient de là.", book: "Le grand champ clos aménagé par les charpentiers d'Isabelle près du bief, pour le tournoi d'Aliénor.", tome: 2, voir: ['Tournoi'] },
+        { w: 'Lignage', g: 'n. m.', cat: 'societe', def: "La famille au sens large, sur plusieurs générations. Le rang, les terres et l'honneur se transmettent par le lignage." },
+        { w: 'Manoir', g: 'n. m.', cat: 'vie', def: "Demeure seigneuriale de la campagne, moins fortifiée qu'un château.", book: "Le manoir de Dame Isabelle à Saint-Marcel.", tome: 1 },
+        { w: 'Mêlée', g: 'n. f.', cat: 'armes', def: "Forme principale du tournoi au XIIe siècle : deux camps de chevaliers s'affrontent en groupe sur un vaste terrain.", voir: ['Tournoi'] },
+        { w: 'Ost', g: 'n. m.', cat: 'armes', def: "Le service militaire que les vassaux doivent à leur suzerain, pour un nombre de jours limité (souvent 40 par an). « Lever l'ost », c'est appeler ses hommes aux armes. Du latin hostis.", book: "L'armée que le vicomte Raoul ou d'autres seigneurs rassemblent pour la guerre.", tome: 1 },
+        { w: 'Plaid', g: 'n. m.', cat: 'vie', def: "Assemblée réunie par un seigneur pour rendre la justice ou régler des conflits.", book: "En 1136, Raoul le Boiteux accuse les voyageurs lors d'un plaid réuni par son père.", tome: 2 },
+        { w: 'Prendre la croix', g: 'loc. v.', cat: 'vie', def: "S'engager à partir en croisade, ou entrer dans un ordre religieux et militaire. La croix était cousue sur le vêtement.", voir: ['Templiers'] },
+        { w: 'Quillon', g: 'n. m.', cat: 'armes', def: "Chacune des deux branches de la garde d'une épée, entre la lame et la poignée. Elles protègent la main." },
+        { w: 'Rançon', g: 'n. f.', cat: 'vie', def: "Somme payée pour libérer un prisonnier. Au tournoi comme à la guerre, capturer un noble pouvait rapporter gros." },
+        { w: 'Roturier', g: 'n. m.', cat: 'societe', def: "Personne qui n'est pas noble : paysan, artisan, marchand…", book: "Raoul le Jeune toise Julien comme un roturier.", tome: 1 },
+        { w: 'Seigneur', g: 'n. m.', cat: 'societe', def: "Celui qui détient une terre et exerce son autorité sur ceux qui y vivent : il protège, rend la justice et perçoit des taxes." },
+        { w: 'Serf', g: 'n. m.', cat: 'societe', def: "Paysan qui n'est pas libre : il est attaché à la terre de son seigneur et ne peut pas la quitter sans autorisation.", voir: ['Vilain'] },
+        { w: 'Surcot', g: 'n. m.', cat: 'habits', def: "Vêtement porté par-dessus la tunique. Celui des nobles est souvent coloré et brodé, signe de richesse.", book: "Marguerite porte un surcot pourpre.", tome: 1 },
+        { w: 'Suzerain', g: 'n. m.', cat: 'societe', def: "Seigneur dont dépend un autre seigneur. Le suzerain accorde une terre, le vassal lui doit fidélité et service.", voir: ['Vassal', 'Fief'] },
+        { w: 'Templiers', g: 'n. m. pl.', cat: 'vie', def: "Membres de l'ordre du Temple, fondé vers 1120 : des moines-soldats chargés de protéger les pèlerins en Terre sainte." },
+        { w: 'Tournoi', g: 'n. m.', cat: 'armes', def: "Combat d'entraînement et de prestige entre chevaliers. On y gagne la gloire, mais aussi des rançons, des chevaux et des armes pris aux vaincus.", book: "Le grand tournoi de la Saint-Denis, à Saint-Marcel, en septembre 1135.", tome: 1, voir: ['Mêlée', 'Lice'] },
+        { w: 'Vassal', g: 'n. m.', cat: 'societe', def: "Noble qui a juré fidélité à un seigneur plus puissant, en échange d'une terre et de sa protection.", voir: ['Suzerain'] },
+        { w: 'Vicomte', g: 'n. m.', cat: 'societe', def: "À l'origine, le représentant d'un comte. Au XIIe siècle, c'est un titre noble héréditaire, à la tête d'une vicomté.", book: "La maison de Périgueux est une famille de vicomtes.", tome: 1 },
+        { w: 'Vilain', g: 'n. m.', cat: 'societe', def: "Paysan libre vivant sur le domaine (la villa) d'un seigneur, par opposition au serf. Au XIIe siècle, le mot n'a pas encore le sens insultant qu'il prendra plus tard.", book: "Les paysans de Saint-Marcel, souvent méprisés par les cavaliers de Périgueux.", tome: 1, voir: ['Serf', 'Manant'] }
+      ];
+
+      const list = document.getElementById('dict-list');
+      const search = document.getElementById('dict-search');
+      const count = document.getElementById('dict-count');
+      const empty = document.getElementById('dict-empty');
+      const alphabet = document.getElementById('alphabet');
+      let cat = 'all';
+
+      const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+      const slug = s => norm(s).replace(/[^a-z]+/g, '-').replace(/^-|-$/g, '');
+      const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const letterOf = w => norm(w)[0].toUpperCase();
+      function highlight(text, q) {
+        if (!q) return esc(text);
+        const i = norm(text).indexOf(q);
+        if (i < 0) return esc(text);
+        return esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + q.length)) + '</mark>' + esc(text.slice(i + q.length));
+      }
+
+      WORDS.sort((a, b) => a.w.localeCompare(b.w, 'fr'));
+
+      function render() {
+        const q = norm(search.value.trim());
+        const rows = WORDS.filter(x => (cat === 'all' || x.cat === cat) && (!q || norm(x.w).includes(q) || norm(x.def).includes(q)));
+        const groups = {};
+        rows.forEach(x => { (groups[letterOf(x.w)] = groups[letterOf(x.w)] || []).push(x); });
+        list.innerHTML = Object.keys(groups).map(L =>
+          '<section class="dict-letter" id="lettre-' + L + '" aria-label="Lettre ' + L + '">' +
+            '<h2 class="dict-L">' + L + '</h2>' +
+            '<dl>' + groups[L].map(x =>
+              '<div class="dict-entry" id="' + slug(x.w) + '">' +
+                '<dt><b>' + highlight(x.w, q) + '</b> <i>' + x.g + '</i></dt>' +
+                '<dd>' +
+                  '<p>' + esc(x.def) + '</p>' +
+                  (x.book ? '<div class="dict-book-ex" data-tome="' + (x.tome || 1) + '"><p><span>Dans le roman.</span> ' + esc(x.book) + '</p></div>' : '') +
+                  '<p class="dict-meta"><span>' + CATS[x.cat] + '</span>' +
+                    (x.voir ? ' · Voir aussi : ' + x.voir.map(v => '<a href="#' + slug(v) + '">' + esc(v) + '</a>').join(', ') : '') +
+                  '</p>' +
+                '</dd>' +
+              '</div>').join('') +
+            '</dl>' +
+          '</section>').join('');
+        count.textContent = rows.length + (rows.length > 1 ? ' entrées' : ' entrée');
+        empty.style.display = rows.length ? 'none' : 'block';
+
+        // alphabet : lettres actives seulement si des mots existent
+        alphabet.innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(L =>
+          groups[L] ? '<a href="#lettre-' + L + '">' + L + '</a>' : '<span aria-hidden="true">' + L + '</span>'
+        ).join('');
+
+        window.AnnaChronique.applySpoilers(window.AnnaChronique.getLevel());
+      }
+
+      // « voir aussi » : si le mot est filtré, on réinitialise avant d'y aller
+      list.addEventListener('click', function (e) {
+        const a = e.target.closest('.dict-meta a');
+        if (!a) return;
+        const id = a.getAttribute('href').slice(1);
+        if (!document.getElementById(id)) { search.value = ''; cat = 'all'; syncChips(); render(); }
+        e.preventDefault();
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.remove('is-flash'); void target.offsetWidth; target.classList.add('is-flash');
+        }
+      });
+
+      function syncChips() { document.querySelectorAll('[data-cat]').forEach(x => x.classList.toggle('is-active', x.dataset.cat === cat)); }
+      search.addEventListener('input', render);
+      document.querySelectorAll('[data-cat]').forEach(function (b) {
+        b.addEventListener('click', function () { cat = b.dataset.cat; syncChips(); render(); });
+      });
+      render();
+      // arrivée depuis un lien direct (ex. lexique.html#epieu)
+      if (location.hash) {
+        const t = document.getElementById(location.hash.slice(1));
+        if (t) setTimeout(() => { t.scrollIntoView({ block: 'center' }); t.classList.add('is-flash'); }, 300);
+      }
+    })();
+  </script>
+</body>
+</html>

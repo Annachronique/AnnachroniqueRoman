@@ -1,0 +1,175 @@
+/* =========================================================
+   AnnaChronique - pages intérieures
+   (saga, personnages, lieux, lexique, auteur)
+   ========================================================= */
+
+/* ---------- Barre de filtres ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 2rem; }
+.chip {
+  font-family: var(--font-label); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--on-surface-variant); background: transparent;
+  border: 1px solid var(--outline-variant); border-radius: 999px;
+  padding: 0.5rem 0.9rem; min-height: 40px; cursor: pointer;
+  transition: color 200ms, border-color 200ms, background-color 200ms;
+}
+.chip:hover { color: var(--on-surface); border-color: var(--outline); }
+.chip.is-active { color: var(--on-primary); background: var(--primary); border-color: var(--primary); }
+
+/* ---------- Personnages ---------- */
+.char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 1.25rem; }
+.char-card {
+  --accent: var(--primary);
+  display: flex; flex-direction: column; gap: 0.6rem;
+  padding: 1.5rem; border-radius: 0.9rem;
+  background:
+    radial-gradient(circle at 85% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 55%),
+    linear-gradient(180deg, var(--surface), var(--surface-low));
+  border: 1px solid var(--outline-variant);
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  transition: border-color 300ms, transform 300ms var(--ease-out);
+}
+.char-card:hover { border-color: color-mix(in srgb, var(--accent) 70%, transparent); }
+.char-card:target { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.char-card.is-hidden { display: none; }
+.char-top { display: flex; gap: 1rem; align-items: center; }
+.char-top .crest { width: 56px; height: 66px; font-size: 1.7rem; margin: 0; flex: none;
+  clip-path: path('M0 0 H56 V36 C56 53 28 66 28 66 C28 66 0 53 0 36 Z'); }
+.char-card h2 { font-family: var(--font-headline); font-weight: 500; font-size: 1.7rem; line-height: 1.05; margin: 0.15rem 0 0; }
+.char-role { font-family: var(--font-label); font-size: 0.75rem; color: var(--on-surface-variant); letter-spacing: 0.04em; margin: 0; }
+.char-card p { margin: 0; color: var(--on-surface-variant); }
+.char-more { border-top: 1px dashed var(--outline-variant); padding-top: 0.7rem; margin-top: 0.2rem; min-height: 70px; }
+.char-more .label { display: block; margin-bottom: 0.2rem; }
+.char-card .btn { align-self: flex-start; margin-top: auto; }
+.char-card .soon { margin-top: auto; font-family: var(--font-label); font-size: 0.72rem; color: var(--outline); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* ---------- Saga ---------- */
+.cycles { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 1.25rem; align-items: stretch; }
+.cycle { padding: 1.6rem; display: flex; flex-direction: column; gap: 0.8rem; position: relative; }
+.cycle h2 { font-family: var(--font-headline); font-weight: 500; font-size: 2rem; margin: 0; line-height: 1.05; }
+.cycle h2 em { color: var(--primary); }
+.cycle p { margin: 0; color: var(--on-surface-variant); }
+.cycle-num { font-family: var(--font-headline); font-size: 4.5rem; line-height: 0.8; color: rgba(229, 180, 84, 0.18); position: absolute; top: 1rem; right: 1.2rem; }
+.volumes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; margin-top: 0.4rem; }
+.volume { border: 1px solid var(--outline-variant); border-radius: 0.5rem; padding: 0.7rem; display: grid; gap: 0.45rem; background: rgba(5, 11, 24, 0.5); }
+.volume strong { font-family: var(--font-headline); font-weight: 500; font-size: 1.15rem; }
+.part { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.25rem 0.4rem; white-space: nowrap; font-size: 0.82rem; color: var(--on-surface-variant); }
+.status { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.1rem 0.4rem; border-radius: 0.25rem; white-space: nowrap; }
+.status-out { background: var(--primary); color: var(--on-primary); }
+.status-soon { border: 1px solid var(--outline); color: var(--on-surface-variant); }
+.reading-path { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-top: 2.5rem; }
+.reading-path span { font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.06em; padding: 0.45rem 0.8rem; border: 1px solid var(--outline-variant); border-radius: 999px; }
+.reading-path span.is-out { border-color: var(--primary); color: var(--primary); }
+.reading-path i { color: var(--outline); font-style: normal; }
+@media (max-width: 960px) { .cycles { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .volumes { grid-template-columns: 1fr; } }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
+@media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+.quote {
+  font-family: var(--font-headline); font-style: italic; font-size: clamp(1.4rem, 1rem + 1.5vw, 2.1rem); line-height: 1.25;
+  border-left: 3px solid var(--crimson-bright); padding-left: 1.2rem; margin: 0;
+}
+.quote cite { display: block; margin-top: 0.8rem; font-family: var(--font-label); font-style: normal; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-surface-variant); }
+
+/* ---------- Lieux ---------- */
+.map-layout { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.5rem; align-items: start; }
+@media (max-width: 960px) { .map-layout { grid-template-columns: 1fr; } }
+.map-box { position: relative; border: 1px solid var(--bronze); border-radius: 0.9rem; overflow: hidden; background: var(--parchment); }
+.map-svg { width: 100%; height: auto; }
+.map-marker { cursor: pointer; }
+.map-marker circle.pulse { transform-box: fill-box; transform-origin: center; animation: pulse 2.4s ease-out infinite; }
+.map-marker:hover .pin, .map-marker.is-active .pin { fill: var(--crimson); }
+.map-marker:focus-visible { outline: none; }
+.map-marker:focus-visible .pin { stroke: var(--tertiary); stroke-width: 3; }
+@keyframes pulse { 0% { transform: scale(0.6); opacity: 0.7; } 100% { transform: scale(2.4); opacity: 0; } }
+.map-legend { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.7rem 1rem; background: var(--parchment-deep); color: var(--parchment-ink-muted); font-family: var(--font-label); font-size: 0.72rem; letter-spacing: 0.05em; }
+.map-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 0.4rem; vertical-align: middle; }
+.place-panel { padding: 1.6rem; position: sticky; top: calc(var(--header-h) + 1rem); display: grid; gap: 0.7rem; }
+.place-panel h2 { font-family: var(--font-headline); font-weight: 500; font-size: 2rem; margin: 0; line-height: 1.05; }
+.place-panel p { margin: 0; color: var(--on-surface-variant); }
+.place-panel .in-book { border-left: 3px solid var(--primary); padding-left: 0.9rem; color: var(--on-surface); }
+.place-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.timeline { list-style: none; margin: 2rem 0 0; padding: 0 0 0 1.5rem; border-left: 2px solid var(--bronze); display: grid; gap: 1.4rem; }
+.timeline li { position: relative; }
+.timeline li::before { content: ""; position: absolute; left: calc(-1.5rem - 7px); top: 0.45rem; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 2px solid var(--background); }
+.timeline li.is-book::before { background: var(--tertiary); }
+.timeline .year { font-family: var(--font-label); font-size: 0.85rem; color: var(--primary); letter-spacing: 0.08em; }
+.timeline h3 { font-family: var(--font-headline); font-weight: 500; font-size: 1.4rem; margin: 0.1rem 0 0.2rem; }
+.timeline p { margin: 0; color: var(--on-surface-variant); max-width: 70ch; }
+
+/* ---------- Lexique ---------- */
+.lex-tools { display: grid; gap: 1rem; margin-bottom: 2rem; position: sticky; top: var(--header-h); z-index: 10; padding: 1rem 0; background: linear-gradient(var(--background) 80%, transparent); }
+.search {
+  display: flex; align-items: center; gap: 0.7rem;
+  background: var(--surface); border: 1px solid var(--outline); border-radius: 999px;
+  padding: 0 1.1rem; min-height: 54px;
+}
+.search:focus-within { border-color: var(--primary); }
+.search input { flex: 1; background: transparent; border: 0; color: var(--on-surface); font: inherit; font-size: 1.05rem; min-height: 52px; }
+.search input:focus { outline: none; }
+.search input::placeholder { color: var(--on-surface-variant); }
+.lex-count { font-family: var(--font-label); font-size: 0.75rem; color: var(--on-surface-variant); letter-spacing: 0.06em; }
+.lex-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 1rem; }
+.lex-entry { padding: 1.3rem 1.4rem; display: grid; gap: 0.45rem; align-content: start; }
+.lex-entry.is-hidden { display: none; }
+.lex-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+.lex-entry h2 { font-family: var(--font-headline); font-weight: 500; font-size: 1.6rem; margin: 0; line-height: 1.1; }
+.lex-entry p { margin: 0; color: var(--on-surface-variant); }
+.lex-entry .in-book { font-size: 0.92rem; border-left: 2px solid var(--primary); padding-left: 0.7rem; color: var(--on-surface); }
+.lex-empty { color: var(--on-surface-variant); display: none; padding: 2rem 0; }
+mark { background: rgba(229, 180, 84, 0.3); color: inherit; border-radius: 2px; padding: 0 1px; }
+
+/* ---------- Auteur ---------- */
+.author-portrait {
+  aspect-ratio: 4 / 5; max-height: 460px; width: 100%; border-radius: 0.9rem; border: 1px solid var(--bronze);
+  background: radial-gradient(circle at 50% 35%, var(--surface-high), var(--surface-low));
+  display: grid; place-items: center; text-align: center; padding: 1.5rem;
+  color: var(--on-surface-variant); font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.06em;
+}
+.buy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 1rem; margin-top: 2rem; }
+.buy-card { padding: 1.4rem; display: grid; gap: 0.5rem; justify-items: start; }
+.buy-card h3 { font-family: var(--font-headline); font-weight: 500; font-size: 1.5rem; margin: 0; }
+.buy-card p { margin: 0; color: var(--on-surface-variant); }
+.todo { font-family: var(--font-label); font-size: 0.72rem; color: var(--crimson-text); letter-spacing: 0.06em; }
+
+/* ---------- Bibliothèque 3D (page Saga) ---------- */
+.library { display: grid; gap: 3rem; margin-bottom: clamp(3rem, 7vw, 6rem); }
+.shelf-group h2 { font-family: var(--font-headline); font-weight: 500; font-size: 1.6rem; margin: 0 0 1.5rem; display: flex; align-items: baseline; gap: 0.8rem; }
+.shelf-group h2 em { color: var(--primary); }
+.shelf {
+  display: flex; flex-wrap: wrap; gap: clamp(1.2rem, 2.4vw, 2.2rem);
+  perspective: 1600px; align-items: flex-end;
+  padding: 2rem 1.5rem 0;
+  border-bottom: 10px solid #3d281a;
+  background: linear-gradient(transparent 85%, rgba(168, 118, 50, 0.08));
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 14px 24px -10px rgba(0,0,0,0.8);
+}
+.shelf-item { display: grid; justify-items: center; gap: 0.2rem; padding-bottom: 1rem; margin: 0; outline: none; }
+.shelf-item .book3d { --w: clamp(110px, 10.5vw, 145px); }
+.shelf-item:hover .book3d, .shelf-item:focus-visible .book3d { transform: rotateY(-4deg) rotateX(0deg) translateY(-14px) scale(1.04); }
+.shelf-item:hover .book3d-shadow, .shelf-item:focus-visible .book3d-shadow { transform: scale(0.85); opacity: 0.6; }
+.shelf-item.is-soon .b3-front { filter: brightness(0.6) saturate(0.7); transition: filter 500ms; }
+.shelf-item.is-soon:hover .b3-front, .shelf-item.is-soon:focus-visible .b3-front { filter: none; }
+.shelf-item figcaption { text-align: center; display: grid; gap: 0.3rem; justify-items: center; align-content: start; min-height: 5.6rem; }
+.shelf-item figcaption strong { font-family: var(--font-headline); font-weight: 500; font-size: 1.1rem; }
+.shelf-item figcaption .btn { padding: 0.45rem 0.9rem; min-height: 36px; font-size: 0.7rem; }
+@media (max-width: 640px) {
+  .shelf { justify-content: center; padding-inline: 0.5rem; }
+  .shelf-item .book3d { --w: 120px; }
+}
+
+/* Lieux : image du panneau, routes de l'exil, figures historiques */
+.place-img { margin: -0.4rem -0.4rem 0.4rem; border: 1px solid var(--outline-variant); background: var(--paper-high); padding: 5px; }
+.place-img img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; filter: sepia(0.15); }
+.book-wrap + .book-wrap { margin-top: 0.5rem; }
+.voyage-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(210px, 100%), 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.voyage-card h3 { font-family: var(--font-headline); font-weight: 500; font-size: 1.4rem; margin: 0.2rem 0 0.4rem; }
+.voyage-card p { margin: 0; color: var(--on-surface-variant); font-size: 0.95rem; }
+.figures { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 1.2rem; margin-top: 2rem; }
+.figure { display: grid; gap: 0.3rem; align-content: start; }
+.figure > .label { color: var(--on-surface-variant); font-size: 0.74rem; }
+.figure h3 { font-family: var(--font-headline); font-weight: 500; font-size: 1.6rem; margin: 0; line-height: 1.1; }
+.figure h4 { margin: 0.6rem 0 0.1rem; font-size: 0.74rem; }
+.figure p { margin: 0; font-family: var(--font-headline); font-size: 1.05rem; line-height: 1.45; }

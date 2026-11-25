@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 430" >
+                  <!-- Fond bleu nuit & grille d'archive -->
+                  <rect width="360" height="430" fill="#1a120b" />
+                  <circle cx="180" cy="175" r="145" fill="none" stroke="#4a3826" stroke-width="1" stroke-dasharray="4 4" />
+                  <circle cx="180" cy="175" r="112" fill="none" stroke="#3fd0dc" stroke-width="0.8" opacity="0.45" />
+                  <line x1="20" y1="175" x2="55" y2="175" stroke="#3fd0dc" stroke-width="1.2" opacity="0.7" />
+                  <line x1="305" y1="175" x2="340" y2="175" stroke="#3fd0dc" stroke-width="1.2" opacity="0.7" />
+                  <line x1="180" y1="16" x2="180" y2="42" stroke="#e5b454" stroke-width="1.2" opacity="0.7" />
+
+                  <!-- Viseur d'angles -->
+                  <path d="M18 34 L18 18 L34 18 M326 18 L342 18 L342 34 M18 396 L18 412 L34 412 M326 412 L342 412 L342 396" fill="none" stroke="#e5b454" stroke-width="1.8" />
+
+                  <!-- Écusson miniature Trois Lions en haut à droite -->
+                  <g transform="translate(278,34)">
+                    <path d="M0 0 L54 0 L54 34 C54 52 27 64 27 64 C27 64 0 52 0 34 Z" fill="#b81d2c" stroke="#e5b454" stroke-width="2" />
+                    <circle cx="17" cy="20" r="5" fill="#e5b454" />
+                    <circle cx="37" cy="20" r="5" fill="#e5b454" />
+                    <circle cx="27" cy="40" r="5" fill="#e5b454" />
+                    <path d="M12 20 L22 20 M32 20 L42 20 M22 40 L32 40" stroke="#e5b454" stroke-width="2.5" stroke-linecap="round" />
+                  </g>
+
+                  <!-- Épaules & Surcot armorié rouge carmin et or antique -->
+                  <path d="M48 430 L64 316 C72 284 118 268 180 268 C242 268 288 284 296 316 L312 430 Z" fill="#b81d2c" stroke="#e5b454" stroke-width="2" />
+                  <!-- Ombre droite du buste -->
+                  <path d="M180 268 C242 268 288 284 296 316 L312 430 L180 430 Z" fill="#701e26" opacity="0.55" />
+                  <!-- Galons et broderies or antique -->
+                  <path d="M108 278 L108 430 M252 278 L252 430" stroke="#e5b454" stroke-width="3" opacity="0.8" />
+                  <!-- Baudrier d'épée en cuir et bronze -->
+                  <path d="M88 284 L268 430 L236 430 L68 302 Z" fill="#3d281a" stroke="#a87632" stroke-width="1.6" />
+                  <rect x="166" y="346" width="24" height="18" rx="2" fill="#e5b454" stroke="#3d281a" stroke-width="1.5" transform="rotate(38 178 355)" />
+
+                  <!-- Col de mailles / Camail -->
+                  <path d="M124 252 C142 292 218 292 236 252 L248 282 C216 322 144 322 112 282 Z" fill="#78889e" stroke="#b6c4d6" stroke-width="1.5" />
+                  <path d="M132 272 Q180 296 228 272 M124 286 Q180 312 236 286" fill="none" stroke="#1a120b" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65" />
+
+                  <!-- Cou -->
+                  <path d="M150 220 L150 272 C164 282 196 282 210 272 L210 220 Z" fill="#c28e6a" />
+
+                  <!-- Tête / Visage noble (20 ans) -->
+                  <path d="M126 146 C126 98 234 98 234 146 L232 190 C230 222 204 244 180 246 C156 244 130 222 128 190 Z" fill="#e2b896" />
+                  <path d="M180 108 C216 108 234 128 234 152 L232 190 C230 222 204 244 180 246 Z" fill="#c28e6a" opacity="0.32" />
+
+                  <!-- Oreilles -->
+                  <path d="M126 164 C118 164 118 190 128 192 Z" fill="#c28e6a" />
+                  <path d="M234 164 C242 164 242 190 232 192 Z" fill="#c28e6a" />
+
+                  <!-- Chevelure sombre aristocratique -->
+                  <path d="M122 166 C116 122 140 84 182 82 C226 82 246 118 238 168 C236 142 224 124 206 118 C184 112 152 116 134 132 C126 140 124 154 122 166 Z" fill="#1d1a1c" />
+                  <path d="M136 124 Q178 106 218 122" fill="none" stroke="#425c8a" stroke-width="1.2" opacity="0.6" />
+
+                  <!-- Sourcils arrogants & yeux clairs perçants -->
+                  <path d="M142 152 Q156 146 169 154" fill="none" stroke="#1d1a1c" stroke-width="3.2" stroke-linecap="round" />
+                  <path d="M191 154 Q204 146 218 152" fill="none" stroke="#1d1a1c" stroke-width="3.2" stroke-linecap="round" />
+                  <ellipse cx="156" cy="162" rx="9" ry="4.8" fill="#faf3e3" />
+                  <circle cx="157" cy="162" r="3.6" fill="#78889e" />
+                  <circle cx="157" cy="162" r="1.6" fill="#1a120b" />
+                  <ellipse cx="204" cy="162" rx="9" ry="4.8" fill="#faf3e3" />
+                  <circle cx="203" cy="162" r="3.6" fill="#78889e" />
+                  <circle cx="203" cy="162" r="1.6" fill="#1a120b" />
+
+                  <!-- Nez droit et mâchoire jeune avec barbe courte soignée -->
+                  <path d="M180 154 L176 188 L185 190" fill="none" stroke="#c28e6a" stroke-width="2.2" stroke-linecap="round" />
+                  <path d="M164 205 Q180 201 196 205" fill="none" stroke="#c28e6a" stroke-width="2.2" stroke-linecap="round" />
+                  <path d="M132 198 C134 226 156 246 180 248 C204 246 226 226 228 198 C222 216 202 230 180 230 C158 230 138 216 132 198 Z" fill="#1d1a1c" opacity="0.82" />
+                  <path d="M165 201 Q180 196 195 201" fill="none" stroke="#1d1a1c" stroke-width="2.5" stroke-linecap="round" />
+
+                  <!-- Fibule bronze doré -->
+                  <circle cx="180" cy="296" r="11" fill="#a87632" stroke="#e5b454" stroke-width="2" />
+                  <circle cx="180" cy="296" r="4" fill="#b81d2c" />
+                </svg>

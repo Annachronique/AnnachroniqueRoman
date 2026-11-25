@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figures Historiques - AnnaChronique</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="Les véritables personnages historiques du XIIe siècle croisés par les voyageurs d'AnnaChronique.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <style>
+    /* ================= CHARTE PARCHEMIN SOUTENU & OMBRES ================= */
+    .figures-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 900px) {
+      .figures-layout {
+        grid-template-columns: 1fr;
+      }
+      .figures-sidebar {
+        order: -1;
+      }
+    }
+
+    /* Cadre d'Aliénor en haut (largeur 2/3, hauteur 500px, ombre élégante) */
+    .alienor-frame-wrapper {
+      max-width: 66%;
+      margin: -1.5rem auto 3rem auto;
+    }
+    @media (max-width: 768px) {
+      .alienor-frame-wrapper {
+        max-width: 100%;
+      }
+    }
+    .alienor-frame {
+      padding: 0.9rem;
+      background: #ebdcc9; /* Teinte parchemin plus soutenue */
+      border-radius: 14px;
+      border: 1px solid #c8b19b;
+      box-shadow: 0 14px 40px rgba(35, 23, 14, 0.22); /* Belle ombre d'ambiance */
+    }
+    .alienor-frame .photo-container {
+      width: 100%;
+      height: 500px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #23170e;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .alienor-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+
+    /* Cadre de gauche : Grand pupitre de lecture */
+    .figure-viewer {
+      background: #ebdcc9; /* Fond parchemin plus foncé */
+      border: 1px solid #c8b19b;
+      border-radius: 14px;
+      padding: 2.2rem;
+      box-shadow: 0 14px 40px rgba(35, 23, 14, 0.22); /* Ombre marquée */
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      position: sticky;
+      top: 90px;
+    }
+    .figure-viewer .figure-dates {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #8c4a16; /* Marron chaud */
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .figure-viewer h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #1a110a !important; /* Très sombre presque noir */
+      margin: 0 0 1.2rem;
+      letter-spacing: -0.02em;
+    }
+    .figure-viewer h4.label-section {
+      color: #0284c7 !important; /* Bleu cyan AnnaChronique */
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 1.3rem 0 0.4rem;
+      display: block;
+    }
+    .figure-viewer p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #2e2015; /* Marron foncé lisible */
+      margin: 0 0 1rem;
+    }
+
+    /* Système anti-spoiler */
+    .roman-spoiler-box {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .roman-spoiler-box.is-spoiled .spoiler-content {
+      filter: blur(8px);
+      user-select: none;
+      pointer-events: none;
+    }
+    .spoiler-overlay-btn {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(235, 220, 201, 0.85); /* Voile parchemin */
+      backdrop-filter: blur(2px);
+      color: #7c2d12;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 1px dashed #9a3412;
+      border-radius: 8px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      z-index: 10;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    .spoiler-overlay-btn:hover {
+      background: rgba(230, 212, 190, 0.95);
+      color: #431407;
+      border-color: #7c2d12;
+    }
+    .roman-spoiler-box.is-spoiled .spoiler-overlay-btn {
+      display: flex;
+    }
+
+    /* Cadre de droite : Liste des personnages */
+    .figures-sidebar {
+      background: #ebdcc9;
+      border: 1px solid #c8b19b;
+      border-radius: 14px;
+      padding: 1.2rem;
+      box-shadow: 0 14px 40px rgba(35, 23, 14, 0.18);
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    .figures-sidebar-header {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #8c4a16;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0.5rem 0.8rem 0.8rem;
+      border-bottom: 1px solid #d4c0ad;
+      margin-bottom: 0.6rem;
+    }
+    .figure-item-btn {
+      width: 100%;
+      text-align: left;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    .figure-item-btn:hover {
+      background: #decbbb;
+    }
+    .figure-item-btn.active {
+      background: #d4bfad;
+      border-color: #a8917c;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .figure-item-btn .btn-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #24180e;
+    }
+    .figure-item-btn.active .btn-name {
+      color: #000000;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ EN-TÊTE / HERO ============ -->
+  <main>
+    <header class="page-hero">
+      <div class="container">
+        <span class="label gold reveal">Histoire &amp; Vérité</span>
+        <h1 class="reveal">Figures du <em>XII<sup>e</sup> siècle</em></h1>
+        <p class="lead reveal">
+          Le roman mêle personnages inventés et figures réelles du Moyen Âge. 
+          Sélectionnez un personnage pour découvrir ce que dit l'Histoire et son rôle dans la saga.
+        </p>
+      </div>
+    </header>
+
+    <!-- ============ CADRE D'ALIÉNOR (HAUT DE PAGE) ============ -->
+    <section class="container">
+      <div class="alienor-frame-wrapper reveal">
+        <figure class="alienor-frame">
+          <div class="photo-container">
+            <img src="assets/scenes/alienor-banquet.jpg" alt="Aliénor d'Aquitaine à la table de Saint-Marcel">
+          </div>
+          <figcaption style="margin-top: 0.8rem; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-style: italic; color: #5a4232; text-align: center;">
+            La jeune Aliénor d'Aquitaine, héritière du duché, au cœur des intrigues féodales du Périgord.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ DISPOSITION INTERACTIVE (CADRE GAUCHE + LISTE DROITE) ============ -->
+    <section class="container">
+      <div class="figures-layout">
+        
+        <!-- GAUCHE : Grand pupitre de lecture -->
+        <div class="figure-viewer" id="figureViewer">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.3rem;">
+            <span class="figure-dates" id="viewerDates"></span>
+            <span id="viewerTomeBadge" style="font-size: 0.75rem; font-weight: 700; color: #8c4a16; text-transform: uppercase;"></span>
+          </div>
+          <h2 id="viewerName"></h2>
+          
+          <div>
+            <h4 class="label-section">DANS L'HISTOIRE</h4>
+            <p id="viewerHistory"></p>
+          </div>
+          
+          <div>
+            <h4 class="label-section">DANS LE ROMAN</h4>
+            <div class="roman-spoiler-box" id="viewerRomanBox">
+              <div class="spoiler-content">
+                <p id="viewerRoman"></p>
+              </div>
+              <button type="button" class="spoiler-overlay-btn" id="btnRevealSpoiler">
+                🔒 Révélation · Cliquer pour afficher le texte
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DROITE : Liste alphabétique simple -->
+        <div class="figures-sidebar">
+          <div class="figures-sidebar-header">
+            <span>Personnages (A–Z)</span>
+          </div>
+          <div id="figuresList" style="display: flex; flex-direction: column; gap: 0.35rem;"></div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      const FIGURES = [
+        {
+          name: "Adémar III, vicomte de Limoges",
+          dates: "Décès : 1139 (Vicomte de Limoges)",
+          tome: 2,
+          history: "Vicomte puissant, il lutte pour l'indépendance de ses terres face au duché d'Aquitaine.",
+          roman: "Il mène les troupes limousines lors de la « mêlée grande » du tournoi organisé pour Aliénor."
+        },
+        {
+          name: "Aliénor d'Aquitaine",
+          dates: "Naissance : vers 1122 · Décès : 1204",
+          tome: 2,
+          history: "Duchesse d'Aquitaine, reine de France par son mariage avec Louis VII, puis reine d'Angleterre aux côtés d'Henri Plantagenêt.",
+          roman: "Une jeune fille de quatorze ans d'une beauté et d'une vivacité redoutables. Sa conversation secrète avec Élise forge son indépendance. Elle préside la cour qui arbitre le conflit entre Isabelle et Raoul."
+        },
+        {
+          name: "Arnaud de Vitabre",
+          dates: "Décès : 1137 (Prélat de Périgueux)",
+          tome: 3,
+          history: "Prélat de Périgueux au XIIe siècle. Les prélats arbitrent souvent les conflits féodaux dans la région.",
+          roman: "Appelé par le vicomte Raoul pour présider le procès d'Isabelle, il exige que l'enfant Marie soit rendue à Guillaume et menace Isabelle de bannissement."
+        },
+        {
+          name: "Ebble, abbé de Tulle",
+          dates: "Abbé de 1112 à 1152",
+          tome: 3,
+          history: "Abbé bénédictin énergique issu d'une puissante famille limousine, il lance le grand chantier roman de l'abbatiale de Tulle.",
+          roman: "En 1136, il délaisse les seigneurs pour s'enfermer avec Maxime, fasciné par les calculs du « Moderne » qui modifient les plans de son église."
+        },
+        {
+          name: "Geoffroy de Monmouth",
+          dates: "Naissance : vers 1100 · Décès : vers 1155",
+          tome: 3,
+          history: "Évêque et chroniqueur gallois, auteur de l'Histoire des rois de Bretagne qui a popularisé la légende du roi Arthur.",
+          roman: "Julien le croise dans un cloître et lui souffle l'idée d'un portail magique, d'une Table ronde et du Graal : la légende arthurienne naît ainsi d'un paradoxe temporel."
+        },
+        {
+          name: "Guillaume X, duc d'Aquitaine",
+          dates: "Naissance : 1099 · Décès : 1137",
+          tome: 1,
+          history: "Dernier duc d'Aquitaine de la maison de Poitiers, protecteur des troubadours, souvent en lutte contre ses vassaux récalcitrants.",
+          roman: "Le père d'Aliénor et de Pétronille, suzerain suprême de la région, redouté pour sa justice."
+        },
+        {
+          name: "Henri de Lausanne",
+          dates: "Décès : vers 1148",
+          tome: 3,
+          history: "Prédicateur itinérant qui rejetait le luxe de l'Église pour prôner la pauvreté évangélique ; pourchassé par Bernard de Clairvaux.",
+          roman: "Ses prêches bouleversent le Père Étienne qui, ébranlé par les révélations de Pierre sur l'avenir de l'Église, part le rejoindre à Toulouse."
+        },
+        {
+          name: "Hélie V, comte de Périgord",
+          dates: "Règne : XIIe siècle (Comte de Périgord)",
+          tome: 1,
+          history: "Hélie V de Talleyrand, comte de Périgord, règne sur la province au XIIe siècle.",
+          roman: "Suzerain direct du vicomte Raoul et du baron Géraud, vers qui l'on menace de porter les différends fonciers."
+        },
+        {
+          name: "Louis VI le Gros",
+          dates: "Naissance : 1081 · Décès : 1137 (Roi des Francs)",
+          tome: 1,
+          history: "Roi des Francs, grand consolidateur du domaine royal face aux féodaux insoumis.",
+          roman: "Le prêtre Étienne le cite comme roi régnant dès l'arrivée des voyageurs. Anne décrit son fils comme un être austère vivant comme un moine."
+        },
+        {
+          name: "Marie de France",
+          dates: "Époque : fin du XIIe siècle",
+          tome: 4,
+          history: "Première poétesse connue écrivant en français, autrice des célèbres Lais. Son identité exacte demeure une énigme littéraire.",
+          roman: "Le secret révélé : elle n'est autre que Marie, la lavandière de Saint-Marcel amoureuse de Julien, qui couche par écrit les prophéties des voyageurs."
+        },
+        {
+          name: "Pétronille d'Aquitaine",
+          dates: "Naissance : vers 1125 · Décès : 1151",
+          tome: 2,
+          history: "Sœur cadette d'Aliénor, compagne de ses voyages et au centre des crises politiques de son temps.",
+          roman: "Espiègle et vive, elle se lie d'amitié avec Élise, adopte ses idées modernes et promet de donner son nom à sa future fille."
+        },
+        {
+          name: "Pierre le Vénérable & Bernard de Clairvaux",
+          dates: "P. le Vénérable : 1092–1156 · B. de Clairvaux : 1090–1153",
+          tome: 1,
+          history: "Deux piliers religieux majeurs du XIIe siècle, réformateurs monastiques et penseurs de la foi.",
+          roman: "François, Maxime et le Père Étienne les citent comme repères chronologiques essentiels de leur siècle d'accueil."
+        },
+        {
+          name: "Raymond de Poitiers",
+          dates: "Naissance : vers 1115 · Décès : 1149 (Prince d'Antioche)",
+          tome: 2,
+          history: "Fils du duc Guillaume IX, chevalier renommé devenu prince croisé d'Antioche par mariage.",
+          roman: "Oncle d'Aliénor, il combat lors du grand tournoi de Saint-Marcel : un guerrier imposant et fier de son rang."
+        }
+      ];
+
+      const listContainer = document.getElementById('figuresList');
+      const vDates = document.getElementById('viewerDates');
+      const vTomeBadge = document.getElementById('viewerTomeBadge');
+      const vName = document.getElementById('viewerName');
+      const vHistory = document.getElementById('viewerHistory');
+      const vRoman = document.getElementById('viewerRoman');
+      const vRomanBox = document.getElementById('viewerRomanBox');
+      const btnReveal = document.getElementById('btnRevealSpoiler');
+
+      // Détection fiable du niveau de lecture choisi dans le site
+      function getReadingLevel() {
+        try {
+          // Lit la clé universelle du site (ou du sélecteur en haut)
+          const val = localStorage.getItem('ac_reading_tome') || 
+                      localStorage.getItem('ac_tome') || 
+                      localStorage.getItem('anna_tome') ||
+                      localStorage.getItem('spoiler_level');
+
+          if (!val || val === 'all' || val === '0' || val === '4' || val === 'tous') {
+            return 99; // Tout afficher / Tous les Exils lus -> Aucun spoil
+          }
+          const parsed = parseInt(val, 10);
+          return isNaN(parsed) ? 99 : parsed;
+        } catch(e) {}
+        return 99; // Par défaut, tout afficher
+      }
+
+      let currentIndex = 0;
+
+      function renderFigure(index) {
+        currentIndex = index;
+        const f = FIGURES[index];
+        const userLevel = getReadingLevel();
+
+        vDates.textContent = f.dates;
+        vTomeBadge.textContent = 'Apparaît au Tome ' + f.tome;
+        vName.textContent = f.name;
+        vHistory.textContent = f.history;
+        vRoman.textContent = f.roman;
+
+        // Défloutage automatique si le tome du roman est inférieur ou égal au choix du lecteur
+        if (f.tome > userLevel) {
+          vRomanBox.classList.add('is-spoiled');
+        } else {
+          vRomanBox.classList.remove('is-spoiled');
+        }
+
+        // Gestion de l'état actif dans la liste
+        const buttons = listContainer.querySelectorAll('.figure-item-btn');
+        buttons.forEach((b, i) => {
+          if (i === index) b.classList.add('active');
+          else b.classList.remove('active');
+        });
+      }
+
+      // Défloutage manuel au clic
+      btnReveal.addEventListener('click', function () {
+        vRomanBox.classList.remove('is-spoiled');
+      });
+
+      // Construction de la liste alphabétique
+      listContainer.innerHTML = FIGURES.map((f, i) =>
+        '<button type="button" class="figure-item-btn' + (i === 0 ? ' active' : '') + '" data-index="' + i + '">' +
+          '<span class="btn-name">' + f.name + '</span>' +
+        '</button>'
+      ).join('');
+
+      // Clic sur un nom de la liste
+      listContainer.addEventListener('click', function (e) {
+        const btn = e.target.closest('.figure-item-btn');
+        if (btn) {
+          const idx = parseInt(btn.getAttribute('data-index'), 10);
+          renderFigure(idx);
+        }
+      });
+
+      // Si le lecteur change le niveau de lecture depuis le menu global
+      window.addEventListener('storage', function () {
+        renderFigure(currentIndex);
+      });
+      document.addEventListener('spoilerChange', function () {
+        renderFigure(currentIndex);
+      });
+
+      // Affichage initial
+      renderFigure(0);
+    })();
+  </script>
+</body>
+</html>

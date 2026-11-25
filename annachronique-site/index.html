@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AnnaChronique - Plongez dans l'univers de la saga</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="Le compagnon de lecture de la saga AnnaChronique : personnages, lieux du Périgord au XIIe siècle, repères historiques et lexique médiéval.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+  <!-- ============ 0. Chargement : saut temporel ============ -->
+  <div class="loader theme-dark" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <div class="loader-title">
+        <span class="loader-word">Anna<em>Chronique</em></span>
+        <span class="loader-word loader-fill" id="loader-fill">Anna<em>Chronique</em></span>
+      </div>
+      <div class="loader-year"><span id="loader-year">2026</span></div>
+      <div class="loader-caption label">Saut temporel en cours</div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ============ 1. Ouverture ============ -->
+    <section class="hero theme-dark" id="ouverture" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+  <img src="assets/hero-colline.jpeg" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center bottom;">
+</div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <svg class="hero-land layer-near" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <pattern id="paper" patternUnits="userSpaceOnUse" width="768" height="768"><image href="assets/parchemin.jpg" width="768" height="768"/></pattern>
+          <filter id="paper-shadow" x="-5%" y="-20%" width="110%" height="140%"><feDropShadow dx="0" dy="-4" stdDeviation="5" flood-color="#000" flood-opacity="0.45"/></filter>
+        </defs>
+        <path d="M0 400 L0 326.3 L10 329.6 L21 326.2 L36 339.6 L55 339.4 L67 337.4 L79 333.5 L90 335.1 L111 345.5 L130 346.7 L142 340.7 L159 347.7 L179 351.0 L189 347.6 L207 347.0 L218 346.9 L228 353.6 L249 348.6 L262 353.7 L278 353.3 L298 347.8 L312 348.7 L327 342.1 L340 350.7 L350 339.6 L367 341.9 L383 343.6 L396 350.0 L408 341.0 L419 343.1 L432 338.2 L451 336.0 L467 342.6 L477 329.8 L489 338.4 L506 329.3 L520 327.0 L534 323.6 L553 333.6 L574 329.1 L595 316.9 L608 328.9 L627 319.4 L649 320.5 L668 314.3 L680 315.6 L690 314.0 L712 312.1 L721 307.6 L732 317.4 L746 310.0 L756 319.4 L771 308.2 L781 305.9 L792 314.5 L803 305.6 L818 308.6 L840 307.2 L856 316.8 L870 320.3 L885 310.6 L900 308.5 L914 312.3 L935 321.9 L950 311.9 L963 315.9 L974 316.8 L995 317.4 L1004 329.4 L1021 331.9 L1035 332.1 L1052 332.4 L1071 330.2 L1081 327.3 L1102 339.1 L1123 333.4 L1140 341.6 L1158 343.4 L1173 342.6 L1191 338.7 L1212 349.9 L1222 350.8 L1244 347.8 L1253 351.5 L1264 353.0 L1282 341.0 L1293 349.3 L1309 351.2 L1330 344.1 L1339 353.9 L1349 353.2 L1359 352.2 L1378 352.7 L1394 352.2 L1406 348.9 L1419 351.3 L1438 344.4 L1440 400 Z" fill="url(#paper)" filter="url(#paper-shadow)"/>
+      </svg>
+
+      <div class="hero-content container" style="margin-top: -6vh; padding-top: 2rem; margin-left: 5vw; max-width: 650px; text-align: left; align-items: flex-start;">
+        <p class="label gold hero-kicker">La saga · Exil 1135</p>
+        <h1 id="hero-title" class="hero-title">
+          <span class="line"><span>Anna</span></span>
+          <span class="line"><span><em>Chronique</em></span></span>
+        </h1>
+        <p class="hero-sub">Des voyageurs du XXI<sup>e</sup> siècle projetés dans le Périgord féodal de 1135. Personnages, lieux, histoire et vocabulaire : tout pour plonger dans l'univers.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#le-livre">Entrer dans l'univers</a>
+          <button type="button" class="btn btn-ghost" data-open-reading>Où en suis-je ?</button>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#le-livre" aria-label="Défiler vers la suite">
+        <span class="label">Défiler</span><span class="scroll-line"></span>
+      </a>
+    </section>
+
+    <!-- ============ 2. Le livre au centre, l'histoire autour ============ -->
+    <section class="book-story" id="le-livre" aria-label="La saga en quatre temps">
+      <div class="book-stage">
+        <div class="book-scene" aria-hidden="true">
+          <div class="book" id="book">
+            <div class="book-face book-front">
+              <img class="cover-img" src="assets/couvertures/exil-t1-p1.jpg" alt="">
+            </div>
+            <div class="book-face book-back"></div>
+            <div class="book-face book-spine"><span>AnnaChronique · Exil 1135</span></div>
+            <div class="book-face book-pages"></div>
+            <div class="book-face book-top"></div>
+          </div>
+          <div class="book-shadow"></div>
+        </div>
+
+        <ol class="story-steps">
+          <li class="story-step" data-step="0">
+            <span class="label cyan">01 · Le saut</span>
+            <h2>De nos jours à <em>1135</em></h2>
+            <p>Des voyageurs du XXI<sup>e</sup> siècle se retrouvent à Saint-Marcel, dans le Périgord du Moyen Âge. Ni réseau, ni lois modernes : seulement la pierre, le fer et la parole donnée.</p>
+          </li>
+          <li class="story-step" data-step="1">
+            <span class="label cyan">02 · Le Périgord féodal</span>
+            <h2>Une terre de <em>lignages</em></h2>
+            <p>D'un côté la Cité noble de Périgueux, de l'autre le bourg marchand du Puy-Saint-Front. Entre les deux, des vicomtes, des châtelaines et des chevaliers prêts à tout pour leur rang.</p>
+          </li>
+          <li class="story-step" data-step="2">
+            <span class="label cyan">03 · Deux mondes</span>
+            <h2>Voyageurs ou <em>sorciers</em> ?</h2>
+            <p>Un lycéen, un ingénieur et leurs compagnons face à une noblesse qui voit dans leurs savoirs une menace. Chaque geste moderne peut devenir une accusation.</p>
+          </li>
+          <li class="story-step" data-step="3">
+            <span class="label cyan">04 · La saga</span>
+            <h2>Trois cycles, <em>une même lignée</em></h2>
+            <p><strong>Exil 1135</strong> en trois tomes, puis <strong>The Truth Seekers</strong> et <strong>Mathilde</strong>. La partie 1 du tome 1 est disponible dans plus de 1 000 librairies en Île-de-France.</p>
+            <div class="cover-fan" aria-hidden="true">
+              <img src="assets/couvertures/exil-t1-p2.jpg" alt="">
+              <img src="assets/couvertures/exil-t2-p1.jpg" alt="">
+              <img src="assets/couvertures/exil-t2-p2.jpg" alt="">
+              <img src="assets/couvertures/truth-seekers.jpg" alt="">
+              <img src="assets/couvertures/mathilde.jpg" alt="">
+            </div>
+            <a class="btn btn-ghost" href="saga.html">Voir toute la bibliothèque</a>
+          </li>
+        </ol>
+
+        <nav class="story-dots" aria-label="Étapes">
+          <button type="button" data-goto="0" aria-label="Étape 1 : Le saut"></button>
+          <button type="button" data-goto="1" aria-label="Étape 2 : Le Périgord féodal"></button>
+          <button type="button" data-goto="2" aria-label="Étape 3 : Deux mondes"></button>
+          <button type="button" data-goto="3" aria-label="Étape 4 : La saga"></button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ============ 2 bis. Accroche visuelle ============ -->
+    <section class="tagline-band" aria-labelledby="tagline-title">
+      <div class="container tagline-grid">
+        <div class="tagline-frame" style="overflow: visible; background: transparent; clip-path: none !important;">
+  <img id="tagline-img" src="assets/village-colline.jpg" alt="" style="width: 100%; height: auto; object-fit: contain; display: block; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+</div>
+        <div class="tagline-text">
+          <span class="label gold reveal">Exil 1135</span>
+          <h2 id="tagline-title" class="tagline-quote reveal">Et si vous tombiez au XII<sup>e</sup> siècle, <em>sans retour</em> ?</h2>
+          <p class="lead reveal">Six silhouettes au sommet de la colline. En bas, un village du Périgord qui n'a jamais vu ça.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. Galerie des personnages (défilement horizontal) ============ -->
+    <section class="cast" id="personnages" aria-labelledby="cast-title">
+      <div class="cast-pin">
+        <div class="container cast-head">
+          <div>
+            <span class="label gold">Galerie</span>
+            <h2 id="cast-title" class="section-title">Les visages de <em>1135</em></h2>
+          </div>
+          <a class="btn btn-ghost" href="personnages.html">Ouvrir les dossiers</a>
+        </div>
+        <div class="cast-track" id="cast-track">
+          <a class="cast-card" href="personnages.html#anne" style="--accent: var(--tertiary)">
+            <span class="crest" data-initial="A"></span>
+            <span class="label cyan">Voyageuse</span>
+            <h3>Anne Dubois</h3>
+            <p>Infirmière, pilier du groupe. Elle refuse la fatalité des fièvres et de la gangrène.</p>
+          </a>
+          <a class="cast-card" href="personnages.html#julien" style="--accent: var(--tertiary)">
+            <img class="cast-portrait" src="assets/portraits/julien.jpg" alt="">
+            <span class="label cyan">Voyageur</span>
+            <h3>Julien Dubois</h3>
+            <p>17 ans, impétueux. Il devient écuyer-otage à Périgueux par amour pour Marie.</p>
+          </a>
+          <a class="cast-card" href="personnages.html#elise" style="--accent: var(--tertiary)">
+            <img class="cast-portrait" src="assets/portraits/elise.jpg" alt="">
+            <span class="label cyan">Voyageuse</span>
+            <h3>Élise Dubois</h3>
+            <p>Brillante et insolente, elle ouvre une école sous les chênes de Saint-Marcel.</p>
+          </a>
+          <a class="cast-card" href="personnages.html#maxime" style="--accent: var(--tertiary)">
+            <img class="cast-portrait" src="assets/portraits/maxime.jpg" alt="">
+            <span class="label cyan">Voyageur</span>
+            <h3>Maxime De Luca</h3>
+            <p>L'ingénieur du groupe : filtre, éolienne, grand moulin de la Dronne…</p>
+          </a>
+          <a class="cast-card" href="personnages.html#marie" style="--accent: var(--primary)">
+            <img class="cast-portrait" src="assets/portraits/marie.jpg" alt="">
+            <span class="label gold">Saint-Marcel</span>
+            <h3>Marie</h3>
+            <p>Jeune serve et lavandière, à la mémoire poétique prodigieuse.</p>
+          </a>
+          <a class="cast-card" href="personnages.html#isabelle" style="--accent: var(--primary)">
+            <img class="cast-portrait" src="assets/portraits/isabelle.jpg" alt="">
+            <span class="label gold">Saint-Marcel</span>
+            <h3>Dame Isabelle</h3>
+            <p>Châtelaine veuve, elle protège les voyageurs face à son beau-frère.</p>
+          </a>
+          <a class="cast-card" href="personnages.html#raoul-jeune" style="--accent: var(--crimson-bright)">
+            <img class="cast-portrait" src="assets/portraits/raoul-1135.svg" alt="">
+            <span class="label crimson">Maison de Périgueux</span>
+            <h3>Raoul le Jeune</h3>
+            <p>L'héritier aux Trois Lions, arrogant et jaloux des savoirs du futur.</p>
+          </a>
+          <a class="cast-card" href="personnages.html#raoul" style="--accent: var(--crimson-bright)">
+            <span class="crest" data-initial="V"></span>
+            <span class="label crimson">Maison de Périgueux</span>
+            <h3>Le vicomte Raoul</h3>
+            <p>Seigneur de Périgueux, féodal retors et impitoyable.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ 3 bis. Carnet de croquis ============ -->
+    <section class="section sketchbook" aria-labelledby="sketch-title">
+      <div class="container">
+        <span class="label gold reveal">Carnet de croquis</span>
+        <h2 id="sketch-title" class="section-title reveal">Scènes de <em>Saint-Marcel</em></h2>
+        <div class="sketch-grid">
+          <figure class="sketch s-wide reveal"><button type="button" data-zoom="assets/scenes/arrivee-dronne.jpg" data-caption="L'arrivée dans la Dronne"><img src="assets/scenes/arrivee-dronne.jpg" alt="Les voyageurs tombent dans les eaux de la Dronne" loading="lazy"></button><figcaption>L'arrivée dans la Dronne</figcaption></figure>
+          <figure class="sketch reveal"><button type="button" data-zoom="assets/scenes/saint-marcel.jpg" data-caption="Saint-Marcel"><img src="assets/scenes/saint-marcel.jpg" alt="Le bourg de Saint-Marcel" loading="lazy"></button><figcaption>Saint-Marcel</figcaption></figure>
+          <figure class="sketch reveal"><button type="button" data-zoom="assets/scenes/ecole-elise.jpg" data-caption="L'école d'Élise sous le chêne"><img src="assets/scenes/ecole-elise.jpg" alt="Élise fait la classe aux enfants sous un grand chêne" loading="lazy"></button><figcaption>L'école d'Élise sous le chêne</figcaption></figure>
+          <figure class="sketch reveal"><button type="button" data-zoom="assets/scenes/bergerie-jean.jpg" data-caption="La bergerie de Jean"><img src="assets/scenes/bergerie-jean.jpg" alt="La bergerie de Jean et ses chèvres" loading="lazy"></button><figcaption>La bergerie de Jean</figcaption></figure>
+          <figure class="sketch s-wide reveal" data-tome="2"><button type="button" data-zoom="assets/scenes/alienor-banquet.jpg" data-caption="Aliénor à la table de Saint-Marcel"><img src="assets/scenes/alienor-banquet.jpg" alt="Banquet avec la jeune Aliénor" loading="lazy"></button><figcaption>Aliénor à la table de Saint-Marcel</figcaption></figure>
+          <figure class="sketch reveal" data-tome="2"><button type="button" data-zoom="assets/scenes/tournoi.jpg" data-caption="Le tournoi"><img src="assets/scenes/tournoi.jpg" alt="Chevaliers au tournoi" loading="lazy"></button><figcaption>Le tournoi</figcaption></figure>
+          <figure class="sketch reveal" data-tome="2"><button type="button" data-zoom="assets/scenes/carole-boule.jpg" data-caption="La carole sous la boule à facettes"><img src="assets/scenes/carole-boule.jpg" alt="Une ronde dansée sous une boule à facettes" loading="lazy"></button><figcaption>La carole</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <div class="zoom-modal" id="zoom-modal" role="dialog" aria-modal="true" aria-label="Image agrandie">
+      <button type="button" class="pill-btn zoom-close">Fermer</button>
+      <figure><img id="zoom-img" alt=""><figcaption id="zoom-cap"></figcaption></figure>
+    </div>
+    <!-- ============ 4. Bandeau lexique ============ -->
+    <a class="marquee theme-dark" href="lexique.html" aria-label="Ouvrir le dictionnaire">
+      <div class="marquee-track" aria-hidden="true">
+        <span>Haubert</span><i>✦</i><span>Destrier</span><i>✦</i><span>Bachelier</span><i>✦</i><span>Plaid</span><i>✦</i><span>Fief</span><i>✦</i><span>Camail</span><i>✦</i><span>Épieu</span><i>✦</i><span>Lice</span><i>✦</i><span>Suzerain</span><i>✦</i><span>Gueules</span><i>✦</i>
+        <span>Haubert</span><i>✦</i><span>Destrier</span><i>✦</i><span>Bachelier</span><i>✦</i><span>Plaid</span><i>✦</i><span>Fief</span><i>✦</i><span>Camail</span><i>✦</i><span>Épieu</span><i>✦</i><span>Lice</span><i>✦</i><span>Suzerain</span><i>✦</i><span>Gueules</span><i>✦</i>
+      </div>
+    </a>
+
+    <!-- ============ 5. Explorer ============ -->
+    <section class="section explore bg-archive" aria-labelledby="explore-title">
+      <div class="container">
+        <span class="label gold reveal">Explorer</span>
+        <h2 id="explore-title" class="section-title reveal">Tout ce qu'il faut pour <em>vivre en 1135</em></h2>
+        <div class="explore-grid">
+          <a class="card explore-card reveal" href="lieux.html">
+            <span class="explore-num label cyan">01</span>
+            <h3>Lieux & Histoire</h3>
+            <p>Château Barrière, Saint-Marcel, la Cité et le Puy-Saint-Front : la carte du roman et les vrais repères du XII<sup>e</sup> siècle.</p>
+            <span class="explore-go label gold">Ouvrir la carte →</span>
+          </a>
+          <a class="card explore-card reveal" data-delay="0.1" href="lexique.html">
+            <span class="explore-num label cyan">02</span>
+            <h3>Dictionnaire</h3>
+            <p>Haubert, bachelier, plaid, destrier… Tous les mots d'époque expliqués simplement, avec une recherche.</p>
+            <span class="explore-go label gold">Ouvrir le dictionnaire →</span>
+          </a>
+          <a class="card explore-card reveal" data-delay="0.1" href="objets.html">
+            <span class="explore-num label cyan">03</span>
+            <h3>L'inventaire</h3>
+            <p>La brouette, le télescope de cuivre, le carnet rose… et les objets du Moyen Âge expliqués en images.</p>
+            <span class="explore-go label gold">Ouvrir l'inventaire →</span>
+          </a>
+          <a class="card explore-card reveal" data-delay="0.2" href="vlog.html">
+            <span class="explore-num label cyan">04</span>
+            <h3>Le vlog de François</h3>
+            <p>Ses anecdotes, en direct du XII<sup>e</sup> siècle.</p>
+            <span class="explore-go label gold">Voir les épisodes →</span>
+          </a>
+          <a class="card explore-card reveal" data-delay="0.2" href="saga.html">
+            <span class="explore-num label cyan">05</span>
+            <h3>La saga</h3>
+            <p>Comment s'enchaînent Exil 1135, The Truth Seekers et Mathilde, et ce qui est déjà paru.</p>
+            <span class="explore-go label gold">Voir l'ordre de lecture →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. Anti-spoiler + achat ============ -->
+    <section class="section cta-band" aria-labelledby="cta-title">
+      <div class="container cta-grid">
+        <div class="reveal">
+          <span class="label crimson">Lecture protégée</span>
+          <h2 id="cta-title" class="section-title">Pas encore fini ?<br><em>Aucun spoiler.</em></h2>
+          <p class="lead">Indique où tu en es : tout ce qui se passe après sera flouté sur le site. Réglage actuel : <strong class="gold" data-reading-label></strong>.</p>
+          <button type="button" class="btn" data-open-reading>Régler ma lecture</button>
+        </div>
+        <div class="card cta-buy reveal" data-delay="0.15">
+          <span class="label gold">Disponible</span>
+          <h3 class="serif">Exil 1135 · Tome 1, partie 1</h3>
+          <p>Commencer l'aventure là où tout bascule.</p>
+          <a class="btn btn-ghost" href="auteur.html#acheter">Où acheter le livre</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le vlog de François - AnnaChronique</title>
+  <meta name="description" content="La chaîne de François Dubois, professeur d'histoire à Périgueux : « Voyage dans un Moyen Âge anachronique : oubliez les clichés, suivez les faits ! »">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/vlog.css">
+</head>
+<body>
+  <main>
+    <header class="page-hero">
+      <div class="container">
+        <div class="channel reveal">
+          <div class="channel-avatar-photo" style="width: 110px; height: 110px; min-width: 110px; min-height: 110px; aspect-ratio: 1 / 1; border-radius: 50%; position: relative; flex-shrink: 0; overflow: visible; box-shadow: 0 4px 18px rgba(0,0,0,0.5);">
+  <img src="assets/portraits/Francois ecole.jpeg" alt="François Dubois" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; background: #2a1c14;">
+  <span class="rec" style="position: absolute; width: 16px; height: 16px; right: 4px; bottom: 4px; border-radius: 50%; background: #e63946; border: 2px solid #0f172a; box-shadow: 0 0 8px #e63946;"></span>
+</div>
+            <span class="label crimson">● Chaîne de François Dubois · professeur d'histoire à Périgueux</span>
+            <h1>Le vlog de <em>François</em></h1>
+            <p class="lead">« Voyage dans un Moyen Âge anachronique : oubliez les clichés, suivez les faits ! »</p>
+          </div>
+        </div>
+        <div class="filters vlog-tabs" role="tablist" aria-label="Contenu de la chaîne">
+          <button type="button" class="chip is-active" role="tab" aria-selected="true" data-tab="episodes">Épisodes</button>
+          <button type="button" class="chip" role="tab" aria-selected="false" data-tab="cours">Ses cours</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="container" aria-label="Contenu">
+      <div class="vlog-grid" id="vlog-grid"></div>
+      <div class="cours-list" id="cours-list" hidden></div>
+    </section>
+
+    <div class="vlog-modal" id="vlog-modal" role="dialog" aria-modal="true" aria-labelledby="vlog-modal-title">
+      <div class="vlog-modal-panel">
+        <button type="button" class="pill-btn vlog-close">Fermer</button>
+        <div id="vlog-modal-body"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/vlog-data.js"></script>
+  <script>
+    (function () {
+      /* Les épisodes et les cours sont dans js/vlog-data.js (window.VLOG). */
+      const V = window.VLOG || { episodes: [], cours: [] };
+      const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      const tomeAttr = t => (t > 1 ? ' data-tome="' + t + '"' : '');
+      const grid = document.getElementById('vlog-grid');
+      const coursList = document.getElementById('cours-list');
+
+      grid.innerHTML = V.episodes.map((e, i) =>
+      '<article class="ep"' + tomeAttr(e.tome) + '>' +
+        '<button type="button" class="ep-open" data-ep="' + i + '" aria-label="Regarder l\'épisode ' + e.num + ' : ' + esc(e.title) + '">' +
+          '<span class="ep-thumb">' +
+            '<img src="' + e.image + '" alt="" style="object-position: ' + (e.position || 'center center') + ';">' +
+            '<span class="ep-play" aria-hidden="true"></span>' +
+            '<span class="ep-badge label">Épisode ' + e.num + '</span>' +
+          '</span>' +
+          '<span class="ep-info">' +
+            '<span class="label">Épisode ' + e.num + '</span>' +
+            '<h2>' + esc(e.title) + '</h2>' +
+            '<p>' + esc(e.excerpt) + '</p>' +
+          '</span>' +
+        '</button>' +
+      '</article>'
+    ).join('');
+
+      coursList.innerHTML = V.cours.map((c, i) =>
+        '<button type="button" class="cours-card" data-cours="' + i + '"' + tomeAttr(c.tome) + '>' +
+          '<span class="label">' + esc(c.sub) + '</span><strong>' + esc(c.title) + '</strong><span class="cours-go label">Lire le cours →</span></button>').join('');
+
+      const modal = document.getElementById('vlog-modal');
+      const body = document.getElementById('vlog-modal-body');
+      let last = null;
+      function show(html) {
+        last = document.activeElement;
+        body.innerHTML = html; modal.classList.add('is-open'); document.body.style.overflow = 'hidden';
+        modal.querySelector('.vlog-close').focus();
+        modal.querySelector('.vlog-modal-panel').scrollTop = 0;
+      }
+      function hide() { modal.classList.remove('is-open'); document.body.style.overflow = ''; if (last) last.focus(); }
+      document.addEventListener('click', function (ev) {
+        const b = ev.target.closest('[data-ep]');
+        if (b) {
+          const e = V.episodes[+b.dataset.ep];
+          show('<div class="ep-hero"><img src="' + e.image + '" alt=""><span class="ep-rec label">● REC · Épisode ' + e.num + '</span></div>' +
+               '<span class="label crimson">Voyage dans un Moyen Âge anachronique · Épisode ' + e.num + '</span>' +
+               '<h2 id="vlog-modal-title">' + esc(e.title) + '</h2><div class="script">' + e.html + '</div>');
+          return;
+        }
+        const c = ev.target.closest('[data-cours]');
+        if (c) {
+          const k = V.cours[+c.dataset.cours];
+          show('<span class="label crimson">Cours de François Dubois · ' + esc(k.sub) + '</span><h2 id="vlog-modal-title">' + esc(k.title) + '</h2><div class="script cours">' + k.html + '</div>');
+        }
+      });
+      modal.addEventListener('click', ev => { if (ev.target === modal) hide(); });
+      modal.querySelector('.vlog-close').addEventListener('click', hide);
+      document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && modal.classList.contains('is-open')) hide(); });
+
+      document.querySelectorAll('[data-tab]').forEach(function (t) {
+        t.addEventListener('click', function () {
+          const ep = t.dataset.tab === 'episodes';
+          grid.hidden = !ep; coursList.hidden = ep;
+          document.querySelectorAll('[data-tab]').forEach(x => { x.classList.toggle('is-active', x === t); x.setAttribute('aria-selected', String(x === t)); });
+        });
+      });
+      window.AnnaChronique.applySpoilers(window.AnnaChronique.getLevel());
+    })();
+  </script>
+</body>
+</html>
