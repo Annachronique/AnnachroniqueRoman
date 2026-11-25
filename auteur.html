@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'auteur - AnnaChronique</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="L'auteur de la saga AnnaChronique, et où trouver les livres.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <main>
+    <header class="page-hero">
+      <div class="container split">
+        <div>
+          <span class="label gold reveal">L'auteur</span>
+          <h1 class="reveal">Nicolas <em>Constant</em></h1>
+          <p class="lead reveal">Auteur indépendant de la saga AnnaChronique.</p>
+          <p class="todo reveal">À compléter : présentation de l'auteur, son lien avec le Périgord, ce qui lui a donné l'idée de la saga.</p>
+          <div class="hero-actions reveal" style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1.5rem">
+            <a class="btn" href="#acheter">Acheter le livre</a>
+            <a class="btn btn-ghost" href="#suivre">Suivre la saga</a>
+          </div>
+        </div>
+        <div class="author-portrait reveal" data-delay="0.15">
+          Photo de l'auteur à ajouter<br>assets/auteur.jpg
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="acheter" aria-labelledby="acheter-title" style="scroll-margin-top:var(--header-h)">
+      <div class="container">
+        <span class="label gold reveal">Disponible</span>
+        <h2 id="acheter-title" class="section-title reveal">Exil 1135 · <em>Tome 1, partie 1</em></h2>
+        <div class="split" style="align-items:center;margin-top:1.5rem">
+          <div style="display:flex;justify-content:center;perspective:1400px;padding:1rem 0">
+            <div>
+              <div class="book3d reveal" style="--w:200px;--spine:#3a2814;transform:rotateY(-26deg) rotateX(5deg)">
+                <img class="b3-front" src="assets/couvertures/exil-t1-p1.jpg" alt="Couverture d'AnnaChronique, Exil 1135, tome 1 partie 1">
+                <span class="b3-spine">AnnaChronique</span><span class="b3-pages"></span><span class="b3-back"></span>
+              </div>
+              <div class="book3d-shadow"></div>
+            </div>
+          </div>
+          <p class="lead reveal">Des voyageurs du XXI<sup>e</sup> siècle projetés dans le Périgord de 1135, sans retour possible. Le premier volet de la saga.</p>
+        </div>
+        <div class="buy-grid">
+          <div class="card buy-card reveal">
+            <span class="label cyan">En ligne</span>
+            <h3>Amazon</h3>
+            <p>Version papier, livrée chez vous.</p>
+            <a class="btn" href="https://amzn.eu/d/05ZxwknW" target="_blank" rel="noopener">Commander</a>
+          </div>
+          <div class="card buy-card reveal" data-delay="0.08">
+            <span class="label cyan">Librairies</span>
+            <h3>Plus de 1 000 librairies</h3>
+            <p>Disponible dans plus de 1 000 librairies en Île-de-France. Partout ailleurs, sur simple commande auprès de votre libraire.</p>
+            <span class="todo">ISBN à ajouter</span>
+          </div>
+          <div class="card buy-card reveal" data-delay="0.16">
+            <span class="label cyan">Éditeur</span>
+            <h3>Éditions Maïa</h3>
+            <p>Collection « Entre deux mondes ».</p>
+            <span class="todo">Lien de la page du livre à ajouter</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="suivre" aria-labelledby="suivre-title" style="padding-top:0;scroll-margin-top:var(--header-h)">
+      <div class="container">
+        <div class="card reveal" style="padding:2rem;display:grid;gap:0.7rem;justify-items:start">
+          <span class="label gold">Coulisses</span>
+          <h2 id="suivre-title" class="section-title" style="margin:0">Suivre la saga sur <em>Instagram</em></h2>
+          <p class="lead" style="margin:0">Extraits, visuels des personnages, faux actes de naissance et nouvelles des prochains tomes.</p>
+          <a class="btn btn-ghost" href="https://www.instagram.com/nicolas_constant/" target="_blank" rel="noopener">@nicolas_constant</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lieux &amp; Cartes - AnnaChronique</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="Les cartes interactives du Périgord féodal, de la route d'exil et de Périgueux dans la saga AnnaChronique.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="[suspicious link removed]" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <style>
+    /* ================= TEINTES CHAUDES : CUIR, CHÊNE & MORDORÉ ================= */
+    .places-container {
+      margin-bottom: 4rem;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    /* Onglets de sélection des 3 cartes */
+    .map-tabs-nav {
+      display: flex;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .map-tab-btn {
+      padding: 0.9rem 1.5rem;
+      background: linear-gradient(180deg, #dfc8a5 0%, #d1b58f 100%); /* Marron chaud caramel */
+      border: 1px solid #9f753e;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #2b1708;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(54, 30, 8, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .map-tab-btn:hover {
+      background: linear-gradient(180deg, #e8d3b3 0%, #dbbe97 100%);
+      border-color: #825a27;
+      transform: translateY(-2px);
+    }
+    .map-tab-btn.active {
+      background: linear-gradient(180deg, #241407 0%, #1a0e04 100%);
+      color: #faebd7;
+      border-color: #d4a366;
+      box-shadow: 0 10px 28px rgba(36, 20, 7, 0.4), 0 0 14px rgba(212, 163, 102, 0.25);
+    }
+    .map-tab-btn.active .tab-icon {
+      color: var(--cyan, #38bdf8);
+    }
+
+    /* Grille principale */
+    .map-grid-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .map-grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cadre de la carte : Cuir chamoisé chaud & reliefs */
+    .map-card-wrapper {
+      background: linear-gradient(145deg, #dfc8a5 0%, #cfb38b 100%);
+      border: 1px solid #9e733b;
+      border-radius: 14px;
+      padding: 1.1rem;
+      box-shadow: 0 18px 45px rgba(50, 27, 8, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .map-frame-box {
+      width: 100%;
+      background: #f1e4ce; /* Fond parchemin chaud éclairé */
+      border: 2px solid #9e733b;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 3px 12px rgba(60, 35, 10, 0.25);
+    }
+    .map-svg-canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Système anti-spoiler */
+    .spoiler-lock-layer {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(219, 195, 160, 0.94);
+      backdrop-filter: blur(12px);
+      z-index: 25;
+      padding: 2.5rem;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .map-card-wrapper.is-locked .spoiler-lock-layer {
+      display: flex;
+    }
+    .map-card-wrapper.is-locked .map-frame-box {
+      filter: blur(10px);
+      user-select: none;
+      pointer-events: none;
+    }
+    .lock-shield-btn {
+      margin-top: 1.3rem;
+      padding: 0.85rem 1.8rem;
+      background: #73370a;
+      color: #fff;
+      border: 1px solid #d4a366;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(115, 55, 10, 0.35);
+      transition: all 0.2s ease;
+    }
+    .lock-shield-btn:hover {
+      background: #542705;
+      border-color: #f59e0b;
+      transform: translateY(-1px);
+    }
+
+    /* Cadre descriptif (Pupitre à droite) */
+    .place-detail-panel {
+      background: linear-gradient(145deg, #dfc8a5 0%, #cfb38b 100%);
+      border: 1px solid #9e733b;
+      border-radius: 14px;
+      padding: 2.2rem;
+      box-shadow: 0 18px 45px rgba(50, 27, 8, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      position: sticky;
+      top: 90px;
+    }
+    .place-detail-panel .place-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: #7a3908;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+    .place-detail-panel h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1a0f05;
+      margin: 0 0 1.2rem;
+      letter-spacing: -0.02em;
+    }
+    .place-detail-panel h4.label-section {
+      color: #0284c7 !important;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin: 1.3rem 0 0.4rem;
+      display: block;
+    }
+    .place-detail-panel p {
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: #2e1a0b;
+      margin: 0 0 1rem;
+    }
+    .place-img-holder {
+      margin-top: 1.5rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #9e733b;
+      background: #170d06;
+      height: 220px;
+      display: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+    .place-img-holder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Style stable des marqueurs (sans vibration) */
+    .map-point {
+      cursor: pointer;
+    }
+    .map-point circle.pin {
+      stroke: #ffffff;
+      stroke-width: 2.2px;
+      transition: r 0.2s ease, stroke 0.2s ease, fill 0.2s ease;
+    }
+    .map-point:hover circle.pin {
+      r: 10px;
+      stroke: #d4a366;
+      stroke-width: 3px;
+    }
+    .map-point text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      fill: #221206;
+      pointer-events: none;
+    }
+    .map-point.active circle.pin {
+      r: 10px;
+      stroke: #0284c7;
+      stroke-width: 3.5px;
+      fill: #0284c7;
+    }
+    .map-point.active text {
+      font-weight: 800;
+      fill: #0284c7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ EN-TÊTE / HERO ============ -->
+  <main>
+    <header class="page-hero">
+      <div class="container">
+        <span class="label gold reveal">Atlas &amp; Territoires</span>
+        <h1 class="reveal">Les Lieux de la <em>Saga</em></h1>
+        <p class="lead reveal">
+          Explorez les 3 théâtres géographiques d'AnnaChronique : Saint-Marcel, la grande route d'exil et les deux visages de Périgueux.
+        </p>
+      </div>
+    </header>
+
+    <div class="container places-container">
+      
+      <!-- ============ SOUS-ONGLETS DES 3 CARTES ============ -->
+      <nav class="map-tabs-nav" aria-label="Choisir une carte">
+        <button type="button" class="map-tab-btn active" data-map="saint-marcel">
+          <span class="tab-icon">📍</span> Saint-Marcel et alentours (Tome 1 &amp; 2)
+        </button>
+        <button type="button" class="map-tab-btn" data-map="hilaire">
+          <span class="tab-icon">🗺️</span> La route de Saint-Hilaire (Tome 3)
+        </button>
+        <button type="button" class="map-tab-btn" data-map="perigueux">
+          <span class="tab-icon">🏰</span> Périgueux : Cité &amp; Saint-Front (Mathilde)
+        </button>
+      </nav>
+
+      <!-- ============ GRILLE PRINCIPALE (CARTE + DÉTAIL) ============ -->
+      <div class="map-grid-layout">
+        
+        <!-- CARTE SVG INTERACTIVE -->
+        <div class="map-card-wrapper" id="mapCard">
+          
+          <!-- Voile anti-spoiler si verrouillé -->
+          <div class="spoiler-lock-layer" id="mapSpoilerLayer">
+            <span style="font-size: 2.4rem; margin-bottom: 0.5rem;">🔒</span>
+            <h3 style="font-size: 1.45rem; color: #542705; margin: 0 0 0.5rem;" id="lockTitle">Carte protégée</h3>
+            <p style="color: #381802; max-width: 440px; font-size: 0.95rem; line-height: 1.6; margin: 0;" id="lockDesc">
+              Cette carte révèle des étapes et des tournants majeurs du récit.
+            </p>
+            <button type="button" class="lock-shield-btn" id="btnUnlockMap">
+              Afficher la carte (Révéler)
+            </button>
+          </div>
+
+          <!-- Affichage du SVG injecté -->
+          <div class="map-frame-box" id="mapSvgContainer"></div>
+
+        </div>
+
+        <!-- CADRE DESCRIPTIF DU LIEU SÉLECTIONNÉ -->
+        <aside class="place-detail-panel" id="placeDetailPanel">
+          <span class="place-tag" id="placeTag">Lieu clé</span>
+          <h2 id="placeName">Sélectionnez un point</h2>
+          
+          <div>
+            <h4 class="label-section">AU XII<sup>e</sup> SIÈCLE</h4>
+            <p id="placeHistory"></p>
+          </div>
+
+          <div>
+            <h4 class="label-section">DANS LE ROMAN</h4>
+            <div id="placeRomanContainer">
+              <p id="placeRoman"></p>
+            </div>
+          </div>
+
+          <!-- Image optionnelle -->
+          <div class="place-img-holder" id="placeImgHolder">
+            <img id="placeImg" src="" alt="">
+          </div>
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      // DÉFINITION COMMUNE DES MOTIFS PARCHEMIN & ENLUMINURES
+      const COMMON_DEFS = `
+        <defs>
+          <!-- Texture de vélin / croisillons anciens -->
+          <pattern id="vellumGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#e0cfae" stroke-width="0.6" opacity="0.6"/>
+            <circle cx="15" cy="15" r="0.8" fill="#cbb38e" opacity="0.5"/>
+          </pattern>
+          <!-- Stylisation de petit arbre médiéval pour les forêts -->
+          <g id="treeSymbol">
+            <path d="M0,0 C-4,-4 -4,-9 0,-13 C4,-9 4,-4 0,0" fill="#a48a5c" opacity="0.45"/>
+            <line x1="0" y1="0" x2="0" y2="2" stroke="#684f28" stroke-width="0.8"/>
+          </g>
+          <!-- Colline d'enluminure -->
+          <g id="hillSymbol">
+            <path d="M-15,0 C-10,-9 10,-9 15,0 Z" fill="#dfcb9e" stroke="#ab8e58" stroke-width="0.8" opacity="0.5"/>
+          </g>
+        </defs>
+      `;
+
+      // 1. DONNÉES GÉOGRAPHIQUES DES 3 CARTES AVEC ILLUSTRATIONS DE FOND
+      const MAPS_DATA = {
+        'saint-marcel': {
+          title: "Saint-Marcel et alentours",
+          tomeRequired: 1,
+          lockMsg: "",
+          svg: `
+            <svg class="map-svg-canvas" viewBox="0 0 600 420">
+              ${COMMON_DEFS}
+              <!-- Fond Parchemin chaud enluminé -->
+              <rect width="600" height="420" fill="#f3e7ce"/>
+              <rect width="600" height="420" fill="url(#vellumGrid)"/>
+              
+              <!-- Double encadrement médiéval -->
+              <rect x="8" y="8" width="584" height="404" fill="none" stroke="#9e733b" stroke-width="2"/>
+              <rect x="13" y="13" width="574" height="394" fill="none" stroke="#d4b483" stroke-width="0.8"/>
+
+              <!-- Reliefs : Collines du Périgord Vert -->
+              <use href="#hillSymbol" x="120" y="90" transform="scale(1.4)"/>
+              <use href="#hillSymbol" x="155" y="95"/>
+              <use href="#hillSymbol" x="350" y="80" transform="scale(1.2)"/>
+              <use href="#hillSymbol" x="390" y="85"/>
+              <use href="#hillSymbol" x="220" y="340" transform="scale(1.3)"/>
+              <use href="#hillSymbol" x="480" y="320"/>
+
+              <!-- Boisement : Forêt des Genêts & coteaux boisés -->
+              <g transform="translate(130, 180)">
+                <use href="#treeSymbol" x="0" y="0"/>
+                <use href="#treeSymbol" x="12" y="-6"/>
+                <use href="#treeSymbol" x="24" y="2"/>
+                <use href="#treeSymbol" x="-10" y="8"/>
+                <use href="#treeSymbol" x="14" y="14"/>
+                <use href="#treeSymbol" x="32" y="12"/>
+                <text x="-15" y="32" font-family="'EB Garamond', serif" font-style="italic" font-size="11" fill="#7d6741">Forêt des Genêts</text>
+              </g>
+              <g transform="translate(420, 220)">
+                <use href="#treeSymbol" x="0" y="0"/>
+                <use href="#treeSymbol" x="14" y="-4"/>
+                <use href="#treeSymbol" x="8" y="10"/>
+              </g>
+
+              <!-- Rose des vents discrète -->
+              <g transform="translate(60, 55)" opacity="0.45">
+                <circle cx="0" cy="0" r="22" fill="none" stroke="#9e733b" stroke-width="0.8"/>
+                <path d="M0,-20 L4,-5 L18,0 L4,5 L0,20 L-4,5 L-18,0 L-4,-5 Z" fill="#9e733b"/>
+                <text x="-4" y="-24" font-family="'Cinzel', serif" font-weight="700" font-size="10" fill="#684f28">N</text>
+              </g>
+
+              <!-- Rivière la Dronne bordée de berges douces -->
+              <path d="M 580,90 C 450,110 380,140 300,160 C 220,180 140,240 30,280" fill="none" stroke="#d5c19d" stroke-width="12" stroke-linecap="round"/>
+              <path d="M 580,90 C 450,110 380,140 300,160 C 220,180 140,240 30,280" fill="none" stroke="#0284c7" stroke-width="6.5" opacity="0.85" stroke-linecap="round"/>
+              <text x="490" y="105" font-family="'EB Garamond', serif" font-style="italic" font-size="16" fill="#0369a1" font-weight="600">la Dronne</text>
+              
+              <!-- Points d'intérêt -->
+              <g class="map-point active" data-id="saint-marcel" transform="translate(290, 150)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Saint-Marcel</text>
+              </g>
+              <g class="map-point" data-id="genets" transform="translate(180, 200)">
+                <circle class="pin" r="8" fill="#b45309"/>
+                <text x="14" y="5">La Faille (Genêts)</text>
+              </g>
+              <g class="map-point" data-id="paussac" transform="translate(370, 130)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Paussac</text>
+              </g>
+              <g class="map-point" data-id="bourdeilles" transform="translate(480, 160)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Bourdeilles</text>
+              </g>
+              <g class="map-point" data-id="bergerie" transform="translate(260, 260)">
+                <circle class="pin" r="8" fill="#b45309"/>
+                <text x="14" y="5">Bergerie de Jean (Cercles)</text>
+              </g>
+              <g class="map-point" data-id="riberac" transform="translate(80, 310)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Ribérac</text>
+              </g>
+            </svg>
+          `,
+          places: {
+            'saint-marcel': {
+              name: "Saint-Marcel-sur-Dronne",
+              tag: "Bourg seigneurial · Cœur du roman",
+              history: "Humble village blotti dans une boucle de la Dronne, sous la suzeraineté de la châtellenie de Paussac.",
+              roman: "Le refuge des exilés en 1135. Maxime y bâtit le filtre à eau, le bief et le moulin. C'est là que réside Dame Isabelle au manoir.",
+              img: "assets/scenes/saint-marcel.jpg"
+            },
+            'genets': {
+              name: "La Forêt des Genêts",
+              tag: "Lieu du roman · La Faille",
+              history: "Zone forestière dense et marécageuse de la vallée de la Dronne.",
+              roman: "C'est ici qu'en juillet 2023, la faille temporelle précipite la famille Dubois et ses compagnons dans les eaux de 1135.",
+              img: "assets/scenes/arrivee-dronne.jpg"
+            },
+            'paussac': {
+              name: "Paussac",
+              tag: "Commanderie & Terres de pierre",
+              history: "Fief réputé pour ses carrières de calcaire et ses forêts giboyeuses.",
+              roman: "Propriété de Dame Isabelle. Maxime y passe des semaines pour renforcer la maison forte et superviser les chantiers.",
+              img: ""
+            },
+            'bourdeilles': {
+              name: "Forteresse de Bourdeilles",
+              tag: "Baronnie du Périgord",
+              history: "L'une des quatre grandes baronnies du Périgord, sentinelle féodale dominant la rivière.",
+              roman: "Le fief du redoutable Baron Géraud. Maxime y conçoit un trébuchet à contrepoids pour acheter la paix et des renforts.",
+              img: ""
+            },
+            'bergerie': {
+              name: "La Bergerie de Jean (Cercles)",
+              tag: "Terroir & Économie",
+              history: "Hameau pastoral réputé pour ses pâturages et l'élevage caprin.",
+              roman: "C'est ici que Pierre s'associe au paysan Jean pour perfectionner la recette et l'affinage du Cabécou de Saint-Marcel.",
+              img: "assets/scenes/bergerie-jean.jpg"
+            },
+            'riberac': {
+              name: "Ribérac",
+              tag: "Bourg commercial",
+              history: "Bourgade marchande dotée d'une place de marché franc très active.",
+              roman: "Le vicomte Raoul y rassemble ses mercenaires. Jean-Marc y fait bouillir l'eau avec du thym pour sauver des enfants malades.",
+              img: ""
+            }
+          }
+        },
+
+        'hilaire': {
+          title: "La route de Saint-Hilaire (Tome 3)",
+          tomeRequired: 3,
+          lockMsg: "Cette carte retrace le périple de 700 km à travers le royaume de France jusqu'au portail de retour.",
+          svg: `
+            <svg class="map-svg-canvas" viewBox="0 0 600 420">
+              ${COMMON_DEFS}
+              <rect width="600" height="420" fill="#f3e7ce"/>
+              <rect width="600" height="420" fill="url(#vellumGrid)"/>
+              
+              <!-- Double encadrement -->
+              <rect x="8" y="8" width="584" height="404" fill="none" stroke="#9e733b" stroke-width="2"/>
+              <rect x="13" y="13" width="574" height="394" fill="none" stroke="#d4b483" stroke-width="0.8"/>
+
+              <!-- Reliefs des provinces traversées : Limousin, Morvan, plateau de Langres -->
+              <use href="#hillSymbol" x="180" y="320" transform="scale(1.5)"/>
+              <use href="#hillSymbol" x="220" y="330"/>
+              <use href="#hillSymbol" x="370" y="190" transform="scale(1.6)"/>
+              <use href="#hillSymbol" x="460" y="160" transform="scale(1.4)"/>
+              <use href="#hillSymbol" x="500" y="130"/>
+
+              <!-- Arbres d'itinéraires -->
+              <g transform="translate(260, 240)">
+                <use href="#treeSymbol" x="0" y="0"/>
+                <use href="#treeSymbol" x="12" y="4"/>
+              </g>
+              <g transform="translate(420, 120)">
+                <use href="#treeSymbol" x="0" y="0"/>
+                <use href="#treeSymbol" x="10" y="-8"/>
+                <use href="#treeSymbol" x="16" y="6"/>
+              </g>
+
+              <!-- Rose des vents -->
+              <g transform="translate(540, 60)" opacity="0.45">
+                <circle cx="0" cy="0" r="22" fill="none" stroke="#9e733b" stroke-width="0.8"/>
+                <path d="M0,-20 L4,-5 L18,0 L4,5 L0,20 L-4,5 L-18,0 L-4,-5 Z" fill="#9e733b"/>
+                <text x="-4" y="-24" font-family="'Cinzel', serif" font-weight="700" font-size="10" fill="#684f28">N</text>
+              </g>
+
+              <!-- Fleuves principaux esquissés (la Loire et la Seine) -->
+              <path d="M 240,240 Q 280,180 340,160" fill="none" stroke="#0284c7" stroke-width="2" opacity="0.4" stroke-dasharray="4,2"/>
+              <text x="310" y="150" font-family="'EB Garamond', serif" font-style="italic" font-size="10" fill="#0284c7" opacity="0.6">la Loire</text>
+
+              <!-- Grande route d'exil -->
+              <path d="M 60,360 L 120,330 L 170,290 L 230,280 L 290,200 L 370,160 L 440,140 L 520,70" fill="none" stroke="#7a3908" stroke-width="3.5" stroke-dasharray="7,5" stroke-linecap="round"/>
+              
+              <!-- Villes et étapes -->
+              <g class="map-point active" data-id="h-perigueux" transform="translate(60, 360)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="-10" y="20" text-anchor="middle">Départ : Périgueux</text>
+              </g>
+              <g class="map-point" data-id="h-tulle" transform="translate(130, 330)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Tulle (Abbatiale)</text>
+              </g>
+              <g class="map-point" data-id="h-limoges" transform="translate(170, 280)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Limoges</text>
+              </g>
+              <g class="map-point" data-id="h-souterraine" transform="translate(230, 270)">
+                <circle class="pin" r="8" fill="#b91c1c"/>
+                <text x="14" y="-8">La Souterraine</text>
+              </g>
+              <g class="map-point" data-id="h-bourges" transform="translate(300, 195)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Bourges</text>
+              </g>
+              <g class="map-point" data-id="h-dijon" transform="translate(390, 150)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Dijon &amp; Auxois</text>
+              </g>
+              <g class="map-point" data-id="h-langres" transform="translate(450, 130)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="-8">Langres</text>
+              </g>
+              <g class="map-point" data-id="h-soulaucourt" transform="translate(530, 70)">
+                <circle class="pin" r="9" fill="#0284c7"/>
+                <text x="-15" y="-12" text-anchor="end">Soulaucourt (Portail)</text>
+              </g>
+            </svg>
+          `,
+          places: {
+            'h-perigueux': {
+              name: "Périgueux (Le Départ)",
+              tag: "Point de départ d'Exil",
+              history: "Cité épiscopale et passage obligé avant les forêts limousines.",
+              roman: "Après la nuit dramatique de Saint-Marcel, les survivants fuient Périgueux à l'aube pour entamer leur voyage de 700 km.",
+              img: ""
+            },
+            'h-tulle': {
+              name: "L'Abbaye de Tulle",
+              tag: "Étape en Corrèze",
+              history: "Grande abbaye bénédictine dirigée par le bâtisseur énergique Ebble de Tulle.",
+              roman: "L'abbé Ebble s'enferme avec Maxime, fasciné par ses calculs de structure qui modifient les plans de son église romane.",
+              img: ""
+            },
+            'h-limoges': {
+              name: "Limoges (Les Émailleurs)",
+              tag: "Carrefour du Limousin",
+              history: "Cité puissante réputée pour ses orfèvres et l'abbaye Saint-Martial.",
+              roman: "Maxime souffle à un artisan local l'idée de l'émail champlevé sur cuivre, faisant de lui sans le savoir le pionnier de l'émail limousin.",
+              img: ""
+            },
+            'h-souterraine': {
+              name: "La Souterraine",
+              tag: "Lieu du Drame",
+              history: "Halte majeure sur la route de pèlerinage vers Saint-Jacques.",
+              roman: "Le lieu tragique où Jean-Marc est assassiné par Garin de Rochefort, qui lui dérobe sa montre suisse.",
+              img: ""
+            },
+            'h-bourges': {
+              name: "Bourges",
+              tag: "Cité Royale du Berry",
+              history: "Porte d'entrée du domaine royal des Capétiens.",
+              roman: "Les fugitifs doivent s'y faire discrets dans la ville basse pour échapper aux sergents royaux de Louis VI.",
+              img: ""
+            },
+            'h-dijon': {
+              name: "Dijon & l'Auxois",
+              tag: "Duché de Bourgogne",
+              history: "Capitale des Ducs de Bourgogne et carrefour stratégique vers l'Est.",
+              roman: "Le groupe traverse Pouilly-en-Auxois et Dijon pour acheter des vivres et éviter les péages féodaux.",
+              img: ""
+            },
+            'h-langres': {
+              name: "Le Plateau de Langres",
+              tag: "Terres d'Empire",
+              history: "Plateau venteux et austère, frontière entre la France et la Lorraine impériale.",
+              roman: "Les exilés luttent contre le froid et la faim, guidés par les relevés géophysiques légués par Jean-Marc.",
+              img: ""
+            },
+            'h-soulaucourt': {
+              name: "Hilairemont & Soulaucourt-sur-Mouzon",
+              tag: "Le Portail de retour",
+              history: "Forteresse de la Mothe-Hilairemont aux confins des Vosges et de la Lorraine.",
+              roman: "Le second vortex temporel ! C'est ici que s'ouvre le portail de retour vers le XXIᵉ siècle.",
+              img: ""
+            }
+          }
+        },
+
+        'perigueux': {
+          title: "Périgueux : La Cité & Le Puy-Saint-Front",
+          tomeRequired: 4,
+          lockMsg: "Cette carte dévoile la topographie urbaine de Périgueux, les tanneries et le domaine secret de Bassillac.",
+          svg: `
+            <svg class="map-svg-canvas" viewBox="0 0 600 420">
+              ${COMMON_DEFS}
+              <rect width="600" height="420" fill="#f3e7ce"/>
+              <rect width="600" height="420" fill="url(#vellumGrid)"/>
+              
+              <!-- Double encadrement -->
+              <rect x="8" y="8" width="584" height="404" fill="none" stroke="#9e733b" stroke-width="2"/>
+              <rect x="13" y="13" width="574" height="394" fill="none" stroke="#d4b483" stroke-width="0.8"/>
+
+              <!-- Rivière l'Isle avec reflets -->
+              <path d="M 30,340 C 180,310 320,330 450,260 C 520,220 560,140 590,90" fill="none" stroke="#d5c19d" stroke-width="14" stroke-linecap="round"/>
+              <path d="M 30,340 C 180,310 320,330 450,260 C 520,220 560,140 590,90" fill="none" stroke="#0284c7" stroke-width="7.5" opacity="0.8" stroke-linecap="round"/>
+              <text x="350" y="325" font-family="'EB Garamond', serif" font-style="italic" font-size="16" fill="#0369a1" font-weight="600">l'Isle</text>
+              
+              <!-- Remparts & Murailles de la Cité -->
+              <rect x="70" y="70" width="180" height="150" rx="10" fill="#e4d3b6" stroke="#9e733b" stroke-width="2"/>
+              <rect x="75" y="75" width="170" height="140" rx="6" fill="none" stroke="#7a3908" stroke-dasharray="5,3" stroke-width="1" opacity="0.7"/>
+              <text x="160" y="98" text-anchor="middle" font-weight="800" font-size="12" fill="#542705">LA CITÉ (Comtale &amp; Épiscopale)</text>
+              
+              <!-- Bourg marchand du Puy-Saint-Front -->
+              <rect x="320" y="100" width="220" height="170" rx="10" fill="#e4d3b6" stroke="#0284c7" stroke-width="2"/>
+              <text x="430" y="125" text-anchor="middle" font-weight="800" font-size="12" fill="#0369a1">LE PUY-SAINT-FRONT (Marchand)</text>
+
+              <!-- Coteaux de Bassillac à l'Est -->
+              <g transform="translate(510, 310)">
+                <use href="#hillSymbol" x="0" y="0" transform="scale(1.3)"/>
+                <use href="#treeSymbol" x="-8" y="-10"/>
+                <use href="#treeSymbol" x="12" y="-5"/>
+              </g>
+
+              <!-- Points d'intérêt -->
+              <g class="map-point" data-id="p-barriere" transform="translate(130, 140)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Château Barrière</text>
+              </g>
+              <g class="map-point" data-id="p-etienne" transform="translate(180, 180)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Cathédrale Saint-Étienne</text>
+              </g>
+              <g class="map-point active" data-id="p-front" transform="translate(420, 165)">
+                <circle class="pin" r="9" fill="#0284c7"/>
+                <text x="14" y="5">Abbatiale Saint-Front</text>
+              </g>
+              <g class="map-point" data-id="p-tanneries" transform="translate(370, 230)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">Tanneries de l'Isle &amp; Hôtel Jullian</text>
+              </g>
+              <g class="map-point" data-id="p-hospice" transform="translate(470, 210)">
+                <circle class="pin" r="8" fill="#7a3908"/>
+                <text x="14" y="5">L'Hospice des Pèlerins</text>
+              </g>
+              <g class="map-point" data-id="p-bassillac" transform="translate(530, 360)">
+                <circle class="pin" r="8" fill="#b45309"/>
+                <text x="-14" y="5" text-anchor="end">Domaine de Bassillac (Sanctuaire)</text>
+              </g>
+            </svg>
+          `,
+          places: {
+            'p-front': {
+              name: "L'Abbatiale Saint-Front",
+              tag: "Cœur spirituel & Chantier byzantin",
+              history: "Chef-d'œuvre à cinq coupoles blanches en cours d'édification au XIIe siècle.",
+              roman: "Mathilde et son fils Joullan y assistent aux chantiers. C'est sous ces coupoles que sera gravée la célèbre inscription clandestine « ANNE 2023 ».",
+              img: ""
+            },
+            'p-tanneries': {
+              name: "Tanneries de l'Isle & Hôtel Jullian",
+              tag: "Fief bourgeois des Jullian",
+              history: "Bord de rivière abritant les artisans du cuir et les foulons.",
+              roman: "Le cœur économique de Mathilde et de Lily. Grâce aux formules de tannage à l'alun du Carnet, la famille y bâtit sa fortune.",
+              img: ""
+            },
+            'p-barriere': {
+              name: "Château Barrière & Remparts de la Cité",
+              tag: "Bastion aristocratique de Raoul",
+              history: "Forteresse féodale appuyée sur l'ancienne muraille gallo-romaine de Vesunna.",
+              roman: "Le repaire du Vicomte Raoul. Julien y a vécu otage, et c'est là que les barons toisent avec mépris les bourgeois du Puy.",
+              img: ""
+            },
+            'p-etienne': {
+              name: "Cathédrale Saint-Étienne-de-la-Cité",
+              tag: "Siège de l'Évêque",
+              history: "Première cathédrale romane de Périgueux, austère et militaire.",
+              roman: "L'église du pouvoir comtal et des grandes familles nobles de la Cité.",
+              img: ""
+            },
+            'p-hospice': {
+              name: "L'Hospice des Pèlerins",
+              tag: "Refuge de misère",
+              history: "Hospice accueillant les pèlerins cheminant vers Compostelle.",
+              roman: "C'est là que Mathilde échoue en novembre après la destruction de Saint-Marcel, trouvant la force de survivre grâce à Frère Thomas.",
+              img: ""
+            },
+            'p-bassillac': {
+              name: "Le Domaine de Bassillac",
+              tag: "Sanctuaire secret de la lignée",
+              history: "Vaste domaine agricole et viticole à l'est de Périgueux.",
+              roman: "La propriété secrète acquise par les Jullian, abritant le sanatorium et la porte hydraulique dissimulant le manuscrit de Pèir.",
+              img: ""
+            }
+          }
+        }
+      };
+
+      // 2. NIVEAU DE LECTURE DU LECTEUR
+      function getUserTomeLevel() {
+        try {
+          const val = localStorage.getItem('ac_reading_tome') || 
+                      localStorage.getItem('ac_tome') || 
+                      localStorage.getItem('anna_tome') ||
+                      localStorage.getItem('spoiler_level');
+          if (val === 'all' || val === '0' || val === 'tous') return 99;
+          if (val) {
+            const parsed = parseInt(val, 10);
+            return isNaN(parsed) ? 1 : parsed;
+          }
+        } catch(e) {}
+        return 1;
+      }
+
+      let currentMapKey = 'saint-marcel';
+      let manualUnlocked = {
+        'saint-marcel': true,
+        'hilaire': false,
+        'perigueux': false
+      };
+
+      const mapCard = document.getElementById('mapCard');
+      const mapContainer = document.getElementById('mapSvgContainer');
+      const spoilerLayer = document.getElementById('mapSpoilerLayer');
+      const lockTitle = document.getElementById('lockTitle');
+      const lockDesc = document.getElementById('lockDesc');
+      const btnUnlock = document.getElementById('btnUnlockMap');
+
+      const placeTag = document.getElementById('placeTag');
+      const placeName = document.getElementById('placeName');
+      const placeHistory = document.getElementById('placeHistory');
+      const placeRoman = document.getElementById('placeRoman');
+      const placeImgHolder = document.getElementById('placeImgHolder');
+      const placeImg = document.getElementById('placeImg');
+
+      // 3. SÉLECTION D'UN LIEU
+      function selectPlace(placeKey) {
+        const mapData = MAPS_DATA[currentMapKey];
+        if (!mapData || !mapData.places[placeKey]) return;
+
+        const p = mapData.places[placeKey];
+        placeTag.textContent = p.tag;
+        placeName.textContent = p.name;
+        placeHistory.textContent = p.history;
+        placeRoman.textContent = p.roman;
+
+        if (p.img && p.img.trim() !== '') {
+          placeImg.src = p.img;
+          placeImgHolder.style.display = 'block';
+        } else {
+          placeImgHolder.style.display = 'none';
+        }
+
+        const pins = mapContainer.querySelectorAll('.map-point');
+        pins.forEach(pin => {
+          if (pin.getAttribute('data-id') === placeKey) pin.classList.add('active');
+          else pin.classList.remove('active');
+        });
+      }
+
+      // 4. CHARGEMENT D'UNE CARTE
+      function loadMap(mapKey) {
+        currentMapKey = mapKey;
+        const mapData = MAPS_DATA[mapKey];
+        const userLevel = getUserTomeLevel();
+
+        const isLocked = (mapData.tomeRequired > userLevel) && !manualUnlocked[mapKey];
+
+        if (isLocked) {
+          mapCard.classList.add('is-locked');
+          lockTitle.textContent = mapData.title + ' (Protégé)';
+          lockDesc.textContent = mapData.lockMsg;
+        } else {
+          mapCard.classList.remove('is-locked');
+        }
+
+        mapContainer.innerHTML = mapData.svg;
+
+        document.querySelectorAll('.map-tab-btn').forEach(btn => {
+          if (btn.getAttribute('data-map') === mapKey) btn.classList.add('active');
+          else btn.classList.remove('active');
+        });
+
+        mapContainer.querySelectorAll('.map-point').forEach(pin => {
+          pin.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            selectPlace(id);
+          });
+        });
+
+        const firstPlaceKey = Object.keys(mapData.places);
+        selectPlace(firstPlaceKey);
+      }
+
+      // Déverrouillage manuel
+      btnUnlock.addEventListener('click', function () {
+        manualUnlocked[currentMapKey] = true;
+        mapCard.classList.remove('is-locked');
+      });
+
+      // Clics sur onglets
+      document.querySelectorAll('.map-tab-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const key = this.getAttribute('data-map');
+          loadMap(key);
+        });
+      });
+
+      // Écoute du sélecteur universel
+      window.addEventListener('storage', function () {
+        loadMap(currentMapKey);
+      });
+      document.addEventListener('spoilerChange', function () {
+        loadMap(currentMapKey);
+      });
+
+      // Init
+      loadMap('saint-marcel');
+    })();
+  </script>
+</body>
+</html>

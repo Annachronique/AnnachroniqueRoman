@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Objets - L'inventaire - AnnaChronique</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="L'inventaire d'AnnaChronique : les objets inventés ou rapportés par les voyageurs, et les objets du Moyen Âge expliqués et illustrés.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Oswald:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/objets.css">
+</head>
+<body>
+  <main>
+    <header class="page-hero">
+      <div class="container">
+        <span class="label gold reveal">Le cabinet des objets</span>
+        <h1 class="reveal">L'<em>inventaire</em></h1>
+        <p class="lead reveal">Ce que les voyageurs ont inventé ou rapporté du XXI<sup>e</sup> siècle, et les objets de 1135 que tu ne connais peut-être pas. Clique sur un objet pour sa fiche.</p>
+      </div>
+    </header>
+
+    <section class="container" aria-label="Inventaire">
+      <div class="obj-tools">
+        <div class="filters" role="group" aria-label="Filtrer les objets">
+          <button type="button" class="chip is-active" data-objcat="all">Tout</button>
+          <button type="button" class="chip" data-objcat="voyageurs">Inventé par les voyageurs</button>
+          <button type="button" class="chip" data-objcat="xxie">Rapporté du XXI<sup>e</sup> siècle</button>
+          <button type="button" class="chip" data-objcat="moyenage">Objets du Moyen Âge</button>
+        </div>
+        <label class="search search-obj">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span class="visually-hidden">Chercher un objet</span>
+          <input type="search" id="obj-search" placeholder="Chercher un objet" autocomplete="off">
+        </label>
+      </div>
+      <div class="obj-grid" id="obj-grid"></div>
+      <p class="obj-empty" id="obj-empty">Aucun objet trouvé.</p>
+    </section>
+
+    <div class="obj-modal" id="obj-modal" role="dialog" aria-modal="true" aria-labelledby="obj-modal-title">
+      <div class="obj-modal-panel">
+        <button type="button" class="pill-btn obj-close">Fermer</button>
+        <div id="obj-modal-body" class="obj-modal-body"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/objets.js"></script>
+</body>
+</html>

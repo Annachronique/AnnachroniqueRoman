@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>Raoul le Jeune - Fiche personnage · AnnaChronique</title>
+  <link rel="icon" href="assets/favicon.png">
+  <meta name="description" content="Fiche dossier de Raoul de Périgueux, dit Raoul le Jeune, personnage de la saga AnnaChronique.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Oswald:wght@500;600&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* Nocturne foundation: Prussian midnight tiers */
+      --background: #15100b;
+      --surface-container-low: #1d160f;
+      --surface-container: #261c13;
+      --surface-container-high: #33261a;
+
+      /* Text on midnight */
+      --on-surface: #f4ebd9;
+      --on-surface-variant: #c9b48f;
+
+      /* Borders & rules */
+      --outline: #7a5e3c;
+      --outline-variant: #3e2f20;
+
+      /* Annachronique palette: antique gold, gilded bronze, luminous cyan, carmine crimson, warm parchment */
+      --primary: #e5b454;              /* Or antique */
+      --on-primary: #15100b;
+      --primary-container: #2e2414;
+      --on-primary-container: #f8dfa5;
+      --bronze: #a87632;               /* Bronze doré */
+      --bronze-soft: #c9974c;
+      --secondary: #8f7a5c;
+      --tertiary: #47d7f5;             /* Cyan lumineux */
+      --tertiary-soft: #8ae7fa;
+      --crimson: #b81d2c;              /* Rouge carmin */
+      --crimson-bright: #e03c4b;
+      --crimson-text-dark: #ff7a85;
+      --on-crimson: #fff4f5;
+
+      /* Warm parchment dossier sheet colors */
+      --parchment: #f4ead4;
+      --parchment-high: #faf3e3;
+      --parchment-deep: #e6d6b5;
+      --parchment-rule: #bfa982;
+      --parchment-ink: #1a1714;
+      --parchment-ink-muted: #4c4235;
+      --parchment-gold-ink: #6e480e;
+      --parchment-cyan-ink: #0b566e;
+      --parchment-crimson-ink: #961423;
+      --parchment-midnight-ink: #102547;
+
+      /* Semantic & focus */
+      --positive: #3fd19a;
+      --warning: #e5b454;
+      --error: #f27474;
+      --on-error: #1a0606;
+      --focus: #47d7f5;
+
+      /* Data & SVG portrait / anatomy palette tokens */
+      --data-1: #e5b454;
+      --data-2: #47d7f5;
+      --data-3: #3fd19a;
+      --data-4: #e03c4b;
+      --data-context: #6a5a44;
+
+      --svg-midnight-deep: #0f0b07;
+      --svg-skin-young: #e2b896;
+      --svg-skin-shadow: #c28e6a;
+      --svg-skin-aged: #d0baa2;
+      --svg-skin-aged-shadow: #9d856d;
+      --svg-hair-dark: #1d1a1c;
+      --svg-hair-gray: #b9b5ae;
+      --svg-steel: #78889e;
+      --svg-steel-light: #b6c4d6;
+      --svg-oak: #3d281a;
+      --svg-cloak-worn: #272b38;
+      --svg-crimson-worn: #701e26;
+      --svg-bone: #ede2cc;
+      --svg-bone-shadow: #bfa882;
+      --svg-tendon: #d68b7a;
+
+      /* Typography */
+      --font-headline: 'EB Garamond', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-label: 'JetBrains Mono', monospace;
+
+      --display-size: clamp(2.35rem, 1.5rem + 3vw, 3.85rem);
+      --headline-size: clamp(1.65rem, 1.2rem + 1.4vw, 2.25rem);
+      --subhead-size: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);
+      --body-size: clamp(1rem, 0.96rem + 0.18vw, 1.09rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.1vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Radii & effects */
+      --rounded: 0.25rem;
+      --rounded-lg: 0.5rem;
+      --rounded-full: 9999px;
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --parchment-border: 1px solid var(--parchment-rule);
+      --gold-border: 1px solid var(--bronze);
+      --panel-highlight: inset 0 1px 0 rgba(244, 235, 217, 0.08);
+      --dossier-shadow: 0 22px 54px rgba(3, 7, 18, 0.65);
+      --stamp-shadow: 0 2px 8px rgba(150, 20, 35, 0.18);
+      --brass-glow: radial-gradient(circle at 86% 8%, rgba(229, 180, 84, 0.13), transparent 44%);
+      --cyan-glow: radial-gradient(circle at 14% 18%, rgba(71, 215, 245, 0.09), transparent 40%);
+      --grid-lines: linear-gradient(to right, rgba(71, 215, 245, 0.04) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(71, 215, 245, 0.04) 1px, transparent 1px);
+      --parchment-grain: radial-gradient(circle at 20% 20%, rgba(168, 118, 50, 0.07), transparent 55%),
+                         radial-gradient(circle at 82% 78%, rgba(150, 20, 35, 0.04), transparent 50%);
+      --sky-tint: color-mix(in srgb, var(--tertiary) 13%, transparent);
+      --brass-tint: color-mix(in srgb, var(--primary) 15%, transparent);
+      --crimson-tint: color-mix(in srgb, var(--crimson-bright) 14%, transparent);
+      --parchment-crimson-tint: color-mix(in srgb, var(--crimson) 9%, transparent);
+      --parchment-gold-tint: color-mix(in srgb, var(--bronze) 14%, transparent);
+      --parchment-cyan-tint: color-mix(in srgb, var(--parchment-cyan-ink) 10%, transparent);
+
+      --heading-tracking: -0.015em;
+      --label-tracking: 0.07em;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.62;
+    }
+    body {
+      background: #3a2a1b url('assets/parchemin.jpg');
+      background-blend-mode: multiply;
+      background-size: 768px 768px;
+      padding: calc(var(--header-h) + var(--space-xl)) var(--space-md) 0;
+    }
+    .back-link { font-family: var(--font-label); font-size: var(--label-size); letter-spacing: var(--label-tracking); text-transform: uppercase; color: var(--primary); text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    .site-footer { margin-top: var(--space-2xl); }
+    .dossier-card .spoiler-veil { background: rgba(244, 234, 212, 0.55); color: var(--parchment-ink); border-color: var(--crimson); }
+    .dossier-card .spoiler-veil .label, .dossier-card .spoiler-veil .veil-btn::before { color: var(--parchment-crimson-ink); }
+    .dossier-card .spoiler-veil .veil-btn { color: var(--parchment-ink); border-color: var(--parchment-rule); background: var(--parchment-high); }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .archive-shell {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .archive-shell * { min-width: 0; }
+
+    /* Top Chronos Telemetry Strip (Nocturne HUD) */
+    .chronos-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm) var(--space-md);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--panel-highlight);
+    }
+    .strip-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .coord-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--sky-tint);
+      color: var(--tertiary);
+      border: 1px solid color-mix(in srgb, var(--tertiary) 35%, transparent);
+    }
+    .brass-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--brass-tint);
+      color: var(--primary);
+      border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    }
+    .crimson-pill {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--crimson-tint);
+      color: var(--crimson-text-dark);
+      border: 1px solid color-mix(in srgb, var(--crimson-bright) 40%, transparent);
+    }
+    .strip-meta {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      letter-spacing: var(--label-tracking);
+    }
+
+    /* Physical Cardboard Dossier Folder Tabs */
+    .dossier-tabs-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: var(--space-xs);
+      padding-left: var(--space-md);
+      margin-bottom: calc(-1 * var(--space-lg));
+      position: relative;
+      z-index: 2;
+    }
+    .folder-tab {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-lg) var(--rounded-lg) 0 0;
+      border: var(--parchment-border);
+      border-bottom: none;
+      text-decoration: none;
+      transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+      cursor: pointer;
+    }
+    .folder-tab-primary {
+      background: var(--parchment);
+      color: var(--parchment-ink);
+      font-weight: 600;
+    }
+    .folder-tab-secondary {
+      background: var(--parchment-deep);
+      color: var(--parchment-ink-muted);
+    }
+    .folder-tab:hover {
+      transform: translateY(-2px);
+      background: var(--parchment-high);
+      color: var(--parchment-ink);
+    }
+
+    /* Main Physical Cartoned Dossier Card */
+    .dossier-card {
+      background-color: var(--parchment);
+      background-image: var(--parchment-grain);
+      color: var(--parchment-ink);
+      border: 2px solid var(--bronze);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--dossier-shadow), inset 0 0 0 4px var(--parchment-deep), inset 0 0 0 5px var(--parchment-rule);
+      padding: var(--space-xl) var(--space-xl) var(--space-2xl);
+      position: relative;
+    }
+
+    /* Corner Espionage Registration Marks */
+    .dossier-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr);
+      gap: var(--space-lg);
+      align-items: start;
+      padding-bottom: var(--space-lg);
+      border-bottom: 2px solid var(--parchment-ink);
+    }
+    .dossier-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--parchment-gold-ink);
+      margin: 0 0 var(--space-xs);
+    }
+    .dossier-title {
+      font-family: var(--font-headline);
+      font-size: var(--display-size);
+      font-weight: 500;
+      line-height: 1.04;
+      letter-spacing: var(--heading-tracking);
+      color: var(--parchment-ink);
+      margin: 0;
+    }
+    .dossier-title em {
+      font-style: italic;
+      color: var(--parchment-crimson-ink);
+      font-weight: 500;
+    }
+    .dossier-subtitle {
+      font-family: var(--font-body);
+      font-size: var(--subhead-size);
+      font-weight: 500;
+      color: var(--parchment-midnight-ink);
+      margin: var(--space-sm) 0 var(--space-md);
+      max-width: 60ch;
+    }
+    .alias-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .alias-chip {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      background: var(--parchment-high);
+      border: var(--parchment-border);
+      color: var(--parchment-ink);
+    }
+    .alias-chip strong {
+      color: var(--parchment-crimson-ink);
+    }
+
+    /* Spy Stamp & Heraldic Box in Header */
+    .header-stamp-panel {
+      background: var(--parchment-high);
+      border: var(--parchment-border);
+      border-left: 4px solid var(--crimson);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .stamp-seal {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--parchment-crimson-ink);
+      border: 2px solid var(--crimson);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      transform: rotate(-1.5deg);
+      box-shadow: var(--stamp-shadow);
+      width: fit-content;
+    }
+    .vital-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .vital-stat {
+      border-top: var(--parchment-border);
+      padding-top: var(--space-xs);
+    }
+    .vital-stat-label {
+      display: block;
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--parchment-ink-muted);
+    }
+    .vital-stat-value {
+      font-family: var(--font-headline);
+      font-size: 1.25rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--parchment-ink);
+    }
+
+    /* Section Headings inside Dossier */
+    .dossier-section {
+      padding-top: var(--space-xl);
+      margin-top: var(--space-xl);
+      border-top: 1.5px solid var(--parchment-rule);
+    }
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm) var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .section-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+    }
+    .section-index {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-crimson);
+      background: var(--crimson);
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--rounded);
+      letter-spacing: var(--label-tracking);
+    }
+    .section-heading {
+      font-family: var(--font-headline);
+      font-size: var(--headline-size);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: var(--heading-tracking);
+      color: var(--parchment-ink);
+      margin: 0;
+    }
+    .section-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--parchment-cyan-ink);
+    }
+
+    /* Section 01: Portrait & Signalement */
+    .identity-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+
+    /* Nocturne Portrait Frame embedded on Parchment Card */
+    .portrait-bay {
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: 2px solid var(--bronze);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      box-shadow: var(--panel-highlight);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .portrait-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .epoch-btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: 0.04em;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+      flex: 1 1 auto;
+      text-align: center;
+    }
+    .epoch-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .epoch-btn.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 600;
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    .portrait-stage {
+      display: grid;
+      gap: var(--space-md);
+    }
+    .portrait-stage.is-diptych {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .portrait-frame {
+      background: var(--svg-midnight-deep);
+      border: 1px solid var(--outline);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      position: relative;
+    }
+    .portrait-frame.is-hidden {
+      display: none;
+    }
+    .portrait-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .portrait-caption-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--surface-container-low);
+      border-top: var(--hairline);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--tertiary);
+    }
+    .portrait-notes {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-left: 3px solid var(--primary);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.94rem;
+      color: var(--on-surface);
+    }
+    .portrait-notes-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--primary);
+      margin: 0 0 var(--space-xs);
+    }
+    .portrait-notes p {
+      margin: 0;
+      color: var(--on-surface-variant);
+    }
+
+    /* Structured Identity Matrix */
+    .signalement-panel {
+      background: var(--parchment-high);
+      border: var(--parchment-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .signalement-list {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .sig-row {
+      display: grid;
+      grid-template-columns: minmax(135px, 0.42fr) minmax(0, 1fr);
+      gap: var(--space-sm) var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--parchment-border);
+      align-items: baseline;
+    }
+    .sig-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .sig-term {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--parchment-ink-muted);
+      font-weight: 500;
+    }
+    .sig-desc {
+      margin: 0;
+      color: var(--parchment-ink);
+      font-weight: 500;
+    }
+    .sig-desc small {
+      display: block;
+      font-weight: 400;
+      color: var(--parchment-ink-muted);
+      margin-top: 2px;
+      font-size: 0.9rem;
+    }
+
+    .ages-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+      padding-top: var(--space-xs);
+    }
+    .age-tile {
+      background: var(--parchment);
+      border: var(--gold-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm);
+    }
+    .age-year {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--parchment-crimson-ink);
+      font-weight: 600;
+    }
+    .age-num {
+      font-family: var(--font-headline);
+      font-size: 1.55rem;
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--parchment-ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .age-role {
+      font-size: 0.85rem;
+      color: var(--parchment-ink-muted);
+      line-height: 1.35;
+      margin-top: 2px;
+    }
+
+    /* Section 02: Biographie & Chronologie */
+    .filter-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      padding: var(--space-sm) var(--space-md);
+      background: var(--parchment-deep);
+      border: var(--parchment-border);
+      border-radius: var(--rounded);
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .filter-btn {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--parchment-border);
+      background: var(--parchment-high);
+      color: var(--parchment-ink);
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .filter-btn:hover {
+      background: var(--parchment);
+    }
+    .filter-btn.is-active {
+      background: var(--parchment-midnight-ink);
+      color: var(--parchment-high);
+      font-weight: 600;
+    }
+    .filter-count {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--parchment-ink-muted);
+    }
+
+    .timeline-stack {
+      display: grid;
+      gap: var(--space-md);
+      position: relative;
+      padding-left: var(--space-lg);
+      border-left: 2px solid var(--bronze);
+    }
+    .timeline-entry {
+      background: var(--parchment-high);
+      border: var(--parchment-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      position: relative;
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .timeline-entry.is-filtered-out {
+      display: none;
+    }
+    .timeline-entry::before {
+      content: "";
+      position: absolute;
+      left: calc(-1 * var(--space-lg) - 7px);
+      top: 1.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: var(--rounded-full);
+      background: var(--primary);
+      border: 2px solid var(--parchment-ink);
+    }
+    .timeline-entry.is-trauma::before {
+      background: var(--crimson);
+    }
+    .entry-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs) var(--space-md);
+      margin-bottom: var(--space-xs);
+    }
+    .entry-date {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--parchment-midnight-ink);
+      letter-spacing: var(--label-tracking);
+    }
+    .source-tag {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--rounded);
+      font-weight: 600;
+    }
+    .tag-canon {
+      background: var(--parchment-gold-tint);
+      color: var(--parchment-gold-ink);
+      border: 1px solid var(--bronze);
+    }
+    .tag-history {
+      background: var(--parchment-cyan-tint);
+      color: var(--parchment-cyan-ink);
+      border: 1px solid var(--parchment-cyan-ink);
+    }
+    .tag-trauma {
+      background: var(--parchment-crimson-tint);
+      color: var(--parchment-crimson-ink);
+      border: 1px solid var(--crimson);
+    }
+    .entry-title {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--parchment-ink);
+      margin: 0 0 var(--space-xs);
+    }
+    .entry-body {
+      margin: 0;
+      color: var(--parchment-ink);
+      max-width: 70ch;
+    }
+    .entry-quote {
+      margin: var(--space-sm) 0 0;
+      padding: var(--space-xs) var(--space-md);
+      border-left: 3px solid var(--crimson);
+      background: var(--parchment);
+      font-family: var(--font-headline);
+      font-style: italic;
+      font-size: 1.08rem;
+      color: var(--parchment-ink-muted);
+    }
+
+    /* Section 03: Dossier Médical & Balistique Féodale (Genou Gauche) */
+    .trauma-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.15fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .anatomy-well {
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: 2px solid var(--outline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .stage-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-xs);
+    }
+    .stage-btn {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      min-height: 44px;
+      padding: var(--space-xs);
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      text-align: center;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .stage-btn:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .stage-btn.is-active {
+      background: var(--crimson);
+      color: var(--on-crimson);
+      font-weight: 600;
+    }
+    .anatomy-svg-box {
+      background: var(--svg-midnight-deep);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-sm);
+    }
+    .anatomy-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .trauma-dossier-panel {
+      background: var(--parchment-high);
+      border: var(--parchment-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+    }
+    .trauma-headline {
+      font-family: var(--font-headline);
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--parchment-crimson-ink);
+      margin: 0;
+    }
+    .trauma-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .trauma-metric {
+      background: var(--parchment);
+      border: var(--parchment-border);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+    }
+    .trauma-metric-label {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--parchment-ink-muted);
+    }
+    .trauma-metric-val {
+      font-family: var(--font-headline);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--parchment-ink);
+    }
+    .memory-divergence-box {
+      background: var(--parchment-deep);
+      border-left: 4px solid var(--parchment-cyan-ink);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      font-size: 0.95rem;
+    }
+    .memory-divergence-box strong {
+      color: var(--parchment-midnight-ink);
+    }
+
+    /* Section 04: Généalogie & Constellation Relationnelle */
+    .network-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-bottom: var(--space-lg);
+    }
+    .constellation-well {
+      background: var(--surface-container);
+      border: 2px solid var(--bronze);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      color: var(--on-surface);
+    }
+    .constellation-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      color: var(--on-surface-variant);
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: var(--rounded-full);
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    .dot-blood { background: var(--primary); }
+    .dot-alliance { background: var(--tertiary); }
+    .dot-rival { background: var(--crimson-bright); }
+    .constellation-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: var(--svg-midnight-deep);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+    }
+    .node-group {
+      cursor: pointer;
+    }
+    .node-group circle {
+      transition: transform var(--dur-micro) var(--ease-out);
+    }
+    .node-group:hover circle {
+      stroke-width: 3;
+    }
+
+    .inspector-card {
+      background: var(--parchment-high);
+      border: var(--gold-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .inspector-tag {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--parchment-crimson-ink);
+      font-weight: 600;
+    }
+    .inspector-name {
+      font-family: var(--font-headline);
+      font-size: 1.65rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--parchment-ink);
+    }
+    .inspector-role {
+      font-family: var(--font-label);
+      font-size: 0.82rem;
+      color: var(--parchment-midnight-ink);
+      margin: 0;
+    }
+    .inspector-desc {
+      margin: var(--space-xs) 0 0;
+      color: var(--parchment-ink);
+    }
+
+    /* Full Cards Grid for Genealogy + Rivalries so all facts are exposed in flow */
+    .rel-subsection-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--parchment-midnight-ink);
+      margin: var(--space-lg) 0 var(--space-sm);
+      padding-bottom: var(--space-xs);
+      border-bottom: 1.5px solid var(--parchment-ink);
+    }
+    .rel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .rel-card {
+      background: var(--parchment-high);
+      border: var(--parchment-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+      font: inherit;
+      color: inherit;
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+      display: grid;
+      gap: var(--space-xs);
+      align-content: start;
+    }
+    .rel-card:hover {
+      background: var(--parchment);
+      box-shadow: 0 0 0 1.5px var(--bronze);
+    }
+    .rel-card.is-selected {
+      background: var(--parchment);
+      box-shadow: 0 0 0 2px var(--crimson);
+    }
+    .rel-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-xs);
+    }
+    .rel-card-name {
+      font-family: var(--font-headline);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--parchment-ink);
+    }
+    .rel-card-type {
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--parchment-gold-ink);
+      font-weight: 600;
+    }
+    .rel-card-type.is-rival {
+      color: var(--parchment-crimson-ink);
+    }
+    .rel-card-type.is-ally {
+      color: var(--parchment-cyan-ink);
+    }
+    .rel-card-summary {
+      font-size: 0.92rem;
+      color: var(--parchment-ink-muted);
+      margin: 0;
+      line-height: 1.48;
+    }
+
+    /* Section 05: Contexte Périgord & Notes d'Archive Chronos */
+    .archive-dual-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .residence-card {
+      background: var(--parchment-high);
+      border: var(--parchment-border);
+      border-top: 3px solid var(--parchment-midnight-ink);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .residence-card h3 {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      margin: 0 0 var(--space-xs);
+      color: var(--parchment-ink);
+    }
+    .residence-meta {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: var(--label-tracking);
+      color: var(--parchment-cyan-ink);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    .chronos-closing-panel {
+      margin-top: var(--space-lg);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      border: 1px solid var(--outline);
+      border-left: 4px solid var(--tertiary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .chronos-closing-panel h3 {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      letter-spacing: var(--label-tracking);
+      text-transform: uppercase;
+      color: var(--tertiary);
+      margin: 0;
+    }
+    .chronos-closing-panel p {
+      margin: 0;
+      color: var(--on-surface-variant);
+      max-width: 75ch;
+    }
+
+    .sources-footer {
+      margin-top: var(--space-lg);
+      padding-top: var(--space-md);
+      border-top: var(--hairline);
+      font-family: var(--font-label);
+      font-size: 0.78rem;
+      color: var(--on-surface-variant);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 900px) {
+      .dossier-header,
+      .identity-grid,
+      .trauma-layout,
+      .network-layout,
+      .archive-dual-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: var(--space-sm);
+      }
+      .dossier-card {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .sig-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+      .ages-strip,
+      .portrait-stage.is-diptych,
+      .stage-buttons,
+      .trauma-metrics {
+        grid-template-columns: 1fr;
+      }
+      .dossier-tabs-bar {
+        padding-left: var(--space-xs);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="theme-dark">
+  <main class="archive-shell">
+    <a class="back-link" href="personnages.html#raoul-jeune">← Retour aux dossiers</a>
+    <!-- Bandeau télémétrique d'archive temporelle (Nocturne / Truth Seekers) -->
+    <div class="chronos-strip">
+      <div class="strip-group">
+        <span class="coord-pill">Archive Chronos · #AC-1115-RJ</span>
+        <span class="brass-pill">Fonds Périgueux · XIIe siècle</span>
+        <span class="crimson-pill">Alerte Anomalie · 1135</span>
+      </div>
+      <div class="strip-meta">
+        PÉRIGORD · LAT 45.18° N · LON 0.72° E · STATUT : SURVEILLANCE DYNASTIQUE
+      </div>
+    </div>
+
+    <!-- Onglets physiques de chemise cartonnée (navigation d'ancre dans le flux) -->
+    <nav class="dossier-tabs-bar" aria-label="Repères de la fiche cartonnée">
+      <a class="folder-tab folder-tab-primary" href="#signalement">01 · Signalement</a>
+      <a class="folder-tab folder-tab-secondary" href="#biographie">02 · Chronologie</a>
+      <a class="folder-tab folder-tab-secondary" href="#trauma">03 · Blessure</a>
+      <a class="folder-tab folder-tab-secondary" href="#reseau">04 · Lignage &amp; Rivalités</a>
+      <a class="folder-tab folder-tab-secondary" href="#lieux">05 · Fiefs &amp; Archive</a>
+    </nav>
+
+    <!-- Fiche cartonnée centrale -->
+    <article class="dossier-card">
+      <!-- En-tête de la fiche -->
+      <header class="dossier-header">
+        <div>
+          <p class="dossier-kicker">Univers Annachronique · Fiche de renseignement temporel</p>
+          <h1 class="dossier-title">Raoul de Périgueux, dit <em>le Jeune</em></h1>
+          <p class="dossier-subtitle" data-tome="5">
+            Bachelier et héritier aux Trois Lions en 1135, devenu Vicomte de Périgueux sans descendance à la fin d’une lignée brisée par la félonie, la guerre et l’irruption des voyageurs du XXI<sup>e</sup> siècle.
+          </p>
+          <div class="alias-row">
+            <span class="alias-chip"><strong>Nom canon :</strong> Raoul de Périgueux</span>
+            <span class="alias-chip"><strong>Alias :</strong> Raoul le Jeune (1135)</span>
+            <span class="alias-chip" data-tome="2"><strong>Surnom :</strong> Raoul le Boiteux (post-1135)</span>
+            <span class="alias-chip"><strong>Héraut :</strong> L’espoir des Trois Lions</span>
+          </div>
+        </div>
+
+        <aside class="header-stamp-panel" aria-label="État synthétique du dossier">
+          <div class="stamp-seal">Dossier classé · Trois Lions</div>
+          <div class="vital-mini-grid">
+            <div class="vital-stat">
+              <span class="vital-stat-label">Naissance est.</span>
+              <span class="vital-stat-value">v. 1115</span>
+            </div>
+            <div class="vital-stat" data-tome="5">
+              <span class="vital-stat-label">Période suivie</span>
+              <span class="vital-stat-value">1135–1181</span>
+            </div>
+            <div class="vital-stat">
+              <span class="vital-stat-label">Bastion</span>
+              <span class="vital-stat-value">Ch. Barrière</span>
+            </div>
+            <div class="vital-stat" data-tome="5">
+              <span class="vital-stat-label">Héritier direct</span>
+              <span class="vital-stat-value">Aucun (1181)</span>
+            </div>
+          </div>
+        </aside>
+      </header>
+
+      <!-- SECTION 01 : SIGNALEMENT & PORTRAITS -->
+      <section class="dossier-section" id="signalement">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <span class="section-index">01</span>
+            <h2 class="section-heading">Signalement &amp; Reconstitution Visuelle (1135 ↔ 1181)</h2>
+          </div>
+          <span class="section-kicker">Identité · Âges clés · Portraits vectoriels intégrés</span>
+        </div>
+
+        <div class="identity-grid">
+          <!-- Colonne gauche : Portraits vectoriels interactifs 1135 / 1181 -->
+          <div class="portrait-bay">
+            <div class="portrait-controls" role="group" aria-label="Sélecteur d'époque du portrait">
+              <button type="button" class="epoch-btn is-active" id="btn-epoch-1135" onclick="setPortraitMode('1135')">1135 · 20 ans</button>
+              <button type="button" class="epoch-btn" id="btn-epoch-1181" onclick="setPortraitMode('1181')">1181 · 66 ans</button>
+              <button type="button" class="epoch-btn" id="btn-epoch-both" onclick="setPortraitMode('both')">Diptyque</button>
+            </div>
+
+            <div class="portrait-stage" id="portrait-stage">
+              <!-- PORTRAIT 1135 : Raoul le Jeune (20 ans) -->
+              <figure class="portrait-frame" id="frame-1135" style="margin:0;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 430" class="portrait-svg" role="img" aria-label="Portrait stylisé de Raoul le Jeune en 1135 à l'âge de 20 ans">
+                  <!-- Fond bleu nuit & grille d'archive -->
+                  <rect width="360" height="430" fill="var(--svg-midnight-deep)" />
+                  <circle cx="180" cy="175" r="145" fill="none" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+                  <circle cx="180" cy="175" r="112" fill="none" stroke="var(--tertiary)" stroke-width="0.8" opacity="0.45" />
+                  <line x1="20" y1="175" x2="55" y2="175" stroke="var(--tertiary)" stroke-width="1.2" opacity="0.7" />
+                  <line x1="305" y1="175" x2="340" y2="175" stroke="var(--tertiary)" stroke-width="1.2" opacity="0.7" />
+                  <line x1="180" y1="16" x2="180" y2="42" stroke="var(--primary)" stroke-width="1.2" opacity="0.7" />
+
+                  <!-- Viseur d'angles -->
+                  <path d="M18 34 L18 18 L34 18 M326 18 L342 18 L342 34 M18 396 L18 412 L34 412 M326 412 L342 412 L342 396" fill="none" stroke="var(--primary)" stroke-width="1.8" />
+
+                  <!-- Écusson miniature Trois Lions en haut à droite -->
+                  <g transform="translate(278,34)">
+                    <path d="M0 0 L54 0 L54 34 C54 52 27 64 27 64 C27 64 0 52 0 34 Z" fill="var(--crimson)" stroke="var(--primary)" stroke-width="2" />
+                    <circle cx="17" cy="20" r="5" fill="var(--primary)" />
+                    <circle cx="37" cy="20" r="5" fill="var(--primary)" />
+                    <circle cx="27" cy="40" r="5" fill="var(--primary)" />
+                    <path d="M12 20 L22 20 M32 20 L42 20 M22 40 L32 40" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" />
+                  </g>
+
+                  <!-- Épaules & Surcot armorié rouge carmin et or antique -->
+                  <path d="M48 430 L64 316 C72 284 118 268 180 268 C242 268 288 284 296 316 L312 430 Z" fill="var(--crimson)" stroke="var(--primary)" stroke-width="2" />
+                  <!-- Ombre droite du buste -->
+                  <path d="M180 268 C242 268 288 284 296 316 L312 430 L180 430 Z" fill="var(--svg-crimson-worn)" opacity="0.55" />
+                  <!-- Galons et broderies or antique -->
+                  <path d="M108 278 L108 430 M252 278 L252 430" stroke="var(--primary)" stroke-width="3" opacity="0.8" />
+                  <!-- Baudrier d'épée en cuir et bronze -->
+                  <path d="M88 284 L268 430 L236 430 L68 302 Z" fill="var(--svg-oak)" stroke="var(--bronze)" stroke-width="1.6" />
+                  <rect x="166" y="346" width="24" height="18" rx="2" fill="var(--primary)" stroke="var(--svg-oak)" stroke-width="1.5" transform="rotate(38 178 355)" />
+
+                  <!-- Col de mailles / Camail -->
+                  <path d="M124 252 C142 292 218 292 236 252 L248 282 C216 322 144 322 112 282 Z" fill="var(--svg-steel)" stroke="var(--svg-steel-light)" stroke-width="1.5" />
+                  <path d="M132 272 Q180 296 228 272 M124 286 Q180 312 236 286" fill="none" stroke="var(--svg-midnight-deep)" stroke-width="1.4" stroke-dasharray="4 3" opacity="0.65" />
+
+                  <!-- Cou -->
+                  <path d="M150 220 L150 272 C164 282 196 282 210 272 L210 220 Z" fill="var(--svg-skin-shadow)" />
+
+                  <!-- Tête / Visage noble (20 ans) -->
+                  <path d="M126 146 C126 98 234 98 234 146 L232 190 C230 222 204 244 180 246 C156 244 130 222 128 190 Z" fill="var(--svg-skin-young)" />
+                  <path d="M180 108 C216 108 234 128 234 152 L232 190 C230 222 204 244 180 246 Z" fill="var(--svg-skin-shadow)" opacity="0.32" />
+
+                  <!-- Oreilles -->
+                  <path d="M126 164 C118 164 118 190 128 192 Z" fill="var(--svg-skin-shadow)" />
+                  <path d="M234 164 C242 164 242 190 232 192 Z" fill="var(--svg-skin-shadow)" />
+
+                  <!-- Chevelure sombre aristocratique -->
+                  <path d="M122 166 C116 122 140 84 182 82 C226 82 246 118 238 168 C236 142 224 124 206 118 C184 112 152 116 134 132 C126 140 124 154 122 166 Z" fill="var(--svg-hair-dark)" />
+                  <path d="M136 124 Q178 106 218 122" fill="none" stroke="var(--outline)" stroke-width="1.2" opacity="0.6" />
+
+                  <!-- Sourcils arrogants & yeux clairs perçants -->
+                  <path d="M142 152 Q156 146 169 154" fill="none" stroke="var(--svg-hair-dark)" stroke-width="3.2" stroke-linecap="round" />
+                  <path d="M191 154 Q204 146 218 152" fill="none" stroke="var(--svg-hair-dark)" stroke-width="3.2" stroke-linecap="round" />
+                  <ellipse cx="156" cy="162" rx="9" ry="4.8" fill="var(--parchment-high)" />
+                  <circle cx="157" cy="162" r="3.6" fill="var(--svg-steel)" />
+                  <circle cx="157" cy="162" r="1.6" fill="var(--svg-midnight-deep)" />
+                  <ellipse cx="204" cy="162" rx="9" ry="4.8" fill="var(--parchment-high)" />
+                  <circle cx="203" cy="162" r="3.6" fill="var(--svg-steel)" />
+                  <circle cx="203" cy="162" r="1.6" fill="var(--svg-midnight-deep)" />
+
+                  <!-- Nez droit et mâchoire jeune avec barbe courte soignée -->
+                  <path d="M180 154 L176 188 L185 190" fill="none" stroke="var(--svg-skin-shadow)" stroke-width="2.2" stroke-linecap="round" />
+                  <path d="M164 205 Q180 201 196 205" fill="none" stroke="var(--svg-skin-shadow)" stroke-width="2.2" stroke-linecap="round" />
+                  <path d="M132 198 C134 226 156 246 180 248 C204 246 226 226 228 198 C222 216 202 230 180 230 C158 230 138 216 132 198 Z" fill="var(--svg-hair-dark)" opacity="0.82" />
+                  <path d="M165 201 Q180 196 195 201" fill="none" stroke="var(--svg-hair-dark)" stroke-width="2.5" stroke-linecap="round" />
+
+                  <!-- Fibule bronze doré -->
+                  <circle cx="180" cy="296" r="11" fill="var(--bronze)" stroke="var(--primary)" stroke-width="2" />
+                  <circle cx="180" cy="296" r="4" fill="var(--crimson)" />
+
+                  <!-- Réticule analytique bas -->
+                  <text x="24" y="400" fill="var(--tertiary)" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.5">1135 · ÂGE 20 · INTACT</text>
+                </svg>
+                <figcaption class="portrait-caption-bar">
+                  <span>FIG. A · RAOUL LE JEUNE (1135)</span>
+                  <span>BACHELIER · 20 ANS</span>
+                </figcaption>
+              </figure>
+
+              <!-- PORTRAIT 1181 : Raoul le Boiteux (66 ans) -->
+              <figure class="portrait-frame is-hidden" id="frame-1181" style="margin:0;" data-tome="5">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 430" class="portrait-svg" role="img" aria-label="Portrait stylisé de Raoul le Boiteux en 1181 à l'âge de 66 ans">
+                  <!-- Fond sombre & grille fracturée -->
+                  <rect width="360" height="430" fill="var(--svg-midnight-deep)" />
+                  <circle cx="180" cy="182" r="142" fill="none" stroke="var(--crimson)" stroke-width="1" stroke-dasharray="6 4" opacity="0.65" />
+                  <circle cx="180" cy="182" r="108" fill="none" stroke="var(--tertiary)" stroke-width="0.8" stroke-dasharray="2 5" opacity="0.45" />
+                  <path d="M18 34 L18 18 L34 18 M326 18 L342 18 L342 34 M18 396 L18 412 L34 412 M326 412 L342 412 L342 396" fill="none" stroke="var(--crimson-bright)" stroke-width="1.8" />
+
+                  <!-- Haut dossier du fauteuil de chêne (1181) -->
+                  <path d="M62 72 L298 72 L298 430 L62 430 Z" fill="var(--svg-oak)" stroke="var(--bronze)" stroke-width="2" />
+                  <path d="M84 96 L276 96 L276 430 L84 430 Z" fill="var(--svg-midnight-deep)" opacity="0.45" />
+                  <rect x="52" y="60" width="22" height="28" rx="3" fill="var(--bronze)" />
+                  <rect x="286" y="60" width="22" height="28" rx="3" fill="var(--bronze)" />
+
+                  <!-- Manteau lourd affaissé & rouge fané -->
+                  <path d="M56 430 L74 318 C88 278 134 268 180 268 C226 268 272 278 286 318 L304 430 Z" fill="var(--svg-cloak-worn)" stroke="var(--outline)" stroke-width="1.8" />
+                  <path d="M114 276 L146 430 L214 430 L246 276 Z" fill="var(--svg-crimson-worn)" opacity="0.85" />
+                  <path d="M180 278 L180 430" stroke="var(--bronze)" stroke-width="2" opacity="0.5" />
+
+                  <!-- Accoudoir et main arthritique déformée -->
+                  <rect x="34" y="346" width="116" height="22" rx="4" fill="var(--svg-oak)" stroke="var(--bronze)" stroke-width="1.5" />
+                  <path d="M74 348 C82 332 108 332 120 344 L126 364 L78 364 Z" fill="var(--svg-skin-aged)" stroke="var(--svg-skin-aged-shadow)" stroke-width="1.3" />
+                  <path d="M86 346 L86 362 M98 344 L98 362 M110 346 L110 362" stroke="var(--svg-skin-aged-shadow)" stroke-width="1.5" />
+
+                  <!-- Cou voûté -->
+                  <path d="M150 226 L152 280 C166 290 194 290 208 280 L210 226 Z" fill="var(--svg-skin-aged-shadow)" />
+
+                  <!-- Visage parcheminé et creusé (66 ans) -->
+                  <path d="M128 152 C128 106 232 106 232 152 L228 198 C224 228 202 248 180 250 C158 248 136 228 132 198 Z" fill="var(--svg-skin-aged)" />
+                  <path d="M138 176 Q148 196 144 214 M222 176 Q212 196 216 214" fill="none" stroke="var(--svg-skin-aged-shadow)" stroke-width="2" />
+
+                  <!-- Cheveux gris-blanc clairsemés -->
+                  <path d="M126 168 C122 132 134 106 154 96 C140 116 134 136 132 168 Z" fill="var(--svg-hair-gray)" />
+                  <path d="M234 168 C238 132 226 106 206 96 C220 116 226 136 228 168 Z" fill="var(--svg-hair-gray)" />
+                  <path d="M152 120 Q180 116 208 120 M158 130 Q180 127 202 130" fill="none" stroke="var(--svg-skin-aged-shadow)" stroke-width="1.6" />
+
+                  <!-- Yeux aqueux hantés & sourcils blancs broussailleux -->
+                  <path d="M140 154 Q156 149 170 158" fill="none" stroke="var(--svg-hair-gray)" stroke-width="3.6" stroke-linecap="round" />
+                  <path d="M190 158 Q204 149 220 154" fill="none" stroke="var(--svg-hair-gray)" stroke-width="3.6" stroke-linecap="round" />
+                  <ellipse cx="156" cy="166" rx="9" ry="5.5" fill="var(--parchment)" />
+                  <circle cx="156" cy="166" r="3.8" fill="var(--secondary)" />
+                  <circle cx="156" cy="166" r="1.6" fill="var(--svg-midnight-deep)" />
+                  <ellipse cx="204" cy="166" rx="9" ry="5.5" fill="var(--parchment)" />
+                  <circle cx="204" cy="166" r="3.8" fill="var(--secondary)" />
+                  <circle cx="204" cy="166" r="1.6" fill="var(--svg-midnight-deep)" />
+                  <path d="M145 174 Q156 180 167 174 M193 174 Q204 180 215 174" fill="none" stroke="var(--svg-skin-aged-shadow)" stroke-width="1.5" />
+
+                  <!-- Nez marqué et barbe blanche longue irrégulière -->
+                  <path d="M180 156 L176 192 L185 194" fill="none" stroke="var(--svg-skin-aged-shadow)" stroke-width="2.2" stroke-linecap="round" />
+                  <path d="M132 198 C134 234 152 266 180 272 C208 266 226 234 228 198 C218 214 200 220 180 220 C160 220 142 214 132 198 Z" fill="var(--svg-hair-gray)" />
+                  <path d="M164 210 Q180 206 196 210" fill="none" stroke="var(--svg-skin-aged-shadow)" stroke-width="2" />
+
+                  <!-- Réticule analytique bas -->
+                  <text x="24" y="400" fill="var(--crimson-text-dark)" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.5">1181 · ÂGE 66 · BOITEUX / SÉNILITÉ</text>
+                </svg>
+                <figcaption class="portrait-caption-bar">
+                  <span>FIG. B · RAOUL LE BOITEUX (1181)</span>
+                  <span>VICOMTE · 66 ANS</span>
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="portrait-notes" id="portrait-notes">
+              <h3 class="portrait-notes-title" id="portrait-notes-title">Observation Chronos · 1135 (20 ans)</h3>
+              <p id="portrait-notes-text">
+                Silhouette élancée, pourpoint aux trois lions d’or sur champ de gueules, timbre à longue plume bleue lors du tournoi de Saint-Marcel. Assurance aristocratique doublée d’une morgue juvénile face au roturier Julien Dubois.
+              </p>
+            </div>
+          </div>
+
+          <!-- Colonne droite : Fiche signalétique cartonnée -->
+          <div class="signalement-panel">
+            <dl class="signalement-list">
+              <div class="sig-row">
+                <dt class="sig-term">Nom &amp; Prénom</dt>
+                <dd class="sig-desc">Raoul de Périgueux <small>Héritier légitime de la maison vicomtale aux Trois Lions</small></dd>
+              </div>
+              <div class="sig-row" data-tome="2">
+                <dt class="sig-term">Alias &amp; Surnoms</dt>
+                <dd class="sig-desc">Raoul le Jeune · Raoul le Boiteux <small>Appelé « l’espoir des trois lions » en lice ; « la relique » au crépuscule de sa vie</small></dd>
+              </div>
+              <div class="sig-row" data-tome="5">
+                <dt class="sig-term">Naissance estimée</dt>
+                <dd class="sig-desc">Vers 1115 (Périgord) <small>Calculé d’après ses 20 ans à l’automne 1135 et ses 66 ans à la veille du siège de 1182</small></dd>
+              </div>
+              <div class="sig-row">
+                <dt class="sig-term">Résidences</dt>
+                <dd class="sig-desc">Château Barrière (Périgueux) · Saint-Marcel <small>Bastion romain de la Cité de Périgueux et manoir seigneurial sur la Dronne</small></dd>
+              </div>
+              <div class="sig-row" data-tome="5">
+                <dt class="sig-term">Métier &amp; Rang</dt>
+                <dd class="sig-desc">Chevalier bachelier et héritier, puis Vicomte de Périgueux <small>Guerrier de marche frontalière, seigneur justicier de la Cité, puis vicomte vieillissant sans héritier mâle</small></dd>
+              </div>
+              <div class="sig-row">
+                <dt class="sig-term">Armement &amp; Blason</dt>
+                <dd class="sig-desc">Épieu de chasse, épée longue à quillon droit, destrier bai <small>Haubert de mailles frottées au sable blanc ; écu aux trois lions</small></dd>
+              </div>
+            </dl>
+
+            <div>
+              <span class="sig-term">Repères d’âge canoniques</span>
+              <div class="ages-strip">
+                <div class="age-tile" data-tome="2">
+                  <div class="age-year">1135</div>
+                  <div class="age-num">20 ans</div>
+                  <div class="age-role">Bachelier, duel de Saint-Marcel, genou gauche brisé</div>
+                </div>
+                <div class="age-tile" data-tome="5">
+                  <div class="age-year">1137</div>
+                  <div class="age-num">22 ans</div>
+                  <div class="age-role">Sac de Saint-Marcel par le clan de Périgueux</div>
+                </div>
+                <div class="age-tile" data-tome="5">
+                  <div class="age-year">1181</div>
+                  <div class="age-num">66 ans</div>
+                  <div class="age-role">Dernier de sa race, face à Joullan Jullian</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 02 : BIOGRAPHIE COMPLÈTE (CANON + COMPLÉMENTS HISTORIQUES) -->
+      <section class="dossier-section" id="biographie">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <span class="section-index">02</span>
+            <h2 class="section-heading">Chronique Biographique &amp; Reconstitution Historique</h2>
+          </div>
+          <span class="section-kicker">Exil 1135 (T1–T3) · AC Mathilde · Périgord XIIe s.</span>
+        </div>
+
+        <div class="filter-toolbar">
+          <div class="filter-group" role="group" aria-label="Filtrer les entrées biographiques">
+            <button type="button" class="filter-btn is-active" id="bio-filter-all" onclick="filterBio('all')">Tout afficher (7)</button>
+            <button type="button" class="filter-btn" id="bio-filter-canon" onclick="filterBio('canon')">Faits canoniques (5)</button>
+            <button type="button" class="filter-btn" id="bio-filter-history" onclick="filterBio('history')">Compléments historiques (2)</button>
+          </div>
+          <span class="filter-count" id="bio-count-label">7 séquences archivées</span>
+        </div>
+
+        <div class="timeline-stack" id="bio-timeline">
+          <article class="timeline-entry" data-kind="history">
+            <div class="entry-top">
+              <span class="entry-date">VERS 1115 — 1134 · CHÂTEAU BARRIÈRE, PÉRIGUEUX</span>
+              <span class="source-tag tag-history">Complément historique</span>
+            </div>
+            <h3 class="entry-title">Éducation féodale dans la pierre romaine de la Cité</h3>
+            <p class="entry-body">
+              Né vers 1115 dans la branche vicomtale issue du vieux Raucelm, Raoul grandit à Château Barrière, forteresse adossée au rempart gallo-romain de la Cité de Périgueux. Élevé sous la poigne glaciale de son père le Vicomte Raoul et aux côtés de sa sœur Marguerite, il maîtrise tôt l’équitation de combat, le maniement de l’épée longue à quillon droit et la chasse à l’épieu dans les bois de la vallée de l’Isle. Dans une Aquitaine fragmentée entre les ambitions des comtes de Périgord (les Talleyrand), de Limoges et d’Angoulême, le jeune héritier apprend que la légitimité s’entretient par la crainte et le fer.
+            </p>
+          </article>
+
+          <article class="timeline-entry" data-kind="canon" data-tome="1">
+            <div class="entry-top">
+              <span class="entry-date">ÉTÉ 1135 · SAINT-MARCEL &amp; PÉRIGUEUX (20 ANS)</span>
+              <span class="source-tag tag-canon">Canon · Exil 1135 T1</span>
+            </div>
+            <h3 class="entry-title">L’éclaireur soupçonneux et le geôlier de Julien Dubois</h3>
+            <p class="entry-body">
+              À vingt ans, Raoul le Jeune est envoyé par son père au manoir de Saint-Marcel, fief de sa tante par alliance Dame Isabelle, pour jauger ces « étrangers » venus du XXI<sup>e</sup> siècle. Lorsque Julien Dubois est attiré à Périgueux comme écuyer-otage, Raoul le Jeune le toise avec un mépris aristocratique mal assuré. Dans la cour de l’armurerie basse, il prend plaisir à meurtrir le lycéen à l’épée de bois de hêtre lestée de plomb et l’emmène affronter un sanglier à l’épieu. Pourtant, l’insolence du garçon — qui ose lui demander si Marguerite est promise — fissure son armure d’arrogance : derrière le mépris perce l’inquiétude d’un héritier de vingt ans encore écrasé par la stature de son père.
+            </p>
+            <blockquote class="entry-quote">
+              « Vous maniez ce hêtre comme un paysan sa houe au temps des semailles ! »
+            </blockquote>
+          </article>
+
+          <article class="timeline-entry is-trauma" data-kind="canon" data-tome="2">
+            <div class="entry-top">
+              <span class="entry-date">SEPTEMBRE 1135 · TOURNOI DE LA SAINT-DENIS (20 ANS)</span>
+              <span class="source-tag tag-trauma">Canon · Trauma fondateur</span>
+            </div>
+            <h3 class="entry-title">La félonie dans la lice et le genou gauche fracassé</h3>
+            <p class="entry-body">
+              Sous les yeux d’Aliénor d’Aquitaine, de Pétronille et de Raymond de Poitiers, Raoul le Jeune entre dans la mêlée sur son destrier bai, cimier à plume bleue au vent. Il brise sa lance en plein sternum d’un bachelier limousin avant de rompre les lois chevaleresques : il fait volte-face pour exécuter Julien désarçonné au sol. Le Vicomte Adémar de Limoges s’interpose et lui assène un revers brutal de lame sous la rotule gauche. L’articulation éclate sous la maille. Emporté sur un chariot, Raoul le Jeune survit à la fièvre, mais son pied demeure instable à jamais : le brillant bachelier devient « Raoul le Boiteux ».
+            </p>
+          </article>
+
+          <article class="timeline-entry" data-kind="canon" data-tome="2">
+            <div class="entry-top">
+              <span class="entry-date">NOVEMBRE 1135 — 1136 · PÉRIGUEUX (21 ANS)</span>
+              <span class="source-tag tag-canon">Canon · Exil 1135 T2–T3</span>
+            </div>
+            <h3 class="entry-title">L’amertume de l’infirme et le procès contre les voyageurs</h3>
+            <p class="entry-body">
+              Privé de l’éclat des armes après l’échec du raid paternel contre Saint-Marcel et le remariage d’Isabelle avec Guillaume de Larnac, Raoul le Boiteux reporte sa haine sur les « sorciers » du futur. En 1136, lors du plaid réuni par son père devant le Comte Hélie et l’archevêque Arnaud de Vitabre, il éclate d’un rire haineux et accuse ouvertement Maxime et Julien d’avoir détruit l’ordre féodal et causé son infirmité. Ne pouvant plus briller sur la selle, il devient l’instrument venimeux de la rancune familiale.
+            </p>
+          </article>
+
+          <article class="timeline-entry" data-kind="canon" data-tome="5">
+            <div class="entry-top">
+              <span class="entry-date">NUIT DU 8 NOVEMBRE 1137 · SAC DE SAINT-MARCEL (22 ANS)</span>
+              <span class="source-tag tag-canon">Canon · AC Mathilde</span>
+            </div>
+            <h3 class="entry-title">L’effacement du village par le feu et le fer</h3>
+            <p class="entry-body">
+              À vingt-deux ans, Raoul le Boiteux voit la vengeance des Périgueux s’abattre sur Saint-Marcel. Après le départ précipité des voyageurs et de Marie, les hommes du Vicomte Raoul rasent le village : les chaumières et l’église sont réduites en charbon ardent, la vieille guérisseuse Marguerite est tuée près du puits, et Guillaume de Larnac erre hébété dans les cendres de son manoir avant de prendre la croix chez les Templiers. Les survivants sont parqués à la Cité pour rançon. Seule échappe Mathilde, la camériste de Dame Isabelle, qui s’enfuit dans la nuit avec le Carnet Rose.
+            </p>
+          </article>
+
+          <article class="timeline-entry" data-kind="history" data-tome="5">
+            <div class="entry-top">
+              <span class="entry-date">1140 — 1180 · PÉRIGUEUX, CITÉ &amp; PUY-SAINT-FRONT</span>
+              <span class="source-tag tag-history">Complément historique</span>
+            </div>
+            <h3 class="entry-title">Un vicomte sans descendance dans un Périgord plantagenêt</h3>
+            <p class="entry-body">
+              Héritier du titre vicomtal après la disparition de son père, Raoul traverse le XII<sup>e</sup> siècle en marge des grandes chevauchées. Tandis que le mariage d’Aliénor avec Henri Plantagenêt (1152) ouvre une ère de prospérité marchande dont profitent les bourgeois du Puy-Saint-Front — et secrètement la nouvelle dynastie bancaire des Jullian —, l’autorité des vicomtes de la Cité s’effrite face aux Talleyrand. Sans fils ni héritier direct, rongé par les excès, l’arthrite et le souvenir de 1135, Raoul laisse peu à peu le pouvoir réel glisser vers le fils de sa sœur Marguerite, le Vicomte de Bourdeilles.
+            </p>
+          </article>
+
+          <article class="timeline-entry" data-kind="canon" data-tome="5">
+            <div class="entry-top">
+              <span class="entry-date">1181 · PALAIS COMTAL DE PÉRIGUEUX (66 ANS)</span>
+              <span class="source-tag tag-canon">Canon · AC Mathilde</span>
+            </div>
+            <h3 class="entry-title">La hantise de « Julien » face à Joullan Jullian</h3>
+            <p class="entry-body">
+              À la veille du siège mené par Richard Cœur de Lion (juin 1182), alors que la Cité noble et le Puy bourgeois négocient une fragile alliance défensive autour du Comte Hélie Talleyrand, Raoul le Jeune — vieillard tremblant de soixante-six ans — fixe soudain le notaire Joullan Jullian (fils de Mathilde). Hanté par les brumes de 1135, il croit reconnaître le voyageur dans les traits du banquier : il l’accuse devant toute l’assemblée de lui avoir brisé la jambe et révèle que sa sœur Marguerite pleura son départ. Son neveu, le Vicomte de Bourdeilles, le fait évacuer de force pour sauver l’honneur du lignage.
+            </p>
+            <blockquote class="entry-quote">
+              « Tu es revenu ? Après tout ce temps ? Je reconnais ces yeux froids. Tu es le voyageur ! »
+            </blockquote>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 03 : TRAUMATISME DU GENOU GAUCHE -->
+      <section class="dossier-section" id="trauma" data-tome="2">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <span class="section-index">03</span>
+            <h2 class="section-heading">Expertise Traumatique : Le Genou Gauche (1135–1181)</h2>
+          </div>
+          <span class="section-kicker">Lésion infligée par Adémar de Limoges · Séquelles sur 46 ans</span>
+        </div>
+
+        <div class="trauma-layout">
+          <!-- Schéma anatomique vectoriel interactif -->
+          <div class="anatomy-well">
+            <div class="stage-buttons" role="group" aria-label="Phases de la blessure au genou gauche">
+              <button type="button" class="stage-btn is-active" id="knee-btn-1135" onclick="setKneeStage('1135')">Sept. 1135 · Choc</button>
+              <button type="button" class="stage-btn" id="knee-btn-1137" onclick="setKneeStage('1137')">1136–1137 · Boiterie</button>
+              <button type="button" class="stage-btn" id="knee-btn-1181" onclick="setKneeStage('1181')">1181 · Ankylose</button>
+            </div>
+
+            <div class="anatomy-svg-box">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320" class="anatomy-svg" role="img" aria-label="Schéma anatomique du traumatisme du genou gauche de Raoul le Jeune">
+                <rect width="360" height="320" fill="var(--svg-midnight-deep)" />
+                <!-- Grille de mesure -->
+                <path d="M0 80 L360 80 M0 160 L360 160 M0 240 L360 240 M180 0 L180 320" stroke="var(--outline-variant)" stroke-width="0.8" stroke-dasharray="3 4" />
+
+                <!-- Fémur (partie haute) -->
+                <path d="M144 18 L150 112 C140 128 138 148 152 156 C164 162 174 156 180 150 C186 156 196 162 208 156 C222 148 220 128 210 112 L216 18 Z" fill="var(--svg-bone)" stroke="var(--svg-bone-shadow)" stroke-width="2" />
+
+                <!-- Tibia et Péroné (partie basse, angle légèrement dévié selon l'état) -->
+                <g id="knee-tibia-group">
+                  <path d="M146 168 C158 162 202 162 214 168 L206 196 L202 302 L162 302 L156 196 Z" fill="var(--svg-bone)" stroke="var(--svg-bone-shadow)" stroke-width="2" />
+                  <path d="M214 184 L224 188 L218 302 L208 302 Z" fill="var(--svg-bone-shadow)" opacity="0.85" />
+                </g>
+
+                <!-- Rotule (patella) intacte mais déplacée/instable -->
+                <ellipse id="knee-patella" cx="180" cy="144" rx="18" ry="15" fill="var(--parchment)" stroke="var(--primary)" stroke-width="2" />
+
+                <!-- Tendons & ligaments (sectionnés / cicatriciels) -->
+                <path id="knee-tendon-main" d="M180 159 L180 202" stroke="var(--svg-tendon)" stroke-width="5" stroke-linecap="round" />
+                <path id="knee-ligament-lat" d="M214 142 L222 184" stroke="var(--crimson-bright)" stroke-width="3.5" stroke-dasharray="4 3" />
+
+                <!-- Vecteur du coup de flanc d'Adémar de Limoges -->
+                <g id="knee-impact-vector">
+                  <path d="M312 134 L228 164" stroke="var(--crimson-bright)" stroke-width="3" stroke-linecap="round" />
+                  <polygon points="222,166 236,154 239,167" fill="var(--crimson-bright)" />
+                  <circle cx="216" cy="166" r="14" fill="none" stroke="var(--crimson-bright)" stroke-width="2" stroke-dasharray="3 2" />
+                  <text x="242" y="122" fill="var(--crimson-text-dark)" font-family="JetBrains Mono, monospace" font-size="10.5">IMPACT ADÉMAR</text>
+                  <text x="242" y="135" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="9.5">REVERS DE FLANC</text>
+                </g>
+
+                <!-- Zone d'arthrose / calcification (visible en 1181) -->
+                <g id="knee-ankylosis-overlay" opacity="0">
+                  <circle cx="180" cy="158" r="32" fill="var(--crimson)" opacity="0.25" />
+                  <path d="M150 152 Q180 170 212 152 M154 168 Q180 154 206 168" fill="none" stroke="var(--primary)" stroke-width="2" stroke-dasharray="2 3" />
+                </g>
+
+                <!-- Annotations anatomiques permanentes -->
+                <text x="16" y="26" fill="var(--tertiary)" font-family="JetBrains Mono, monospace" font-size="11">GENOU GAUCHE · VUE ANTÉRIEURE</text>
+                <text x="16" y="148" fill="var(--on-surface-variant)" font-family="JetBrains Mono, monospace" font-size="10">ROTULE INTACTE</text>
+                <line x1="112" y1="145" x2="160" y2="145" stroke="var(--tertiary)" stroke-width="1" opacity="0.7" />
+                <text x="16" y="182" fill="var(--crimson-text-dark)" font-family="JetBrains Mono, monospace" font-size="10">TENDONS ÉCRASÉS</text>
+                <line x1="116" y1="178" x2="174" y2="178" stroke="var(--crimson-bright)" stroke-width="1" opacity="0.7" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Analyse clinique et canonique du trauma -->
+          <div class="trauma-dossier-panel">
+            <h3 class="trauma-headline" id="trauma-stage-title">Phase aiguë (Septembre 1135) — L’os fêlé sous la maille</h3>
+            <p id="trauma-stage-desc" style="margin:0;">
+              Lors du tournoi de la Saint-Denis, le Vicomte Adémar de Limoges intercepte la charge félonne de Raoul le Jeune contre Julien et le frappe de flanc sous la rotule gauche. Le coup brutal écrasa les chairs et les tendons latéraux à travers les chausses de mailles : la rotule tint par miracle, mais l’articulation bascula sous un angle instable qui condamna le jeune bachelier à traîner la jambe pour le restant de ses jours.
+            </p>
+
+            <div class="trauma-metrics">
+              <div class="trauma-metric">
+                <div class="trauma-metric-label">Auteur du coup</div>
+                <div class="trauma-metric-val">Adémar de Limoges</div>
+              </div>
+              <div class="trauma-metric">
+                <div class="trauma-metric-label">Membre atteint</div>
+                <div class="trauma-metric-val" id="trauma-metric-limb">Genou gauche (flanc)</div>
+              </div>
+              <div class="trauma-metric">
+                <div class="trauma-metric-label">Mobilité chevaleresque</div>
+                <div class="trauma-metric-val" id="trauma-metric-mobility">Perdue à 20 ans</div>
+              </div>
+              <div class="trauma-metric">
+                <div class="trauma-metric-label">Statut à long terme</div>
+                <div class="trauma-metric-val" id="trauma-metric-status">Raoul le Boiteux</div>
+              </div>
+            </div>
+
+            <div class="memory-divergence-box">
+              <strong>Note d’archive Chronos sur la mémoire altérée :</strong> Physiquement, la blessure fut portée par Adémar de Limoges. Mais dans l’esprit de Raoul — dès 1136 devant le Comte Hélie puis en 1181 face à Joullan Jullian —, c’est le « voyageur » Julien (parfois confondu avec Maxime) qui incarne la cause morale et maudite de sa déchéance : « Tu m’as brisé la jambe ! »
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 04 : GÉNÉALOGIE & CONSTELLATION RELATIONNELLE -->
+      <section class="dossier-section" id="reseau">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <span class="section-index">04</span>
+            <h2 class="section-heading">Lignage des Trois Lions &amp; Cartographie des Rivalités</h2>
+          </div>
+          <span class="section-kicker">8 liens généalogiques · 5 relations de camaraderie &amp; rivalité</span>
+        </div>
+
+        <div class="network-layout">
+          <div class="constellation-well" data-tome="5">
+            <div class="constellation-legend">
+              <span><span class="legend-dot dot-blood"></span>Lignage &amp; Famille</span>
+              <span><span class="legend-dot dot-alliance"></span>Alliance / Tension féodale</span>
+              <span><span class="legend-dot dot-rival"></span>Rivalité / Hantise</span>
+            </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 380" class="constellation-svg" role="img" aria-label="Constellation généalogique et relationnelle interactive de Raoul le Jeune">
+              <rect width="520" height="380" fill="var(--svg-midnight-deep)" />
+              <circle cx="260" cy="190" r="158" fill="none" stroke="var(--outline-variant)" stroke-width="1" stroke-dasharray="4 4" />
+              <circle cx="260" cy="190" r="96" fill="none" stroke="var(--outline-variant)" stroke-width="1" />
+
+              <!-- Liens radiaux -->
+              <g stroke-width="1.4" opacity="0.65">
+                <!-- Lignage (Or) -->
+                <line x1="260" y1="190" x2="170" y2="54" stroke="var(--primary)" />
+                <line x1="260" y1="190" x2="260" y2="82" stroke="var(--primary)" />
+                <line x1="260" y1="190" x2="352" y2="54" stroke="var(--primary)" />
+                <line x1="260" y1="190" x2="152" y2="146" stroke="var(--primary)" />
+                <line x1="260" y1="190" x2="146" y2="238" stroke="var(--primary)" />
+                <line x1="260" y1="190" x2="176" y2="324" stroke="var(--primary)" />
+                <line x1="260" y1="190" x2="260" y2="338" stroke="var(--tertiary)" />
+                <line x1="260" y1="190" x2="94" y2="292" stroke="var(--crimson-bright)" stroke-dasharray="3 3" />
+
+                <!-- Rivalités & Camaraderies -->
+                <line x1="260" y1="190" x2="386" y2="128" stroke="var(--crimson-bright)" />
+                <line x1="260" y1="190" x2="434" y2="190" stroke="var(--crimson-bright)" />
+                <line x1="260" y1="190" x2="394" y2="258" stroke="var(--tertiary)" />
+                <line x1="260" y1="190" x2="356" y2="322" stroke="var(--crimson-bright)" stroke-dasharray="4 3" />
+                <line x1="260" y1="190" x2="444" y2="80" stroke="var(--crimson-bright)" />
+              </g>
+
+              <!-- Nœud central : Raoul le Jeune -->
+              <g transform="translate(260,190)">
+                <circle r="30" fill="var(--crimson)" stroke="var(--primary)" stroke-width="2.5" />
+                <text y="-3" text-anchor="middle" fill="var(--parchment-high)" font-family="EB Garamond, serif" font-size="13" font-weight="600">Raoul</text>
+                <text y="11" text-anchor="middle" fill="var(--primary)" font-family="JetBrains Mono, monospace" font-size="9">1115–1181</text>
+              </g>
+
+              <!-- Nœuds cliquables : Lignage -->
+              <g class="node-group" transform="translate(170,54)" onclick="selectRelation('raucelm')" role="button" tabindex="0" aria-label="Raucelm">
+                <circle r="17" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.8" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">Raucelm</text>
+              </g>
+              <g class="node-group" transform="translate(260,82)" onclick="selectRelation('raoul-pere')" role="button" tabindex="0" aria-label="Raoul père">
+                <circle r="19" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="2" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">Raoul (P)</text>
+              </g>
+              <g class="node-group" transform="translate(352,54)" onclick="selectRelation('mahault')" role="button" tabindex="0" aria-label="Mahault">
+                <circle r="17" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.8" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="9">Mahault</text>
+              </g>
+              <g class="node-group" transform="translate(152,146)" onclick="selectRelation('marguerite')" role="button" tabindex="0" aria-label="Marguerite">
+                <circle r="19" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.8" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8.5">Marguerite</text>
+              </g>
+              <g class="node-group" transform="translate(146,238)" onclick="selectRelation('bourdeilles')" role="button" tabindex="0" aria-label="Vicomte de Bourdeilles">
+                <circle r="19" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.8" />
+                <text y="3" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8">Bourdeilles</text>
+              </g>
+              <g class="node-group" transform="translate(176,324)" onclick="selectRelation('guilhem-paussac')" role="button" tabindex="0" aria-label="Guilhem de Paussac">
+                <circle r="18" fill="var(--surface-container)" stroke="var(--primary)" stroke-width="1.8" />
+                <text y="3" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8.5">Guilhem P.</text>
+              </g>
+              <g class="node-group" transform="translate(260,338)" onclick="selectRelation('isabelle')" role="button" tabindex="0" aria-label="Isabelle de Saint-Marcel">
+                <circle r="18" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.8" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8.5">Isabelle</text>
+              </g>
+              <g class="node-group" transform="translate(94,292)" onclick="selectRelation('bertrand')" role="button" tabindex="0" aria-label="Bertrand">
+                <circle r="17" fill="var(--surface-container)" stroke="var(--crimson-bright)" stroke-width="1.8" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8.5">Bertrand</text>
+              </g>
+
+              <!-- Nœuds cliquables : Rivalités & Alliances -->
+              <g class="node-group" transform="translate(386,128)" onclick="selectRelation('julien')" role="button" tabindex="0" aria-label="Julien Dubois">
+                <circle r="21" fill="var(--surface-container)" stroke="var(--crimson-bright)" stroke-width="2.2" />
+                <text y="4" text-anchor="middle" fill="var(--crimson-text-dark)" font-family="JetBrains Mono, monospace" font-size="9" font-weight="600">Julien D.</text>
+              </g>
+              <g class="node-group" transform="translate(444,80)" onclick="selectRelation('ademar')" role="button" tabindex="0" aria-label="Adémar de Limoges">
+                <circle r="18" fill="var(--surface-container)" stroke="var(--crimson-bright)" stroke-width="2" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8.5">Adémar</text>
+              </g>
+              <g class="node-group" transform="translate(434,190)" onclick="selectRelation('maxime')" role="button" tabindex="0" aria-label="Maxime De Luca">
+                <circle r="19" fill="var(--surface-container)" stroke="var(--crimson-bright)" stroke-width="1.8" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8.5">Maxime</text>
+              </g>
+              <g class="node-group" transform="translate(394,258)" onclick="selectRelation('guillaume-larnac')" role="button" tabindex="0" aria-label="Guillaume de Larnac">
+                <circle r="19" fill="var(--surface-container)" stroke="var(--tertiary)" stroke-width="1.8" />
+                <text y="3" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8">Guillaume L.</text>
+              </g>
+              <g class="node-group" transform="translate(356,322)" onclick="selectRelation('joullan')" role="button" tabindex="0" aria-label="Joullan Jullian">
+                <circle r="19" fill="var(--surface-container)" stroke="var(--crimson-bright)" stroke-width="1.8" />
+                <text y="4" text-anchor="middle" fill="var(--on-surface)" font-family="JetBrains Mono, monospace" font-size="8.5">Joullan</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Panneau inspecteur dynamique -->
+          <aside class="inspector-card" id="relation-inspector" aria-live="polite" data-tome="2">
+            <span class="inspector-tag" id="insp-tag">Rivalité obsessionnelle · 1135–1181</span>
+            <h3 class="inspector-name" id="insp-name">Julien Dubois</h3>
+            <p class="inspector-role" id="insp-role">Lycéen du XXIe siècle (17 ans en 1135) · Écuyer-otage à Périgueux · Code « Phoebos »</p>
+            <p class="inspector-desc" id="insp-desc">
+              Rivalité fondatrice de l’existence de Raoul le Jeune. D’abord souffre-douleur de ses entraînements à l’épée de bois dans la cour de Périgueux et compagnon maladroit de sa chasse au sanglier, Julien ose lui demander si Marguerite est libre. En septembre 1135, Raoul brise le code du tournoi en chargeant Julien au sol pour l’abattre, provoquant l’intervention d’Adémar de Limoges et son propre handicap. Jusqu’en 1181, le nom de Julien reste gravé dans sa mémoire comme le spectre de sa chute.
+            </p>
+          </aside>
+        </div>
+
+        <!-- Grille complète des liens généalogiques -->
+        <h3 class="rel-subsection-title">A · Liens généalogiques &amp; parenté directe</h3>
+        <div class="rel-grid">
+          <button type="button" class="rel-card" data-rel="raucelm" onclick="selectRelation('raucelm')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Raucelm</span>
+              <span class="rel-card-type">Grand-père</span>
+            </div>
+            <p class="rel-card-summary">Ancien Vicomte de Périgueux, patriarche cité par Dame Isabelle ; souche de la maison aux Trois Lions.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="raoul-pere" data-tome="5" onclick="selectRelation('raoul-pere')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Raoul (père)</span>
+              <span class="rel-card-type">Père</span>
+            </div>
+            <p class="rel-card-summary">Redoutable Vicomte de Périgueux (une cinquantaine d’années en 1135), stratège implacable qui rase Saint-Marcel en nov. 1137.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="mahault" onclick="selectRelation('mahault')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Mahault</span>
+              <span class="rel-card-type">Mère</span>
+            </div>
+            <p class="rel-card-summary">Épouse de sang noble de la maison vicomtale (complément généalogique), garante de la légitimité de Raoul le Jeune face aux bâtards.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="marguerite" data-tome="5" onclick="selectRelation('marguerite')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Marguerite de Périgueux</span>
+              <span class="rel-card-type">Sœur aînée</span>
+            </div>
+            <p class="rel-card-summary">24 ans en 1135, beauté altière au surcot pourpre ; espionne pour son père, secrètement bouleversée par le départ de Julien.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="bourdeilles" data-tome="5" onclick="selectRelation('bourdeilles')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Vicomte de Bourdeilles</span>
+              <span class="rel-card-type">Neveu (44 ans en 1181)</span>
+            </div>
+            <p class="rel-card-summary">Fils de Marguerite ; surveille son oncle sénile et sans descendance en 1181 comme un coffre qu’on attend d’hériter.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="guilhem-paussac" onclick="selectRelation('guilhem-paussac')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Guilhem de Paussac</span>
+              <span class="rel-card-type">Oncle défunt</span>
+            </div>
+            <p class="rel-card-summary">Frère cadet doux et humain de Raoul père, premier époux de Dame Isabelle, mort une vingtaine d’années avant 1135.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="isabelle" data-tome="2" onclick="selectRelation('isabelle')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Dame Isabelle</span>
+              <span class="rel-card-type is-ally">Tante par alliance</span>
+            </div>
+            <p class="rel-card-summary">Châtelaine de Saint-Marcel (code « Héra »), protectrice des voyageurs et cible des manœuvres de tutelle du clan Raoul.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="bertrand" onclick="selectRelation('bertrand')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Bertrand</span>
+              <span class="rel-card-type is-rival">Oncle bâtard</span>
+            </div>
+            <p class="rel-card-summary">Demi-frère illégitime de Raoul père et de Guilhem ; capitaine d’armes fidèle d’Isabelle, méprisé pour son « sang mêlé ».</p>
+          </button>
+        </div>
+
+        <!-- Grille complète des relations de camaraderie ou de rivalité -->
+        <h3 class="rel-subsection-title">B · Relations de camaraderie, d’alliance &amp; de rivalité</h3>
+        <div class="rel-grid">
+          <button type="button" class="rel-card is-selected" data-rel="julien" data-tome="2" onclick="selectRelation('julien')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Julien Dubois</span>
+              <span class="rel-card-type is-rival">Rivalité obsessionnelle</span>
+            </div>
+            <p class="rel-card-summary">Écuyer-otage en 1135, souffre-douleur puis rival malgré lui ; sa mise à terre déclenche le drame du genou et hante Raoul jusqu’en 1181.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="maxime" data-tome="2" onclick="selectRelation('maxime')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Maxime De Luca</span>
+              <span class="rel-card-type is-rival">Hostilité frontale</span>
+            </div>
+            <p class="rel-card-summary">Ingénieur du XXIe siècle et compagnon d’Isabelle ; désigné en 1136 par Raoul le Boiteux comme le sorcier responsable de sa ruine.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="guillaume-larnac" data-tome="5" onclick="selectRelation('guillaume-larnac')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Guillaume de Larnac</span>
+              <span class="rel-card-type is-ally">Rival puis Templier</span>
+            </div>
+            <p class="rel-card-summary">Chevalier de Bourdeilles épousant Isabelle fin 1135 pour barrer la route aux Périgueux ; brisé lors du sac de 1137, prend la croix du Temple.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="joullan" data-tome="5" onclick="selectRelation('joullan')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Joullan Jullian</span>
+              <span class="rel-card-type is-rival">Méprise crépusculaire</span>
+            </div>
+            <p class="rel-card-summary">Notaire du Puy-Saint-Front (né v. 1138, fils de Mathilde). En 1181, Raoul à 66 ans croit reconnaître Julien dans ses traits froids.</p>
+          </button>
+
+          <button type="button" class="rel-card" data-rel="ademar" data-tome="2" onclick="selectRelation('ademar')">
+            <div class="rel-card-head">
+              <span class="rel-card-name">Adémar de Limoges</span>
+              <span class="rel-card-type is-rival">Adversaire du tournoi</span>
+            </div>
+            <p class="rel-card-summary">Vicomte limousin aguerri aux marches du Midi ; il défend l’honneur de la lice en 1135 et brise la jambe gauche de Raoul le Jeune.</p>
+          </button>
+        </div>
+      </section>
+
+      <!-- SECTION 05 : LIEUX DE RÉSIDENCE & NOTE ARCHIVE CHRONOS -->
+      <section class="dossier-section" id="lieux">
+        <div class="section-head">
+          <div class="section-title-wrap">
+            <span class="section-index">05</span>
+            <h2 class="section-heading">Ancrages Territoriaux &amp; Synthèse de l’Archive</h2>
+          </div>
+          <span class="section-kicker">Château Barrière · Saint-Marcel-sur-Dronne · Périgueux bipolaire</span>
+        </div>
+
+        <div class="archive-dual-grid">
+          <div class="residence-card" data-tome="5">
+            <span class="residence-meta">Bastion principal · La Cité de Périgueux</span>
+            <h3>Château Barrière</h3>
+            <p style="margin:0;">
+              Adossé à l’enceinte gallo-romaine du III<sup>e</sup> siècle de la Cité (Vésone), face au château comtal des Talleyrand et à la cathédrale Saint-Étienne. C’est dans cette forteresse de pierre sombre — armurerie basse, tour maîtresse aux vitraux épais, stalles de destriers — que Raoul le Jeune grandit, reçoit Julien Dubois comme otage en 1135 et finit ses jours en vicomte solitaire face à l’essor bourgeois du Puy-Saint-Front voisin.
+            </p>
+          </div>
+
+          <div class="residence-card" data-tome="5">
+            <span class="residence-meta">Fief disputé · Vallée de la Dronne</span>
+            <h3>Saint-Marcel</h3>
+            <p style="margin:0;">
+              Bourg fortifié et manoir de Dame Isabelle, porte d’entrée des voyageurs temporels en 1135. Théâtre du séjour d’observation de Raoul le Jeune, du grand tournoi de la Saint-Denis (septembre 1135) qui brise sa destinée militaire, puis du raid vengeur de son père qui réduit le village en cendres dans la nuit du 8 novembre 1137 — déclenchant involontairement la fuite de Mathilde et la naissance de la dynastie Jullian.
+            </p>
+          </div>
+        </div>
+
+        <aside class="chronos-closing-panel" data-tome="5">
+          <h3>Note de synthèse · Cellule d’archive Annachronique</h3>
+          <p>
+            Raoul le Jeune incarne la tragédie de la noblesse féodale confrontée au saut temporel de 1135 : destiné à régner par la lance (« l’espoir des Trois Lions »), il perd son avenir martial en tentant d’exécuter un lycéen du XXI<sup>e</sup> siècle. Sans descendance directe en 1181, sa lignée s’éteint dans le déclin de la vieille Cité, au moment même où la descendance de la serve Mathilde (Joullan Jullian) s’apprête à verrouiller le destin de Périgueux grâce au Carnet Rose.
+          </p>
+        </aside>
+      </section>
+    </article>
+
+    <footer class="sources-footer">
+      <span>SOURCES CANONIQUES : EXIL 1135 (TOMES 1, 2 &amp; 3) · AC MATHILDE · BIBLE DES PERSONNAGES ANNACHRONIQUE</span>
+      <span>ARCHIVAGE INTERNE · DOSSIER #AC-1115-RJ</span>
+    </footer>
+  </main>
+
+  <script>
+    const PORTRAIT_NOTES = {
+      '1135': {
+        title: `Observation Chronos · 1135 (20 ans)`,
+        text: `Silhouette élancée, pourpoint aux trois lions d’or sur champ de gueules, timbre à longue plume bleue lors du tournoi de Saint-Marcel. Assurance aristocratique doublée d’une morgue juvénile face au roturier Julien Dubois.`
+      },
+      '1181': {
+        title: `Observation Chronos · 1181 (66 ans)`,
+        text: `« Carcasse tremblante » affalée dans un haut fauteuil de chêne face au Comte Hélie Talleyrand. Visage de parchemin, yeux aqueux hantés, mains déformées par l’arthrite. Sans héritier, il confond Joullan Jullian avec le voyageur de 1135.`
+      },
+      'both': {
+        title: `Comparatif diachronique · 46 ans d’intervalle (1135 → 1181)`,
+        text: `Le contraste visuel révèle la cassure d’une lignée : de l’héritier orgueilleux en armes au vicomte infirme et sénile dont l’héritage glisse déjà vers son neveu de Bourdeilles.`
+      }
+    };
+
+    const KNEE_STAGES = {
+      '1135': {
+        title: `Phase aiguë (Septembre 1135) — L’os fêlé sous la maille`,
+        desc: `Lors du tournoi de la Saint-Denis, le Vicomte Adémar de Limoges intercepte la charge félonne de Raoul le Jeune contre Julien et le frappe de flanc sous la rotule gauche. Le coup brutal écrasa les chairs et les tendons latéraux à travers les chausses de mailles : la rotule tint par miracle, mais l’articulation bascula sous un angle instable qui condamna le jeune bachelier à traîner la jambe pour le restant de ses jours.`,
+        limb: `Genou gauche (flanc)`,
+        mobility: `Perdue à 20 ans`,
+        status: `Fracture & écrasement`
+      },
+      '1137': {
+        title: `Consolidation vicieuse (1136–1137) — La naissance du « Boiteux »`,
+        desc: `Sans chirurgie réparatrice ni rééducation moderne, les tendons rotuliens et collatéraux cicatrisent en rétraction fibreuse. Dès 1136 devant le plaid de Périgueux, Raoul marche d’un pas claudicant, le pied gauche déjeté vers l’extérieur. Lors du sac de Saint-Marcel en novembre 1137 (22 ans), son rôle n’est plus celui du champion de lice mais celui d’un héritier amer.`,
+        limb: `Rotule déviée · Axe instable`,
+        mobility: `Claudication permanente`,
+        status: `Raoul le Boiteux`
+      },
+      '1181': {
+        title: `Séquelles tardives (1181) — Arthrose sévère et ankylose`,
+        desc: `Quarante-six ans après le tournoi, à soixante-six ans, l’articulation du genou gauche est figée par une arthrose post-traumatique majeure qui s’ajoute à l’arthrite déformante des mains. Cloué à un fauteuil à haut dossier lors de l’assemblée de 1181, Raoul ne peut plus tenir debout sans soutien tandis que ses serviteurs l’emportent dans la salle comtale.`,
+        limb: `Genou ankylosé · Arthrite`,
+        mobility: `Fauteuil & portage`,
+        status: `Vicomte impotent`
+      }
+    };
+
+    const REL_TOME = {"raucelm": 0, "raoul-pere": 5, "mahault": 0, "marguerite": 5, "bourdeilles": 5, "guilhem-paussac": 0, "isabelle": 2, "bertrand": 0, "julien": 2, "maxime": 2, "guillaume-larnac": 5, "joullan": 5, "ademar": 2};
+
+    const RELATIONS_DATA = {
+      'raucelm': {
+        tag: `Lignage · Grand-père paternel`,
+        name: `Raucelm de Périgueux`,
+        role: `Ancien Vicomte de Périgueux · Aïeul fondateur`,
+        desc: `Père du redoutable Vicomte Raoul et de feu Guilhem de Paussac. Cité par Dame Isabelle pour rappeler l’ancienneté de la maison de Périgueux, il incarne la souche féodale rigide dont Raoul le Jeune porte le blason aux trois lions.`
+      },
+      'raoul-pere': {
+        tag: `Lignage · Père et suzerain`,
+        name: `Raoul, Vicomte de Périgueux`,
+        role: `Vicomte régnant en 1135 (environ 50 ans) · Principal antagoniste d’Exil 1135`,
+        desc: `Chef de guerre autoritaire et calculateur, obsédé par les savoirs technologiques des voyageurs (le télescope de cuivre, l’ingénierie hydraulique). Il projette son propre orgueil sur Raoul le Jeune, puis laisse éclater sa rage paternelle devant le corps brisé de son fils au tournoi de 1135 avant de raser Saint-Marcel en novembre 1137.`
+      },
+      'mahault': {
+        tag: `Lignage · Mère (complément généalogique)`,
+        name: `Mahault de Périgueux`,
+        role: `Vicomtesse mère · Lignée noble légitime`,
+        desc: `Figure maternelle légitime de la maison vicomtale (à distinguer de Dame Mahaut de Bourdeilles dans le fief voisin). Par son sang noble, elle confère à Raoul le Jeune et à sa sœur Marguerite leur statut d’héritiers légitimes — à l’opposé du demi-frère bâtard Bertrand.`
+      },
+      'marguerite': {
+        tag: `Lignage · Sœur aînée`,
+        name: `Marguerite de Périgueux`,
+        role: `24 ans en 1135 · Beauté froide au surcot pourpre · Mère du Vicomte de Bourdeilles`,
+        desc: `Élevée à la cour de Périgueux, elle observe avec malice les tourments de Julien Dubois à Château Barrière puis sert d’espionne à son père à Saint-Marcel. Au tournoi de septembre 1135, elle réalise avec effroi que son jeu d’orgueil vient d’estropier son frère pour la vie. Des décennies plus tard, en 1181, Raoul sénile révèle devant tous qu’elle pleura secrètement le départ de Julien.`
+      },
+      'bourdeilles': {
+        tag: `Lignage · Neveu et héritier présomptif`,
+        name: `Le Vicomte de Bourdeilles`,
+        role: `44 ans en 1181 (né v. 1137) · Fils de Marguerite`,
+        desc: `Héritier pragmatique et impitoyable de la branche voisine (après les alliances Bourdeilles/Périgueux). En 1181, il surveille Raoul le Jeune, vieillard sans fils, « comme on surveille un coffre qu’on attend d’hériter », et le fait évacuer de force lorsque son oncle étale le scandale de 1135 et de Marguerite devant Joullan Jullian.`
+      },
+      'guilhem-paussac': {
+        tag: `Lignage · Oncle paternel défunt`,
+        name: `Guilhem de Paussac`,
+        role: `Frère cadet de Raoul père · Premier époux de Dame Isabelle`,
+        desc: `Seigneur juste et tempéré, mort une vingtaine d’années avant 1135. Il fut le seul de la fratrie vicomtale à traiter le bâtard Bertrand avec humanité en lui confiant la garde de Saint-Marcel. Son décès sans enfant survivant laissa Dame Isabelle exposée aux convoitises du clan Raoul.`
+      },
+      'isabelle': {
+        tag: `Lignage · Tante par alliance et cible politique`,
+        name: `Dame Isabelle de Saint-Marcel`,
+        role: `Châtelaine de Saint-Marcel · Code « Héra » · Compagne de Maxime au XXIe siècle`,
+        desc: `Veuve de Guilhem de Paussac, elle protège les voyageurs du futur dans sa grange de Saint-Marcel et refuse de plier face à son beau-frère Raoul. Raoul le Jeune la méprise et la redoute ; en 1136, il la désigne comme complice des sorciers qui ont ruiné sa maison, avant de convoiter ses terres sous tutelle.`
+      },
+      'bertrand': {
+        tag: `Lignage · Oncle illégitime`,
+        name: `Bertrand`,
+        role: `Sergent d’armes fidèle d’Isabelle · Demi-frère bâtard de Raoul père`,
+        desc: `Né d’une servante dans l’ombre de la maison de Périgueux, il est méprisé pour son « sang mêlé » par les deux Raoul. Capitaine loyal de Saint-Marcel, il incarne tout ce que Raoul le Jeune rejette au nom du lignage pur, avant d’être tragiquement tué par Guillaume de Larnac en 1136.`
+      },
+      'julien': {
+        tag: `Rivalité obsessionnelle · 1135–1181`,
+        name: `Julien Dubois`,
+        role: `Lycéen du XXIe siècle (17 ans en 1135) · Écuyer-otage à Périgueux · Code « Phoebos »`,
+        desc: `Rivalité fondatrice de l’existence de Raoul le Jeune. D’abord souffre-douleur de ses entraînements à l’épée de bois dans la cour de Périgueux et compagnon maladroit de sa chasse au sanglier, Julien ose lui demander si Marguerite est libre. En septembre 1135, Raoul brise le code du tournoi en chargeant Julien au sol pour l’abattre, provoquant l’intervention d’Adémar de Limoges et son propre handicap. Jusqu’en 1181, le nom de Julien reste gravé dans sa mémoire comme le spectre de sa chute.`
+      },
+      'maxime': {
+        tag: `Hostilité idéologique · 1135–1136`,
+        name: `Maxime De Luca`,
+        role: `Ingénieur du XXIe siècle · Bâtisseur du moulin et des défenses de Saint-Marcel`,
+        desc: `Cerveau technique des exilés et compagnon de Dame Isabelle. Pour Raoul le Jeune, Maxime incarne la subversion absolue : un roturier venu de nulle part dont les machines hydrauliques menacent d’abaisser Périgueux. En 1136, Raoul le Boiteux le foudroie de haine devant le Comte Hélie.`
+      },
+      'guillaume-larnac': {
+        tag: `Rivalité territoriale · 1135–1137`,
+        name: `Guillaume de Larnac`,
+        role: `Chevalier de Bourdeilles · Époux d’Isabelle (1135) · Puis Guillaume le Templier`,
+        desc: `Détaché par le Baron Géraud de Bourdeilles, il épouse Isabelle fin 1135 pour arracher Saint-Marcel à l’emprise des Périgueux. Après la tragédie de 1136 et la destruction de son manoir par les hommes de Raoul en novembre 1137, Guillaume devient un noble sans terre et prend l’habit du Temple — ennemi juré de la lignée vicomtale et traqueur involontaire de Mathilde.`
+      },
+      'joullan': {
+        tag: `Confrontation crépusculaire · 1181`,
+        name: `Joullan Jullian`,
+        role: `Notaire et banquier du Puy-Saint-Front (1138–1205) · Fils de Mathilde & Bernard`,
+        desc: `Lors du conseil de 1181 face au Comte Hélie, le vieux Raoul le Boiteux (66 ans) reconnaît dans la mâchoire et le regard froid du bourgeois Joullan le visage du voyageur Julien de 1135. Cette méprise spectaculaire révèle au grand jour les fantômes de Saint-Marcel et réveille une vendetta entre la maison Jullian et le neveu Bourdeilles.`
+      },
+      'ademar': {
+        tag: `Adversaire de lice · Septembre 1135`,
+        name: `Adémar, Vicomte de Limoges`,
+        role: `Grand baron des marches du Midi · Protecteur du droit de tournoi`,
+        desc: `Vétéran aguerri et allié d’honneur de Dame Isabelle au tournoi de Saint-Marcel. Indigné de voir Raoul le Jeune charger un garçon désarmé à terre, il s’interpose et brise la jambe gauche du jeune Périgourdin d’un coup de taille imparable : « Tu n’as plus d’honneur, Raoul. »`
+      }
+    };
+
+    function setPortraitMode(mode) {
+      const stage = document.getElementById('portrait-stage');
+      const frame1135 = document.getElementById('frame-1135');
+      const frame1181 = document.getElementById('frame-1181');
+      const btn1135 = document.getElementById('btn-epoch-1135');
+      const btn1181 = document.getElementById('btn-epoch-1181');
+      const btnBoth = document.getElementById('btn-epoch-both');
+      const notesTitle = document.getElementById('portrait-notes-title');
+      const notesText = document.getElementById('portrait-notes-text');
+
+      if (!stage || !frame1135 || !frame1181 || !btn1135 || !btn1181 || !btnBoth) return;
+
+      btn1135.classList.remove('is-active');
+      btn1181.classList.remove('is-active');
+      btnBoth.classList.remove('is-active');
+      stage.classList.remove('is-diptych');
+
+      if (mode === '1135') {
+        frame1135.classList.remove('is-hidden');
+        frame1181.classList.add('is-hidden');
+        btn1135.classList.add('is-active');
+      } else if (mode === '1181') {
+        frame1135.classList.add('is-hidden');
+        frame1181.classList.remove('is-hidden');
+        btn1181.classList.add('is-active');
+      } else {
+        frame1135.classList.remove('is-hidden');
+        frame1181.classList.remove('is-hidden');
+        stage.classList.add('is-diptych');
+        btnBoth.classList.add('is-active');
+      }
+
+      const notesBox = document.getElementById('portrait-notes');
+      if (notesBox && window.AnnaChronique) {
+        notesBox.setAttribute('data-tome', mode === '1135' ? 0 : 5);
+        delete notesBox.dataset.forceShow;
+        window.AnnaChronique.applySpoilers(window.AnnaChronique.getLevel());
+      }
+
+      const info = PORTRAIT_NOTES[mode];
+      if (info && notesTitle && notesText) {
+        notesTitle.textContent = info.title;
+        notesText.textContent = info.text;
+      }
+    }
+
+    function filterBio(kind) {
+      const entries = document.querySelectorAll('#bio-timeline .timeline-entry');
+      const btnAll = document.getElementById('bio-filter-all');
+      const btnCanon = document.getElementById('bio-filter-canon');
+      const btnHistory = document.getElementById('bio-filter-history');
+      const countLabel = document.getElementById('bio-count-label');
+
+      if (!btnAll || !btnCanon || !btnHistory) return;
+
+      btnAll.classList.remove('is-active');
+      btnCanon.classList.remove('is-active');
+      btnHistory.classList.remove('is-active');
+
+      if (kind === 'all') btnAll.classList.add('is-active');
+      if (kind === 'canon') btnCanon.classList.add('is-active');
+      if (kind === 'history') btnHistory.classList.add('is-active');
+
+      let visibleCount = 0;
+      entries.forEach(function (entry) {
+        const entryKind = entry.getAttribute('data-kind');
+        const show = kind === 'all' || entryKind === kind;
+        if (show) {
+          entry.classList.remove('is-filtered-out');
+          visibleCount += 1;
+        } else {
+          entry.classList.add('is-filtered-out');
+        }
+      });
+
+      if (countLabel) {
+        countLabel.textContent = visibleCount + (visibleCount > 1 ? ` séquences affichées` : ` séquence affichée`);
+      }
+    }
+
+    function setKneeStage(stageKey) {
+      const btn1135 = document.getElementById('knee-btn-1135');
+      const btn1137 = document.getElementById('knee-btn-1137');
+      const btn1181 = document.getElementById('knee-btn-1181');
+      const titleEl = document.getElementById('trauma-stage-title');
+      const descEl = document.getElementById('trauma-stage-desc');
+      const limbEl = document.getElementById('trauma-metric-limb');
+      const mobEl = document.getElementById('trauma-metric-mobility');
+      const statusEl = document.getElementById('trauma-metric-status');
+
+      const tibiaGroup = document.getElementById('knee-tibia-group');
+      const patella = document.getElementById('knee-patella');
+      const impactVec = document.getElementById('knee-impact-vector');
+      const ankylosis = document.getElementById('knee-ankylosis-overlay');
+
+      if (!btn1135 || !btn1137 || !btn1181) return;
+
+      btn1135.classList.remove('is-active');
+      btn1137.classList.remove('is-active');
+      btn1181.classList.remove('is-active');
+
+      if (stageKey === '1135') btn1135.classList.add('is-active');
+      if (stageKey === '1137') btn1137.classList.add('is-active');
+      if (stageKey === '1181') btn1181.classList.add('is-active');
+
+      const stage = KNEE_STAGES[stageKey];
+      if (stage) {
+        if (titleEl) titleEl.textContent = stage.title;
+        if (descEl) descEl.textContent = stage.desc;
+        if (limbEl) limbEl.textContent = stage.limb;
+        if (mobEl) mobEl.textContent = stage.mobility;
+        if (statusEl) statusEl.textContent = stage.status;
+      }
+
+      if (tibiaGroup && patella && impactVec && ankylosis) {
+        if (stageKey === '1135') {
+          tibiaGroup.setAttribute('transform', 'rotate(0 180 165)');
+          patella.setAttribute('cx', '180');
+          impactVec.setAttribute('opacity', '1');
+          ankylosis.setAttribute('opacity', '0');
+        } else if (stageKey === '1137') {
+          tibiaGroup.setAttribute('transform', 'rotate(-7 180 165)');
+          patella.setAttribute('cx', '175');
+          impactVec.setAttribute('opacity', '0.25');
+          ankylosis.setAttribute('opacity', '0.45');
+        } else {
+          tibiaGroup.setAttribute('transform', 'rotate(-11 180 165)');
+          patella.setAttribute('cx', '173');
+          impactVec.setAttribute('opacity', '0');
+          ankylosis.setAttribute('opacity', '1');
+        }
+      }
+    }
+
+    function selectRelation(relId) {
+      const data = RELATIONS_DATA[relId];
+      if (!data) return;
+
+      const tagEl = document.getElementById('insp-tag');
+      const nameEl = document.getElementById('insp-name');
+      const roleEl = document.getElementById('insp-role');
+      const descEl = document.getElementById('insp-desc');
+
+      if (tagEl) tagEl.textContent = data.tag;
+      if (nameEl) nameEl.textContent = data.name;
+      if (roleEl) roleEl.textContent = data.role;
+      if (descEl) descEl.textContent = data.desc;
+
+      const insp = document.getElementById('relation-inspector');
+      if (insp && window.AnnaChronique) {
+        insp.setAttribute('data-tome', REL_TOME[relId] || 0);
+        delete insp.dataset.forceShow;
+        window.AnnaChronique.applySpoilers(window.AnnaChronique.getLevel());
+      }
+
+      const cards = document.querySelectorAll('.rel-card');
+      cards.forEach(function (card) {
+        if (card.getAttribute('data-rel') === relId) {
+          card.classList.add('is-selected');
+        } else {
+          card.classList.remove('is-selected');
+        }
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const target = e.target;
+        if (target && target.classList && target.classList.contains('node-group')) {
+          e.preventDefault();
+          const onclickVal = target.getAttribute('onclick');
+          if (onclickVal) {
+            const match = onclickVal.match(/selectRelation\('([^']+)'\)/);
+            if (match && match[1]) {
+              selectRelation(match[1]);
+            }
+          }
+        }
+      }
+    });
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
